@@ -1,0 +1,12 @@
+Demonstration of libipq - iptables userspace packet queuing library.
+
+Intercepts and reads DHCP traffic. 
+
+Capture packets using iptables rule:
+
+sudo iptables -t raw -A PREROUTING -p udp --dport 67:68 --sport 67:68 -j QUEUE
+
+Run with root priviledge:
+
+sudo ./ipc
+
