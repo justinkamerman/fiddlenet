@@ -7,7 +7,7 @@
  */
 package tree;
 
-import instance.Class;
+import instance.Classification;
 import instance.Instance;
 
 

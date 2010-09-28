@@ -7,39 +7,27 @@
  */
 package instance;
 
-/**
- * Class Instance
- */
-public class Instance {
-
-    //
-    // Fields
-    //
-
-  
-    //
-    // Constructors
-    //
-    public Instance () { };
-  
-    //
-    // Methods
-    //
+import java.util.logging.Logger;
 
 
-    //
-    // Accessor methods
-    //
+public class Instance 
+{
+    private static Logger log = Logger.getLogger (Instance.class.getName());
+    Classification __classification;
+    Attribute[] __attrs;
 
-    //
-    // Other methods
-    //
 
-    /**
-     * @param        attrs
-     */
-    public void Instance( String attrs )
+    private Instance () {};
+    public Instance (Attribute[] attrs)
     {
+        __attrs = attrs;
+    }
+
+
+    public Instance (Attribute[] attrs, Classification c)
+    {
+        __attrs = attrs;
+        __classification = c;
     }
 
 
@@ -66,8 +54,21 @@ public class Instance {
      * @return       boolean
      * @param        obj
      */
-    public boolean equals( instance.Instance obj )
+    public boolean equals( Object obj )
     {
         return true;
+    }
+
+    
+    public String toString ()
+    {
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < __attrs.length; i++)
+        {
+            sb.append (String.format("[%s]", __attrs[i].toString()));
+        }
+        
+        sb.append (String.format ("[class=%s]", __classification == null ? "" : __classification.toString()));
+        return sb.toString();
     }
 }

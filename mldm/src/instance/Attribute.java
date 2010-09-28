@@ -7,33 +7,25 @@
  */
 package instance;
 
-/**
- * Class Attribute
- */
-public class Attribute {
 
-    //
-    // Fields
-    //
+public class Attribute 
+{
     String __name;
+    Object __value;
   
-    //
-    // Constructors
-    //
-    public Attribute () { };
+    private Attribute () {};
+    public Attribute (Object value)
+    {
+        __name = "";
+        __value = value;
+    }
+
+    public Attribute (String name, Object value)
+    {
+        __name = name;
+        __value = value;
+    }
   
-    //
-    // Methods
-    //
-
-
-    //
-    // Accessor methods
-    //
-
-    //
-    // Other methods
-    //
 
     /**
      * @return       String
@@ -52,13 +44,44 @@ public class Attribute {
         __name = name;
     }
 
+    /**
+     * @return       Object
+     */
+    public Object getValue( )
+    {
+        return __value;
+    }
+
+
+    /**
+     * @param        value
+     */
+    public void setValue ( Object value )
+    {
+        __value = value;
+    }
+
 
     /**
      * @return       boolean
      * @param        obj
      */
-    public boolean equals( instance.Attribute obj )
+    public boolean equals (Object  obj )
     {
-        return true;
+        if ( obj instanceof Attribute )
+        {
+            if ( __value.equals (((Attribute) obj).getValue()))
+            {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+
+    public String toString ()
+    {
+        return String.format ("%s=%s", __name, __value.toString());
     }
 }
