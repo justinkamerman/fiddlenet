@@ -10,7 +10,7 @@ package instance;
 
 public class Classification 
 {
-    Object __value;
+    private Object __value;
 
 
     private Classification () {};
@@ -20,6 +20,12 @@ public class Classification
     }
 
     
+    public Object getValue ()
+    {
+        return __value;
+    }
+
+
     public String toString ()
     {
         return __value.toString();

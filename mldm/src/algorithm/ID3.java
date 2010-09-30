@@ -7,6 +7,7 @@
  */
 package algorithm;
 
+import java.util.logging.Logger;
 import tree.DecisionTree;
 import instance.InstanceSet;
 
@@ -14,39 +15,21 @@ import instance.InstanceSet;
 /**
  * Class ID3
  */
-public class ID3 {
+public class ID3 
+{
+    private static Logger log = Logger.getLogger (ID3.class.getName());
 
-    //
-    // Fields
-    //
 
-  
-    //
-    // Constructors
-    //
     public ID3 () { };
   
-    //
-    // Methods
-    //
-
-
-    //
-    // Accessor methods
-    //
-
-    //
-    // Other methods
-    //
 
     /**
      * @return       tree.DecisionTree
      * @param        trainingData
      */
-    public tree.DecisionTree createDecisionTree( instance.InstanceSet trainingData )
+    public tree.DecisionTree createDecisionTree (InstanceSet trainingData)
     {
+        log.fine (trainingData.toString());
         return new tree.DecisionTree();
     }
-
-
 }

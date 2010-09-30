@@ -7,9 +7,12 @@
  */
 package instance;
 
+import java.util.logging.Logger;
+
 
 public class Attribute 
 {
+    private static Logger log = Logger.getLogger (Attribute.class.getName());
     String __name;
     Object __value;
   
