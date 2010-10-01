@@ -7,6 +7,8 @@
  */
 package instance;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Logger;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,37 +16,36 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 
-public class InstanceSet 
+public class InstanceSet implements Iterable<Instance>
 {
     private static Logger log = Logger.getLogger (InstanceSet.class.getName());
-    private ArrayList __instances;
-    private String[] __attributeNames;
+    private ArrayList<Instance> __instances;
+    private AttributeSet __attrSet;
     private ClassificationSet __classSet;
 
     private InstanceSet () {};
     public InstanceSet (BufferedReader br, String[] attributeNames) throws IOException
     {
-        __instances = new ArrayList ();
+        __instances = new ArrayList<Instance>();
         __classSet = new ClassificationSet ();
-        __attributeNames = new String[0];
+        __attrSet = new AttributeSet ();
 
-        if ( attributeNames != null ) __attributeNames = attributeNames;
-       
         // Parse data
         String line;
         while (( line = br.readLine() ) != null )
         {
             StringTokenizer st = new StringTokenizer (line, ",");
-            Attribute[] attrs = new Attribute [st.countTokens() - 1];
-            for (int i = 0; i < attrs.length; i++)
+            ArrayList<Attribute> attrs = new ArrayList<Attribute>();
+            int attrCount = st.countTokens() - 1;
+            for (int i = 0; i < attrCount; i++)
             {
                 // Create attribute, assigning attribute name if we have it
-                attrs [i] = new Attribute ( i < __attributeNames.length ? __attributeNames[i] : "", st.nextToken());
+                attrs.add (__attrSet.getAttribute ( i < attributeNames.length ? attributeNames[i] : "", st.nextToken()));
             }
             Classification c = __classSet.getClassification (st.nextToken());
             Instance inst = new Instance (attrs, c);
             __instances.add (inst);
-            log.finer ("Added instance: " + inst.toString());
+            log.finest ("Added instance: " + inst.toString());
         }
     }
 
@@ -60,18 +61,12 @@ public class InstanceSet
      */
     public double entropy(  )
     {
-        log.fine ("size => " + this.size());
-
         double entropy = 0;
         for ( Classification clas : __classSet )
         {
-            log.fine ("occurence => " +__classSet.getOccurence (clas));
             double probability = (double) __classSet.getOccurence (clas) /  (double) this.size();
-            
             double ei = (probability * Math.log (probability) / Math.log (2));
             entropy = entropy - ei;
-
-            log.fine (probability + ", " + ei + ", " + entropy);
         }
 
         return entropy;
@@ -82,8 +77,14 @@ public class InstanceSet
      * @return       long
      * @param        attr
      */
-    public long informationGain( instance.Attribute attr )
+    public long informationGain ( int attrIndex )
     {
+        /*
+          foreach value v of attribute[i]
+                Siv = subset (i, v);
+                return S.entropy * |Siv|/|size()| * Siv.entropy()
+        */
+
         return 0;
     }
 
@@ -98,13 +99,20 @@ public class InstanceSet
 
 
     /**
+     * Return subset of this instance set for which given attribute has given value.
+     *
      * @return       InstanceSet
-     * @param        attr
+     * @param        attrIndex
      * @param        val
      */
-    public instance.InstanceSet subset( Attribute attr, Value val )
+    public InstanceSet subset ( int attrIndex, Object val )
     {
-        return new InstanceSet ();
+        InstanceSet subset = new InstanceSet ();
+        for ( Instance inst : __instances )
+        {
+            // 
+        }
+        return subset;
     }
 
 
@@ -133,12 +141,21 @@ public class InstanceSet
     }
 
 
+    public Iterator<Instance> iterator ()
+    {
+        return __instances.iterator ();
+    }
+
+
     public String toString ()
     {
         StringBuffer sb = new StringBuffer ();
         sb.append ( String.format ("[size=%d][entropy=%f][classificationSet=[%s]][attributes=[", 
                                    size(), Double.valueOf (entropy()), __classSet) );
-        for (int i = 0; i < __attributeNames.length; sb.append (String.format("[%s]", __attributeNames[i++])));
+        for ( Object key : __attrSet.getKeys() )
+        {
+            sb.append (String.format("[%s]", key.toString()));
+        }
         sb.append ("]]");
         return sb.toString ();
     }

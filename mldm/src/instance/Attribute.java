@@ -13,38 +13,32 @@ import java.util.logging.Logger;
 public class Attribute 
 {
     private static Logger log = Logger.getLogger (Attribute.class.getName());
-    String __name;
+    Object __key;;
     Object __value;
   
     private Attribute () {};
-    public Attribute (Object value)
+    public Attribute (Object key, Object value)
     {
-        __name = "";
-        __value = value;
-    }
-
-    public Attribute (String name, Object value)
-    {
-        __name = name;
+        __key = key;
         __value = value;
     }
   
 
     /**
-     * @return       String
+     * @return       Object
      */
-    public String getName(  )
+    public Object getKey ( )
     {
-        return __name;
+        return __key;
     }
 
 
     /**
-     * @param        name
+     * @param        key
      */
-    public void setName( String name )
+    public void setKey( String name )
     {
-        __name = name;
+        __key = name;
     }
 
     /**
@@ -73,18 +67,17 @@ public class Attribute
     {
         if ( obj instanceof Attribute )
         {
-            if ( __value.equals (((Attribute) obj).getValue()))
+            if ( __value.equals (((Attribute) obj).getValue()) && __key.equals (((Attribute) obj).getKey()))
             {
                 return true;
             }
         }
-        
         return false;
     }
 
 
     public String toString ()
     {
-        return String.format ("%s=%s", __name, __value.toString());
+        return String.format ("%s=%s", __key.toString(), __value.toString());
     }
 }

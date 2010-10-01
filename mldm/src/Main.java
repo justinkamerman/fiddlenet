@@ -59,7 +59,14 @@ public class Main
             __cl = (new BasicParser()).parse (__opt, args); 
             if ( __cl.hasOption('h')) printUsage("help", 0);
             if ( __cl.hasOption ('f') ) __dataFile = __cl.getOptionValue ('f');  else printUsage("option -f is required", 1);
-            if ( __cl.hasOption ('n') ) __attributeNames = __cl.getOptionValue ('n').split (",");
+            if ( __cl.hasOption ('n') ) 
+            {
+                __attributeNames = __cl.getOptionValue ('n').split (",");
+            }
+            else 
+            {
+                __attributeNames = new String[0];
+            }
         }
         catch (ParseException ex)
         {

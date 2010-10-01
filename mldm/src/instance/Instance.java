@@ -7,6 +7,7 @@
  */
 package instance;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 
@@ -14,17 +15,17 @@ public class Instance
 {
     private static Logger log = Logger.getLogger (Instance.class.getName());
     Classification __classification;
-    Attribute[] __attrs;
+    ArrayList<Attribute> __attrs;
 
 
     private Instance () {};
-    public Instance (Attribute[] attrs)
+    public Instance (ArrayList attrs)
     {
         __attrs = attrs;
     }
 
 
-    public Instance (Attribute[] attrs, Classification c)
+    public Instance (ArrayList<Attribute> attrs, Classification c)
     {
         __attrs = attrs;
         __classification = c;
@@ -35,7 +36,7 @@ public class Instance
      * @return       instance.Attribute
      * @param        index
      */
-    public Attribute getAttribute( int index )
+    public Attribute getAttribute ( int index )
     {
         return null;
     }
@@ -45,7 +46,7 @@ public class Instance
      * @param        index
      * @param        val
      */
-    public void setAttribute( int index, instance.Value val )
+    public void setAttribute ( int index, Object val )
     {
     }
 
@@ -63,9 +64,9 @@ public class Instance
     public String toString ()
     {
         StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < __attrs.length; i++)
+        for ( Attribute attr : __attrs )
         {
-            sb.append (String.format("[%s]", __attrs[i].toString()));
+            sb.append (String.format("[%s]", attr.toString()));
         }
         
         sb.append (String.format ("[class=%s]", __classification == null ? "" : __classification.toString()));
