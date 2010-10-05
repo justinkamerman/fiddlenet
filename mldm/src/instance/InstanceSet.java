@@ -8,6 +8,7 @@
 package instance;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.logging.Logger;
 import java.io.BufferedReader;
@@ -23,7 +24,15 @@ public class InstanceSet implements Iterable<Instance>
     private AttributeSet __attrSet;
     private ClassificationSet __classSet;
 
-    private InstanceSet () {};
+
+    private InstanceSet () 
+    {
+        __instances = new ArrayList<Instance>();
+        __classSet = new ClassificationSet ();
+        __attrSet = new AttributeSet ();
+    }
+
+
     public InstanceSet (BufferedReader br, String[] attributeNames) throws IOException
     {
         __instances = new ArrayList<Instance>();
@@ -75,12 +84,17 @@ public class InstanceSet implements Iterable<Instance>
 
     /**
      * @return       long
-     * @param        attr
+     * @param       key  identifies attribute
      */
-    public long informationGain ( int attrIndex )
+    public long informationGain ( Object key )
     {
-        /*
-          foreach value v of attribute[i]
+        for ( Object value : __attrSet.getValues (key) )
+        {
+            log.fine ("\t" + __attrSet.getAttribute(key, value).toString());
+            InstanceSet subset = subset (key, value);
+            log.fine ("\t\t" + subset.toString());
+        }
+/*
                 Siv = subset (i, v);
                 return S.entropy * |Siv|/|size()| * Siv.entropy()
         */
@@ -92,27 +106,47 @@ public class InstanceSet implements Iterable<Instance>
     /**
      * @return       instance.Attribute
      */
-    public Attribute maxInformationGain(  )
+    public Attribute maxInformationGain ()
     {
+        for ( Object key : __attrSet.getKeys () )
+        {
+            log.fine (String.format ("informationGain(%s) => %d", key.toString(), informationGain (key)));
+        }
+
         return null;
     }
 
 
-    /**
-     * Return subset of this instance set for which given attribute has given value.
-     *
-     * @return       InstanceSet
-     * @param        attrIndex
-     * @param        val
-     */
-    public InstanceSet subset ( int attrIndex, Object val )
+    public InstanceSet subset ( Object key, Object val )
     {
         InstanceSet subset = new InstanceSet ();
         for ( Instance inst : __instances )
         {
-            // 
+            if ( inst.getAttribute(key).getValue().equals(val) )
+            {
+                subset.addInstance (inst);
+                log.finest (String.format ("(%s:%s) adding instance to subset %s", key, val, subset));
+            }
         }
         return subset;
+    }
+
+
+    /**
+     * Deep copy given instance and add to set.
+     */
+    public void addInstance (Instance inst)
+    {
+        ArrayList<Attribute> attrs = new ArrayList<Attribute>();
+        Iterator<Attribute> iter = inst.getAttributeIterator ();
+        while ( iter.hasNext() )
+        {
+            Attribute attr = iter.next ();
+            attrs.add ( __attrSet.getAttribute ( attr.getKey(), attr.getValue() ) );
+        }
+
+        Classification c = __classSet.getClassification (inst.getClassification().getValue());
+        __instances.add (new Instance (attrs, c));
     }
 
 
@@ -122,14 +156,6 @@ public class InstanceSet implements Iterable<Instance>
     public InstanceSet fold(  )
     {
         return null;
-    }
-
-
-    /**
-     * @param        inst
-     */
-    public void addInstance( Instance inst )
-    {
     }
 
 

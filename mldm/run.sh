@@ -7,4 +7,6 @@
 # $LastChangedBy: justin.kamerman $ 
 # 
 
+# car.data: -f data/car.data -n buying,maint,doors,persons,lug_boot,safety
+
 java -cp dist/mldm.jar:thirdparty/commons-cli-1.2.jar -Djava.util.logging.config.file=logging.properties Main $*

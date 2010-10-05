@@ -9,20 +9,20 @@ package instance;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.logging.Logger;
 import java.util.Set;
 
 
 public class AttributeSet
 {
+    private static Logger log = Logger.getLogger (InstanceSet.class.getName());
     // Map key->value->Attribute
     private HashMap<Object, HashMap<Object, Attribute>> __keyMap;
-    private HashMap<Object, Integer> __occurrence;
 
 
     public AttributeSet () 
     { 
         __keyMap = new HashMap<Object, HashMap<Object, Attribute>> ();  
-        __occurrence = new HashMap<Object, Integer> ();  
     }
   
     
@@ -33,7 +33,18 @@ public class AttributeSet
 
         if ( __keyMap.containsKey (key))
         {
+            // We've seen this attribute before. Have we seen this particular value thereof ?
             valueMap = __keyMap.get (key);
+            if ( valueMap.containsKey (val) )
+            {
+                attr = valueMap.get (val);
+            }
+            else
+            {
+                // Value is unseen, add.
+                attr = new Attribute (key, val);
+                valueMap.put (val, attr);
+            }
         }
         else
         {
@@ -44,14 +55,8 @@ public class AttributeSet
             __keyMap.put (key, valueMap);
         }
 
-        incrementOccurrence (attr);
+        attr.incrRef ();
         return attr;
-    }
-
-
-    public int getOccurence (Attribute attr)
-    {
-        return __occurrence.get (attr);
     }
 
 
@@ -77,11 +82,5 @@ public class AttributeSet
     {
         StringBuffer sb = new StringBuffer ();
         return sb.toString();
-    }
-
-    
-    private void incrementOccurrence (Attribute attr)
-    {
- 
     }
 }

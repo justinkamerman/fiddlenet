@@ -13,8 +13,9 @@ import java.util.logging.Logger;
 public class Attribute 
 {
     private static Logger log = Logger.getLogger (Attribute.class.getName());
-    Object __key;;
+    Object __key;
     Object __value;
+    int __refCount = 0;
   
     private Attribute () {};
     public Attribute (Object key, Object value)
@@ -58,6 +59,11 @@ public class Attribute
         __value = value;
     }
 
+
+    public void incrRef () { __refCount++; }
+    public void decrRef () { __refCount--; }
+    public int getRef () { return __refCount; }
+        
 
     /**
      * @return       boolean

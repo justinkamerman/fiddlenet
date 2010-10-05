@@ -8,6 +8,7 @@
 package instance;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Logger;
 
 
@@ -32,30 +33,36 @@ public class Instance
     }
 
 
-    /**
-     * @return       instance.Attribute
-     * @param        index
-     */
-    public Attribute getAttribute ( int index )
+    public Classification getClassification ()
     {
+        return __classification;
+    }
+
+
+    public Attribute getAttribute ( Object key )
+    {
+        for (int i = 0; i < __attrs.size(); i++)
+        {
+            if ( __attrs.get(i).getKey().equals (key))  return __attrs.get(i);
+        }
+        
         return null;
     }
 
-
-    /**
-     * @param        index
-     * @param        val
-     */
-    public void setAttribute ( int index, Object val )
+    
+    public int getAttributeCount ()
     {
+        return __attrs.size();
     }
 
 
-    /**
-     * @return       boolean
-     * @param        obj
-     */
-    public boolean equals( Object obj )
+    public Iterator<Attribute> getAttributeIterator ()
+    {
+        return __attrs.iterator ();
+    }
+
+
+    public boolean equals (Object obj)
     {
         return true;
     }
@@ -66,7 +73,7 @@ public class Instance
         StringBuffer sb = new StringBuffer();
         for ( Attribute attr : __attrs )
         {
-            sb.append (String.format("[%s]", attr.toString()));
+            sb.append (String.format("[%s]", attr));
         }
         
         sb.append (String.format ("[class=%s]", __classification == null ? "" : __classification.toString()));
