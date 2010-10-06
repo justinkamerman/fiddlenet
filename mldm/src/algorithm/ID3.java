@@ -30,7 +30,9 @@ public class ID3
     public tree.DecisionTree createDecisionTree (InstanceSet trainingData)
     {
         log.fine (trainingData.toString());
-        trainingData.maxInformationGain ();
+        Objecy key = trainingData.maxInformationGain ();
+
+        InstanceSet instSet = trainingData.subset (
 
         return new tree.DecisionTree();
     }

@@ -49,12 +49,11 @@ public class InstanceSet implements Iterable<Instance>
             for (int i = 0; i < attrCount; i++)
             {
                 // Create attribute, assigning attribute name if we have it
-                attrs.add (__attrSet.getAttribute ( i < attributeNames.length ? attributeNames[i] : "", st.nextToken()));
+                //attrs.add (__attrSet.getAttribute ( i < attributeNames.length ? attributeNames[i] : "", st.nextToken()));
+                attrs.add ( new Attribute ( i < attributeNames.length ? attributeNames[i] : "", st.nextToken() ) );
             }
-            Classification c = __classSet.getClassification (st.nextToken());
-            Instance inst = new Instance (attrs, c);
-            __instances.add (inst);
-            log.finest ("Added instance: " + inst.toString());
+
+            addInstance (new Instance (attrs, new Classification (st.nextToken())));
         }
     }
 
@@ -65,9 +64,6 @@ public class InstanceSet implements Iterable<Instance>
     }
 
 
-    /**
-     * @return       long
-     */
     public double entropy(  )
     {
         double entropy = 0;
@@ -82,41 +78,47 @@ public class InstanceSet implements Iterable<Instance>
     }
 
 
-    /**
-     * @return       long
-     * @param       key  identifies attribute
-     */
-    public long informationGain ( Object key )
+    public double informationGain ( Object key )
     {
+        log.finest ("Information gain for attribute " + key.toString());
+        double infoGain = this.entropy ();
         for ( Object value : __attrSet.getValues (key) )
         {
-            log.fine ("\t" + __attrSet.getAttribute(key, value).toString());
             InstanceSet subset = subset (key, value);
-            log.fine ("\t\t" + subset.toString());
-        }
-/*
-                Siv = subset (i, v);
-                return S.entropy * |Siv|/|size()| * Siv.entropy()
-        */
+            infoGain -= ( (double) subset.size() / (double) this.size() ) * subset.entropy ();
+         }
 
-        return 0;
+        log.fine (String.format ("informationGain(%s)=%f", key.toString(), infoGain));
+        return infoGain;
     }
 
 
     /**
-     * @return       instance.Attribute
+     * Return key of attribute with highest information gain
      */
-    public Attribute maxInformationGain ()
+    public Object maxInformationGain ()
     {
+        double maxGain = 0;
+        Object maxGainAttrKey = null;
         for ( Object key : __attrSet.getKeys () )
         {
-            log.fine (String.format ("informationGain(%s) => %d", key.toString(), informationGain (key)));
+            double infoGain = informationGain (key);
+            if ( (infoGain > maxGain) || maxGainAttrKey == null ) 
+            {
+                maxGain = infoGain;
+                maxGainAttrKey = key;
+            }
         }
 
-        return null;
+        log.fine (String.format ("maxInformationGain()= (%s, %f)", maxGainAttrKey.toString(), maxGain)); 
+        return maxGainAttrKey;
     }
 
 
+    /**
+     * Create a subset of this instance set where all instances given value for given key.
+     * The given attribute will be eliminated from all instances in the set.
+     */
     public InstanceSet subset ( Object key, Object val )
     {
         InstanceSet subset = new InstanceSet ();
@@ -124,10 +126,10 @@ public class InstanceSet implements Iterable<Instance>
         {
             if ( inst.getAttribute(key).getValue().equals(val) )
             {
-                subset.addInstance (inst);
-                log.finest (String.format ("(%s:%s) adding instance to subset %s", key, val, subset));
+                subset.addInstance (inst, key);
             }
         }
+
         return subset;
     }
 
@@ -137,33 +139,38 @@ public class InstanceSet implements Iterable<Instance>
      */
     public void addInstance (Instance inst)
     {
+        addInstance (inst, null);
+    }
+
+
+    /**
+     * Deep copy given instance and add to set, eliminating given attribute.
+     */
+    public void addInstance (Instance inst, Object key)
+    {
         ArrayList<Attribute> attrs = new ArrayList<Attribute>();
         Iterator<Attribute> iter = inst.getAttributeIterator ();
         while ( iter.hasNext() )
         {
             Attribute attr = iter.next ();
-            attrs.add ( __attrSet.getAttribute ( attr.getKey(), attr.getValue() ) );
+            if ( key == null || ! attr.getKey().equals(key) )
+            {
+                attrs.add ( __attrSet.getAttribute ( attr.getKey(), attr.getValue() ) );
+            }
         }
 
         Classification c = __classSet.getClassification (inst.getClassification().getValue());
         __instances.add (new Instance (attrs, c));
+        log.finest ("Added instance: " + inst.toString());
     }
 
 
-    /**
-     * @return       InstanceSet
-     */
+    
+
+
     public InstanceSet fold(  )
     {
         return null;
-    }
-
-
-    /**
-     * @param        inst
-     */
-    public void removeInstance( Instance inst )
-    {
     }
 
 

@@ -20,12 +20,6 @@ public class Instance
 
 
     private Instance () {};
-    public Instance (ArrayList attrs)
-    {
-        __attrs = attrs;
-    }
-
-
     public Instance (ArrayList<Attribute> attrs, Classification c)
     {
         __attrs = attrs;
