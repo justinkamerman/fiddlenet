@@ -9,34 +9,61 @@ package tree;
 
 import java.util.*;
 import instance.Attribute;
+import instance.Classification;
 
 
-/**
- * Class Node
- */
-public class Node {
+public class Node 
+{
+    private Object __attributeKey;
+    private Object __classificationValue;
 
-  //
-  // Fields
-  //
+    private Node () {}
 
-  
-  //
-  // Constructors
-  //
-  public Node () { };
-  
-  //
-  // Methods
-  //
+    public static Node createLeaf (Classification clas)
+    {
+        Node node = new Node ();
+        node.setClassification (clas);
+        return node;
+    }
+
+    public static Node createNode (Attribute attr)
+    {
+        Node node = new Node ();
+        node.setAttribute (attr);
+        return node;
+    }
 
 
-  //
-  // Accessor methods
-  //
+    public void setClassification (Classification clas)
+    {
+        __attributeKey = null;
+        __classificationValue = clas.getValue();
+    }
 
-  //
-  // Other methods
-  //
+    
+    public void setAttribute (Attribute attr)
+    {
+        __classificationValue = null;
+        __attributeKey = attr.getKey();
+    }
 
+
+    public String toDOT ()
+    {
+        if ( __classificationValue != null )
+        {
+            return __classificationValue.toString();
+        }
+        else if ( __attributeKey  != null )
+        {
+            return __attributeKey.toString();
+        }
+        else return "EMPTY";
+    }
+
+
+    public String toString ()
+    {
+        return String.format ("[class=%][attribute=%s]", __classificationValue.toString(), __attributeKey.toString());
+    }
 }

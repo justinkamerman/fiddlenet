@@ -9,51 +9,41 @@ package tree;
 
 import instance.Classification;
 import instance.Instance;
+import java.util.HashMap;
 
 
-/**
- * Class DecisionTree
- */
-public class DecisionTree {
+public class DecisionTree
+{
+    private Node __root;
+    private HashMap<Object, Node> __nodes;
+    private HashMap<Object, Edge> __edges;
 
-    //
-    // Fields
-    //
+    public DecisionTree () {};
+    
 
-  
-    //
-    // Constructors
-    //
-    public DecisionTree () { };
-  
-    //
-    // Methods
-    //
-
-
-    //
-    // Accessor methods
-    //
-
-    //
-    // Other methods
-    //
-
-    /**
-     * @return       instance.Class
-     * @param        inst
-     */
-    public Class classify( instance.Instance inst )
+    public Classification classify( instance.Instance inst )
     {
         return null;
     }
 
+    
+    public void addEdge (Object fromKey, Object toKey, Object value)
+    {
 
-    /**
-     * @return       String
-     */
+    }
+
     public String dot(  )
     {
-        return null;
+        StringBuffer sb = new StringBuffer ();
+        sb.append ("digraph G {");
+        for ( Edge edge : __edges.values() )
+        {
+            sb.append (String.format ("\t%s -> %s [label=\"%s\"];", 
+                                      edge.getFrom().toString(), 
+                                      edge.getTo().toString(), 
+                                      edge.getValue().toString()));
+        }
+        sb.append ("}");       
+        return sb.toString();
     }
 }

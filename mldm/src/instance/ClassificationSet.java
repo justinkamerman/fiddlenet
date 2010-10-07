@@ -49,6 +49,23 @@ public class ClassificationSet implements Iterable<Classification>
         return __occurrence.get (clas.getValue());
     }
 
+
+    public Classification getMaxOccurence ()
+    {
+        Integer maxValue = 0;
+        Object maxKey = null;
+        Iterator<Object> iter = __classifications.keySet().iterator();
+        while ( iter.hasNext() )
+        {
+            Object key = iter.next ();
+            if ( __occurrence.get (key) > maxValue)
+            {
+                maxKey = key;
+            }
+        }
+        return __classifications.get (maxKey);
+    } 
+
     
     public Iterator<Classification> iterator ()
     {

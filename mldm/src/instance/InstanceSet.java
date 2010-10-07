@@ -10,6 +10,7 @@ package instance;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.logging.Logger;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -116,6 +117,24 @@ public class InstanceSet implements Iterable<Instance>
 
 
     /**
+     * Return the most probable classification in this instance set.
+     */
+    public Classification getDefaultClassification ()
+    {
+        return __classSet.getMaxOccurence ();
+    }
+
+
+    /**
+     * Return the classification set size for this instance set.
+     */
+    public int getClassificationSetSize ()
+    {
+        return __classSet.size();
+    }
+
+
+    /**
      * Create a subset of this instance set where all instances given value for given key.
      * The given attribute will be eliminated from all instances in the set.
      */
@@ -165,7 +184,13 @@ public class InstanceSet implements Iterable<Instance>
     }
 
 
-    
+    /**
+     * Return value domain for given attribute.
+     */
+    public Set<Object> getValues (Object key)
+    {
+        return __attrSet.getValues (key);
+    }
 
 
     public InstanceSet fold(  )
