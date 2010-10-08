@@ -28,6 +28,7 @@ public class AttributeSet
     
     public Attribute getAttribute (Object key, Object val)
     {
+        log.finest (String.format ("getAttribute (%s, %s)", key.toString(), val.toString())); 
         HashMap<Object, Attribute> valueMap;
         Attribute attr  = null;
 
@@ -74,7 +75,17 @@ public class AttributeSet
 
     public Set<Object> getValues (Object key)
     {
+        log.finest (">>> " + key.toString());
         return __keyMap.get (key).keySet();
+    }
+
+
+    /**
+     * Remove given attribute from instance set
+     */
+    public void removeAttribute (Object key)
+    {
+        __keyMap.remove (key);
     }
 
 

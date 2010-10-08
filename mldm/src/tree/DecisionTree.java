@@ -10,38 +10,49 @@ package tree;
 import instance.Classification;
 import instance.Instance;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.logging.Logger;
 
 
 public class DecisionTree
 {
+    private static Logger log = Logger.getLogger (DecisionTree.class.getName());
     private Node __root;
-    private HashMap<Object, Node> __nodes;
-    private HashMap<Object, Edge> __edges;
 
-    public DecisionTree () {};
+    public DecisionTree () {}
     
 
-    public Classification classify( instance.Instance inst )
+    public Classification classify ( Instance inst )
     {
         return null;
     }
 
     
-    public void addEdge (Object fromKey, Object toKey, Object value)
+    public Node getRoot ()
     {
-
+        return __root;
     }
 
+
+    public void setRoot (Node root)
+    {
+        __root = root;
+    }
+    
+    
     public String dot(  )
     {
         StringBuffer sb = new StringBuffer ();
-        sb.append ("digraph G {");
-        for ( Edge edge : __edges.values() )
+        sb.append ("digraph G {\n");
+
+        Iterator<Edge> iter = __root.iterator();
+        while ( iter.hasNext() )
         {
-            sb.append (String.format ("\t%s -> %s [label=\"%s\"];", 
-                                      edge.getFrom().toString(), 
-                                      edge.getTo().toString(), 
-                                      edge.getValue().toString()));
+            Edge edge = iter.next();
+            sb.append (String.format ("\t%s -> %s [label=\"%s\"];\n", 
+                                      edge.getParent().toString(), 
+                                      edge.getChild().toString(), 
+                                      edge.getWeight().toString()));
         }
         sb.append ("}");       
         return sb.toString();

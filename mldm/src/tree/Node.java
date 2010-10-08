@@ -7,63 +7,51 @@
  */
 package tree;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Collection;
 import instance.Attribute;
 import instance.Classification;
 
 
-public class Node 
+public class Node implements Iterable<Edge>
 {
-    private Object __attributeKey;
-    private Object __classificationValue;
+    private Object __key;
+    // value -> child map
+    private HashMap<Object, Node> __children = new HashMap<Object, Node>();
 
     private Node () {}
-
-    public static Node createLeaf (Classification clas)
+    public Node (Object key)
     {
-        Node node = new Node ();
-        node.setClassification (clas);
-        return node;
-    }
-
-    public static Node createNode (Attribute attr)
-    {
-        Node node = new Node ();
-        node.setAttribute (attr);
-        return node;
-    }
-
-
-    public void setClassification (Classification clas)
-    {
-        __attributeKey = null;
-        __classificationValue = clas.getValue();
+        __key = key;
     }
 
     
-    public void setAttribute (Attribute attr)
+    public Object getKey ()
     {
-        __classificationValue = null;
-        __attributeKey = attr.getKey();
+        return __key;
     }
 
 
-    public String toDOT ()
+    public void addChild (Node child, Object value)
     {
-        if ( __classificationValue != null )
-        {
-            return __classificationValue.toString();
-        }
-        else if ( __attributeKey  != null )
-        {
-            return __attributeKey.toString();
-        }
-        else return "EMPTY";
+        __children.put (value, child);
+    }
+
+    public Iterator<Edge> iterator ()
+    {
+        return new TreeIterator (this);
+    }
+    
+
+    public Collection<Node> getChildren ()
+    {
+        return __children.values();
     }
 
 
     public String toString ()
     {
-        return String.format ("[class=%][attribute=%s]", __classificationValue.toString(), __attributeKey.toString());
+        return __key.toString();
     }
 }

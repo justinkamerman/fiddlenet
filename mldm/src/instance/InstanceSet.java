@@ -119,9 +119,9 @@ public class InstanceSet implements Iterable<Instance>
     /**
      * Return the most probable classification in this instance set.
      */
-    public Classification getDefaultClassification ()
+    public Object getDefaultClassification ()
     {
-        return __classSet.getMaxOccurence ();
+        return __classSet.getMaxOccurence().getValue();
     }
 
 
@@ -131,6 +131,16 @@ public class InstanceSet implements Iterable<Instance>
     public int getClassificationSetSize ()
     {
         return __classSet.size();
+    }
+
+
+    /**
+     * Remove given attribute from instance set
+     */
+    public InstanceSet removeAttribute (Object key)
+    {
+        __attrSet.removeAttribute (key);
+        return this;
     }
 
 

@@ -29,49 +29,64 @@ public class ID3
 
     public DecisionTree createDecisionTree (InstanceSet trainingData)
     {
-        log.fine (trainingData.toString());
+        log.fine ("creating decision tree from trainign data: " + trainingData.toString());
         DecisionTree tree = new DecisionTree ();
         Stack<StackFrame> stack = new Stack<StackFrame> ();
-        Node root;
 
         // Prime stack
-        stack.push (new StackFrame (trainingData.maxInformationGain(), trainingData));
+        stack.push (new StackFrame (null, null, new Node (trainingData.maxInformationGain()), trainingData));
 
         // Main loop
         while ( ! stack.empty () )
         {
             StackFrame frame = stack.pop ();
-            Object A = frame.getAttributeKey();
+            log.finest ("createDecisionTree(): popped stack frame: " + frame);
+            Node P = frame.getParent();
+            Node A = frame.getChild();
+            Object W = frame.getWeight();
             InstanceSet S = frame.getInstanceSet();
             log.finest ("createDecisionTree(): processing attribute " + A.toString());
+
+            // Add node to represent attribute
+            if ( P != null )
+            {
+                P.addChild (A, W);
+            }
+            else 
+            {
+                tree.setRoot (A);
+            }
             
             for ( Object v : S.getValues (A) )
             {
-                log.finest ("createDecisionTree():\t processing value " + v.toString());
+                log.finest ("\tcreateDecisionTree(): processing value " + v.toString());
                 InstanceSet Sv = S.subset (A, v);
-                
+                log.finest (String.format ("\tcreateDecisionTree(): S(%s, %s): %s", A.toString(), v.toString(), Sv.toString()));
+
                 // Sv is empty
                 if ( Sv.size() == 0 )
                 {
                     // add leaf node
-                    log.finest ("createDecisionTree():\t\t Sv is empty; adding leaf."); 
-                    Node C = Node.createLeaf (S.getDefaultClassification());
-                    tree.addEdge (A, C, v);
+                    log.finest ("\t\tcreateDecisionTree(): Sv is empty; adding leaf."); 
+                    P.addChild (new Node(S.getDefaultClassification()), v);
                 }
                 // Sv elements all have same classification
-                if ( Sv.getClassificationSetSize() == 0 )
+                if ( Sv.getClassificationSetSize() == 1 )
                 {
                     // add leaf node
-                    log.finest ("createDecisionTree():\t\t Sv only has one classification; adding leaf."); 
-                    Node C = Node.createLeaf (S.getDefaultClassification());
-                    tree.addEdge (A, C, v);
+                    log.finest ("\t\tcreateDecisionTree(): Sv only has one classification; adding leaf."); 
+                    P.addChild (new Node(S.getDefaultClassification()), v);
                 }
                 else
                 {
-                    // Remove A from Sv and push onto stack
-                    stack.push (new StackFrame (Sv.maxInformationGain(), Sv));
+                    // Push a stack frame for the next attribute
+                    StackFrame sf = new StackFrame (A, W, new Node(Sv.maxInformationGain()), Sv.removeAttribute(A.getKey()));
+                    stack.push (sf);
+                    log.finest ("\t\tcreateDecisionTree(): pushing stack frame: " + sf.toString());
                 }
             }
+
+            //System.out.println (tree.dot());
         }
 
         return tree;
@@ -85,15 +100,31 @@ public class ID3
     private class StackFrame
     {
         public InstanceSet __instanceSet;
-        public Object __attributeKey;
+        public Node __parent;
+        public Object __weight;
+        public Node __child;
 
-        public StackFrame (Object attrKey, InstanceSet instSet)
+
+        public StackFrame (Node parent, Object weight, Node child, InstanceSet instSet)
         {
-            __attributeKey = attrKey;
+            __parent = parent;
+            __weight = weight;
+            __child = child;
             __instanceSet = instSet;
         }
 
-        public Object getAttributeKey () { return __attributeKey; }
+        public Node getParent () { return __parent; }
+        public Object getWeight () { return __weight; }
+        public Node getChild () { return __child; }
         public InstanceSet getInstanceSet () { return __instanceSet; }
+
+        public String toString ()
+        {
+            return String.format ("[parent=%s][weight=%s][child=%s][instance_set=%s",
+                                  __parent == null ? "null" : __parent.toString(), 
+                                  __weight == null ? "null" : __weight.toString(), 
+                                  __child == null ? "null" : __child.toString(), 
+                                  __instanceSet == null ? "null" : __instanceSet.toString());
+        }
     }
 }

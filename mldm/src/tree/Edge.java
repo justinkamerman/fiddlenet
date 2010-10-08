@@ -10,20 +10,34 @@ package tree;
 
 public class Edge 
 {
-    public Edge () { };
+    Node __parent;
+    Node __child;
+    Object __weight;
 
-    public Object getFrom ()
+
+    private Edge () { };
+    public Edge (Node parent, Node child, Object weight)
     {
-        return null;
+        __parent = parent;
+        __child = child;
+        __weight = weight;
     }
 
-    public Object getTo ()
+
+    public Node getParent ()
     {
-        return null;
+        return __parent;
     }
 
-    public Object getValue ()
+
+    public Node getChild ()
     {
-        return null;
+        return __child;
+    }
+
+
+    public Object getWeight ()
+    {
+        return __weight;
     }
 }
