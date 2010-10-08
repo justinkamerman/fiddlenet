@@ -56,11 +56,11 @@ public class ID3
             {
                 tree.setRoot (A);
             }
-            
-            for ( Object v : S.getValues (A) )
+
+            for ( Object v : S.getValues (A.getKey()) )
             {
                 log.finest ("\tcreateDecisionTree(): processing value " + v.toString());
-                InstanceSet Sv = S.subset (A, v);
+                InstanceSet Sv = S.subset (A.getKey(), v);
                 log.finest (String.format ("\tcreateDecisionTree(): S(%s, %s): %s", A.toString(), v.toString(), Sv.toString()));
 
                 // Sv is empty
@@ -86,7 +86,7 @@ public class ID3
                 }
             }
 
-            //System.out.println (tree.dot());
+            System.out.println (tree.dot());
         }
 
         return tree;

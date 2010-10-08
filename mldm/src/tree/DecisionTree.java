@@ -50,9 +50,9 @@ public class DecisionTree
         {
             Edge edge = iter.next();
             sb.append (String.format ("\t%s -> %s [label=\"%s\"];\n", 
-                                      edge.getParent().toString(), 
-                                      edge.getChild().toString(), 
-                                      edge.getWeight().toString()));
+                                      edge.getParent() == null ? "null" : edge.getParent().toString(), 
+                                      edge.getChild() == null ? "null" : edge.getChild().toString(), 
+                                      edge.getWeight() == null ? "null" : edge.getWeight().toString()));
         }
         sb.append ("}");       
         return sb.toString();
