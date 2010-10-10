@@ -135,6 +135,15 @@ public class InstanceSet implements Iterable<Instance>
 
 
     /**
+     * Return the attribute set size for this instance set.
+     */
+    public int getAttributeSetSize ()
+    {
+        return __attrSet.size();
+    }
+
+
+    /**
      * Remove given attribute from instance set
      */
     public InstanceSet removeAttribute (Object key)

@@ -40,4 +40,13 @@ public class Edge
     {
         return __weight;
     }
+
+    
+    public String toString ()
+    {
+        return String.format ("[parent=%s][weight=%s][child=%s]", 
+                              __parent == null ? "null" : __parent.toString(),
+                              __weight == null ? "null" : __weight.toString(),
+                              __child == null ? "null" : __child.toString());
+    }
 }

@@ -1,9 +1,9 @@
 /**
- * $Id: Class.java 4 2010-09-27 20:14:47Z justinkamerman $ 
+ * $Id$ 
  *
- * $LastChangedDate: 2010-09-27 17:14:47 -0300 (Mon, 27 Sep 2010) $ 
+ * $LastChangedDate$ 
  * 
- * $LastChangedBy: justinkamerman $
+ * $LastChangedBy$
  */
 package instance;
 

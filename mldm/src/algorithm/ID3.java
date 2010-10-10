@@ -29,12 +29,14 @@ public class ID3
 
     public DecisionTree createDecisionTree (InstanceSet trainingData)
     {
-        log.fine ("creating decision tree from trainign data: " + trainingData.toString());
+        log.fine ("creating decision tree from training data: " + trainingData.toString());
         DecisionTree tree = new DecisionTree ();
         Stack<StackFrame> stack = new Stack<StackFrame> ();
 
         // Prime stack
-        stack.push (new StackFrame (null, null, new Node (trainingData.maxInformationGain()), trainingData));
+        StackFrame rootFrame = new StackFrame (null, null, new Node (trainingData.maxInformationGain()), trainingData);
+        stack.push (rootFrame);
+        log.finest ("createDecisionTree(): pushing stack frame: " + rootFrame.toString());
 
         // Main loop
         while ( ! stack.empty () )
@@ -57,38 +59,49 @@ public class ID3
                 tree.setRoot (A);
             }
 
-            for ( Object v : S.getValues (A.getKey()) )
+            for ( Object weight : S.getValues (A.getKey()) )
             {
-                log.finest ("\tcreateDecisionTree(): processing value " + v.toString());
-                InstanceSet Sv = S.subset (A.getKey(), v);
-                log.finest (String.format ("\tcreateDecisionTree(): S(%s, %s): %s", A.toString(), v.toString(), Sv.toString()));
+                log.finest ("\tcreateDecisionTree(): processing value " + weight.toString());
+                InstanceSet Sv = S.subset (A.getKey(), weight);
+                log.finest (String.format ("\tcreateDecisionTree(): S(%s, %s): %s",
+                                           A.toString(), weight.toString(), Sv.toString()));
 
                 // Sv is empty
                 if ( Sv.size() == 0 )
                 {
                     // add leaf node
                     log.finest ("\t\tcreateDecisionTree(): Sv is empty; adding leaf."); 
-                    P.addChild (new Node(S.getDefaultClassification()), v);
+                    A.addChild (new Node(Sv.getDefaultClassification()), weight);
                 }
                 // Sv elements all have same classification
-                if ( Sv.getClassificationSetSize() == 1 )
+                else if ( Sv.getClassificationSetSize() == 1 )
                 {
                     // add leaf node
                     log.finest ("\t\tcreateDecisionTree(): Sv only has one classification; adding leaf."); 
-                    P.addChild (new Node(S.getDefaultClassification()), v);
+                    A.addChild (new Node(Sv.getDefaultClassification()), weight);
+                }
+                // No more attributes and previous cases don't apply
+                else if ( Sv.getAttributeSetSize() == 0 ) 
+                {
+                    // Add leaf with most probably classification
+                    log.finest ("\t\tcreateDecisionTree(): Sv has more attributes; adding leaf with most probable classification.");
+                    A.addChild (new Node(Sv.getDefaultClassification()), "");
                 }
                 else
                 {
                     // Push a stack frame for the next attribute
-                    StackFrame sf = new StackFrame (A, W, new Node(Sv.maxInformationGain()), Sv.removeAttribute(A.getKey()));
-                    stack.push (sf);
+                    StackFrame sf = new StackFrame (A,
+                                                    weight,
+                                                    new Node (Sv.maxInformationGain()),
+                                                    Sv.removeAttribute (A.getKey()));
                     log.finest ("\t\tcreateDecisionTree(): pushing stack frame: " + sf.toString());
+                    stack.push (sf);
+                   
                 }
             }
 
-            System.out.println (tree.dot());
+            
         }
-
         return tree;
     }
     

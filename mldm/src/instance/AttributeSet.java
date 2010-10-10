@@ -1,9 +1,9 @@
 /**
- * $Id: ClassSet.java 4 2010-09-27 20:14:47Z justinkamerman $ 
+ * $Id$ 
  *
- * $LastChangedDate: 2010-09-27 17:14:47 -0300 (Mon, 27 Sep 2010) $ 
+ * $LastChangedDate$ 
  * 
- * $LastChangedBy: justinkamerman $
+ * $LastChangedBy$
  */
 package instance;
 
@@ -15,7 +15,7 @@ import java.util.Set;
 
 public class AttributeSet
 {
-    private static Logger log = Logger.getLogger (InstanceSet.class.getName());
+    private static Logger log = Logger.getLogger (AttributeSet.class.getName());
     // Map key->value->Attribute
     private HashMap<Object, HashMap<Object, Attribute>> __keyMap;
 
@@ -75,7 +75,6 @@ public class AttributeSet
 
     public Set<Object> getValues (Object key)
     {
-        log.finest (">>> " + key.toString());
         return __keyMap.get (key).keySet();
     }
 

@@ -90,7 +90,7 @@ public class Main
 
         // Create decision tree
         DecisionTree decisionTree = (new ID3()).createDecisionTree (__instanceSet);
-        System.out.println (decisionTree.toString());
+        System.out.println (decisionTree.dot ());
     }
 }
 

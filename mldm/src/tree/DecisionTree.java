@@ -49,10 +49,23 @@ public class DecisionTree
         while ( iter.hasNext() )
         {
             Edge edge = iter.next();
-            sb.append (String.format ("\t%s -> %s [label=\"%s\"];\n", 
-                                      edge.getParent() == null ? "null" : edge.getParent().toString(), 
-                                      edge.getChild() == null ? "null" : edge.getChild().toString(), 
-                                      edge.getWeight() == null ? "null" : edge.getWeight().toString()));
+            log.finest ("dot(): processing edge " + edge.toString());
+
+            // Add child node
+            sb.append (String.format ("\t%s  [label=\"%s\", shape=%s];\n", 
+                                      edge.getChild().hashCode(),
+                                      edge.getChild().toString(),
+                                      edge.getChild().isLeaf() ? "ellipse" : "box"));
+
+
+            // Add edge to child if not root
+            if ( edge.getParent() != null )
+            {
+                sb.append (String.format ("\t%s -> %s [label=\"%s\"];\n", 
+                                          edge.getParent().hashCode(),
+                                          edge.getChild().hashCode(),
+                                          edge.getWeight().toString()));
+            }
         }
         sb.append ("}");       
         return sb.toString();
