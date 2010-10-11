@@ -66,7 +66,8 @@ public class ID3
                 log.finest (String.format ("\tcreateDecisionTree(): S(%s, %s): %s",
                                            A.toString(), weight.toString(), Sv.toString()));
 
-                // Sv is empty
+                // Sv is empty: no training instance to guide our
+                // decision, so settle on most probable classification.
                 if ( Sv.size() == 0 )
                 {
                     // add leaf node
@@ -80,12 +81,14 @@ public class ID3
                     log.finest ("\t\tcreateDecisionTree(): Sv only has one classification; adding leaf."); 
                     A.addChild (new Node(Sv.getDefaultClassification()), weight);
                 }
-                // No more attributes and previous cases don't apply
+                // No more attributes and previous cases don't apply:
+                // we must have contradictory training instances, so
+                // settle on most probable classification.
                 else if ( Sv.getAttributeSetSize() == 0 ) 
                 {
                     // Add leaf with most probably classification
-                    log.finest ("\t\tcreateDecisionTree(): Sv has more attributes; adding leaf with most probable classification.");
-                    A.addChild (new Node(Sv.getDefaultClassification()), "");
+                    log.finest ("\t\tcreateDecisionTree(): Sv has no more attributes and no obvious classification; adding leaf with most probable classification.");
+                    A.addChild (new Node(Sv.getDefaultClassification()), weight);
                 }
                 else
                 {

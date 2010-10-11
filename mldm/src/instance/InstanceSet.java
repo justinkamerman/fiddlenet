@@ -8,8 +8,10 @@
 package instance;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 import java.io.BufferedReader;
@@ -50,7 +52,6 @@ public class InstanceSet implements Iterable<Instance>
             for (int i = 0; i < attrCount; i++)
             {
                 // Create attribute, assigning attribute name if we have it
-                //attrs.add (__attrSet.getAttribute ( i < attributeNames.length ? attributeNames[i] : "", st.nextToken()));
                 attrs.add ( new Attribute ( i < attributeNames.length ? attributeNames[i] : "", st.nextToken() ) );
             }
 
@@ -212,9 +213,45 @@ public class InstanceSet implements Iterable<Instance>
     }
 
 
-    public InstanceSet fold(  )
+    /**
+     * Return K fold iterator
+     */
+    public List<Fold> fold (int K)
     {
-        return null;
+        ArrayList<Fold> folds = new ArrayList<Fold>();
+        ArrayList<Instance> shuffledInstances = (ArrayList<Instance>) __instances.clone ();
+        Collections.shuffle (shuffledInstances);
+        int testSize = size()/K;
+
+        for (int n = 0; n < K; n++)
+        {
+            InstanceSet testSet = new InstanceSet ();
+            InstanceSet trainSet = new InstanceSet ();
+
+            // Create test set: take element range ((size/K)n, (size/K)(n+1)-1)
+            int startTestIndex = (testSize*n);
+            int endTestIndex = (testSize*(n+1));
+
+            log.fine (String.format ("fold(): creating fold " + n));
+            for (int i = 0; i < startTestIndex; i++)
+            {
+                log.fine (String.format ("fold(): adding instance %d to training set %d", i, n));
+                trainSet.addInstance (shuffledInstances.get(i));
+            }
+            for (int i = startTestIndex ; i < endTestIndex; i++)
+            {
+                log.fine (String.format ("fold(): adding instance %d to test set %d", i, n));
+                testSet.addInstance (shuffledInstances.get(i));
+            }
+            for (int i = endTestIndex; i < size(); i++)
+            {
+                log.fine (String.format ("fold(): adding instance %d to training set %d", i, n));
+                trainSet.addInstance (shuffledInstances.get(i));
+            }
+            
+            folds.add (new Fold (trainSet, testSet));
+        }
+        return folds;
     }
 
 

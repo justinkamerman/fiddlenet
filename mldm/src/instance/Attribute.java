@@ -84,6 +84,6 @@ public class Attribute
 
     public String toString ()
     {
-        return String.format ("%s=%s", __key.toString(), __value.toString());
+        return String.format ("[%s=%s]", __key.toString(), __value.toString());
     }
 }

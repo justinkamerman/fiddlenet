@@ -16,6 +16,8 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import algorithm.ID3;
+import instance.Fold;
+import instance.Instance;
 import instance.InstanceSet;
 import tree.DecisionTree;
 
@@ -89,8 +91,25 @@ public class Main
         }
 
         // Create decision tree
-        DecisionTree decisionTree = (new ID3()).createDecisionTree (__instanceSet);
-        System.out.println (decisionTree.dot ());
+        //DecisionTree decisionTree = (new ID3()).createDecisionTree (__instanceSet);
+        //System.out.println (decisionTree.dot ());
+
+        // Evaluate
+        // 1. fold instance set into k subsets
+        // 2. for each fold
+        // 2.1 create decision tree with training set
+        // 2.2 evaluate test set
+        // 3. average predictive accuracy
+        
+        
+
+        for (Fold fold :__instanceSet.fold (5))
+        {
+            DecisionTree decisionTree = (new ID3()).createDecisionTree (fold.getTrainingSet());
+            double accuracy = decisionTree.evaluate (fold.getTestSet());
+            System.out.println (">>> accuracy = " + accuracy);
+        }
+        
     }
 }
 

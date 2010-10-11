@@ -30,4 +30,17 @@ public class Classification
     {
         return __value.toString();
     }
+
+    public boolean equals (Object obj)
+    {
+        if ( obj instanceof Classification )
+        {
+            Classification classification = (Classification) obj;
+            if ( __value.equals (classification.getValue()) )
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }
