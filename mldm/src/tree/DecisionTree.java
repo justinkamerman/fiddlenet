@@ -12,11 +12,12 @@ import java.util.Iterator;
 import java.util.logging.Logger;
 import instance.Attribute;
 import instance.Classification;
+import instance.Classifier;
 import instance.Instance;
 import instance.InstanceSet;
 
 
-public class DecisionTree
+public class DecisionTree extends Classifier
 {
     private static Logger log = Logger.getLogger (DecisionTree.class.getName());
     private Node __root;
@@ -101,22 +102,12 @@ public class DecisionTree
         return classification;
     }
 
-    
+
     /**
-     * Evaluate an instance set, returning predictive
-     * accuracy. Classification of instances is required.
+     * Generate post-pruning rule set
      */
-    public double evaluate ( InstanceSet instSet )
+    public RuleSet ruleSet ()
     {
-        double correct = 0;
-        for ( Instance inst : instSet )
-        {
-            Classification classification = classify (inst);
-            if ( classification.equals (inst.getClassification()) )
-            {
-                correct++;
-            }
-        }
-        return (correct / (double) instSet.size());
+        return new RuleSet ();
     }
 }
