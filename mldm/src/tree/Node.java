@@ -20,6 +20,7 @@ public class Node implements Iterable<Edge>
 {
     private static Logger log = Logger.getLogger (Node.class.getName());
     private Object __key;
+    private Object __defaultClassification;
     // weight -> child map
     private HashMap<Object, Node> __children = new HashMap<Object, Node>();
 
@@ -27,6 +28,13 @@ public class Node implements Iterable<Edge>
     public Node (Object key)
     {
         __key = key;
+    }
+
+
+    public Node (Object key, Object defaultClassification)
+    {
+        __key = key;
+        __defaultClassification = defaultClassification;
     }
 
     

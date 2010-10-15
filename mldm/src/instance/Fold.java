@@ -1,9 +1,9 @@
 /**
- * $Id: InstanceSet.java 14 2010-10-10 15:32:16Z justinkamerman $ 
+ * $Id$ 
  *
- * $LastChangedDate: 2010-10-10 12:32:16 -0300 (Sun, 10 Oct 2010) $ 
+ * $LastChangedDate$ 
  * 
- * $LastChangedBy: justinkamerman $
+ * $LastChangedBy$
  */
 package instance;
 
@@ -16,15 +16,23 @@ public class Fold
     private static Logger log = Logger.getLogger (Fold.class.getName());
     private InstanceSet __trainingSet;
     private InstanceSet __testSet;
+    private int __index = 0;
 
     private Fold() {}
-    public Fold (InstanceSet train, InstanceSet test)
+    public Fold (int index, InstanceSet train, InstanceSet test)
     {
         __trainingSet = train;
         __testSet = test;
+        __index = index;
     }
 
 
+    public int getIndex ()
+    {
+        return __index;
+    }
+
+    
     public InstanceSet getTrainingSet ()
     {
         return __trainingSet;

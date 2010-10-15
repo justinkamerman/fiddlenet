@@ -12,7 +12,7 @@
 #
 # ecoli.data:      -f data/ecoli.data -n mcg,gvh,lip,chg,aac,alm1,alm2
 #
-# breast-cancer-wisconsin.data: -f data/breast-cancer-wisconsin.data Clump_Thickness,Uniformity_of_Cell_Size,Uniformity_of_Cell_Shape,Marginal_Adhesion,Single_Epithelial_Cell_Size,Bare_Nuclei,Bland_Chromatin,Normal_Nucleoli,Mitoses
+# breast-cancer-wisconsin.data: -f data/breast-cancer-wisconsin.data -n Clump_Thickness,Uniformity_of_Cell_Size,Uniformity_of_Cell_Shape,Marginal_Adhesion,Single_Epithelial_Cell_Size,Bare_Nuclei,Bland_Chromatin,Normal_Nucleoli,Mitoses
 #
 # letter-recognition:   -f data/letter-recognition.data -n x-box,y-box,width,high,onpix,x-bar,y-bar,x2bar,y2bar,xybar,x2ybr,xy2br,x-ege,xegvy,y-ege,yegvx
 #

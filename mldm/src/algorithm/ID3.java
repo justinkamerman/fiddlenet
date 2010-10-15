@@ -34,7 +34,9 @@ public class ID3
         Stack<StackFrame> stack = new Stack<StackFrame> ();
 
         // Prime stack
-        StackFrame rootFrame = new StackFrame (null, null, new Node (trainingData.maxInformationGain()), trainingData);
+        StackFrame rootFrame = new StackFrame (null,  null, 
+                                               new Node (trainingData.maxInformationGain(), trainingData.getDefaultClassification()),
+                                               trainingData);
         stack.push (rootFrame);
         log.finest ("createDecisionTree(): pushing stack frame: " + rootFrame.toString());
 

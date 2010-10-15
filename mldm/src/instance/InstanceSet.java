@@ -90,7 +90,7 @@ public class InstanceSet implements Iterable<Instance>
             infoGain -= ( (double) subset.size() / (double) this.size() ) * subset.entropy ();
          }
 
-        log.fine (String.format ("informationGain(%s)=%f", key.toString(), infoGain));
+        log.finest (String.format ("informationGain(%s)=%f", key.toString(), infoGain));
         return infoGain;
     }
 
@@ -112,7 +112,7 @@ public class InstanceSet implements Iterable<Instance>
             }
         }
 
-        log.fine (String.format ("maxInformationGain()= (%s, %f)", maxGainAttrKey.toString(), maxGain)); 
+        log.finest (String.format ("maxInformationGain()= (%s, %f)", maxGainAttrKey.toString(), maxGain)); 
         return maxGainAttrKey;
     }
 
@@ -214,7 +214,7 @@ public class InstanceSet implements Iterable<Instance>
 
 
     /**
-     * Return K fold iterator
+     * Fold this instance set.
      */
     public List<Fold> fold (int K)
     {
@@ -235,21 +235,21 @@ public class InstanceSet implements Iterable<Instance>
             log.fine (String.format ("fold(): creating fold " + n));
             for (int i = 0; i < startTestIndex; i++)
             {
-                log.fine (String.format ("fold(): adding instance %d to training set %d", i, n));
+                log.finest (String.format ("fold(): adding instance %d to training set %d", i, n));
                 trainSet.addInstance (shuffledInstances.get(i));
             }
             for (int i = startTestIndex ; i < endTestIndex; i++)
             {
-                log.fine (String.format ("fold(): adding instance %d to test set %d", i, n));
+                log.finest (String.format ("fold(): adding instance %d to test set %d", i, n));
                 testSet.addInstance (shuffledInstances.get(i));
             }
             for (int i = endTestIndex; i < size(); i++)
             {
-                log.fine (String.format ("fold(): adding instance %d to training set %d", i, n));
+                log.finest (String.format ("fold(): adding instance %d to training set %d", i, n));
                 trainSet.addInstance (shuffledInstances.get(i));
             }
             
-            folds.add (new Fold (trainSet, testSet));
+            folds.add (new Fold (n, trainSet, testSet));
         }
         return folds;
     }

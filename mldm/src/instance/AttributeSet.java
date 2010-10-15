@@ -16,13 +16,17 @@ import java.util.Set;
 public class AttributeSet
 {
     private static Logger log = Logger.getLogger (AttributeSet.class.getName());
+    private static final String UNKNOWN = new String ("?");
     // Map key->value->Attribute
     private HashMap<Object, HashMap<Object, Attribute>> __keyMap;
+    // Map key->Attribute (default)
+    private HashMap<Object, Attribute> __defaultMap;
 
 
     public AttributeSet () 
     { 
         __keyMap = new HashMap<Object, HashMap<Object, Attribute>> ();  
+        __defaultMap = new HashMap<Object, Attribute> ();
     }
   
     
@@ -32,31 +36,41 @@ public class AttributeSet
         HashMap<Object, Attribute> valueMap;
         Attribute attr  = null;
 
-        if ( __keyMap.containsKey (key))
+        // Replace missing values with defaults.
+        if ( UNKNOWN.equals (val) )
         {
-            // We've seen this attribute before. Have we seen this particular value thereof ?
-            valueMap = __keyMap.get (key);
-            if ( valueMap.containsKey (val) )
+            attr = getDefault (key);
+            log.fine (String.format ("getAttribute (%s, %s): value missing. Using default.", key.toString(), val.toString())); 
+        }
+        else 
+        {      
+            if ( __keyMap.containsKey (key))
             {
-                attr = valueMap.get (val);
+                // We've seen this attribute before. Have we seen this particular value thereof ?
+                valueMap = __keyMap.get (key);
+                if ( valueMap.containsKey (val) )
+                {
+                    attr = valueMap.get (val);
+                }
+                else
+                {
+                    // Value is unseen, add.
+                    attr = new Attribute (key, val);
+                    valueMap.put (val, attr);
+                }
             }
             else
             {
-                // Value is unseen, add.
+                // Attribute is unseen, add.
+                valueMap = new HashMap<Object,Attribute> ();
                 attr = new Attribute (key, val);
                 valueMap.put (val, attr);
+                __keyMap.put (key, valueMap);
             }
-        }
-        else
-        {
-            // Attribute is unseen, add.
-            valueMap = new HashMap<Object,Attribute> ();
-            attr = new Attribute (key, val);
-            valueMap.put (val, attr);
-            __keyMap.put (key, valueMap);
+            attr.incrRef ();
+            updateDefault (attr);
         }
 
-        attr.incrRef ();
         return attr;
     }
 
@@ -85,5 +99,52 @@ public class AttributeSet
     public void removeAttribute (Object key)
     {
         __keyMap.remove (key);
+    }
+
+    
+    /**
+     * Return default attribute for given key
+     */
+    public Attribute getDefault (Object key)
+    {
+        Attribute defAttr;
+        if ( __defaultMap.containsKey (key) )
+        {
+            defAttr = __defaultMap.get (key);
+        }
+        else
+        {
+            defAttr = new Attribute (key, UNKNOWN);
+            __defaultMap.put (key, defAttr);
+        }
+        return defAttr;
+    }
+
+    
+    /**
+     * Update the value of the the default attribute for given key
+     */
+    public void updateDefault (Object key)
+    {
+        // Find most frequently occurring value of this attribute
+        int maxRef = 0;
+        Attribute def = null;
+        HashMap<Object, Attribute> valueMap = __keyMap.get (key);
+        
+        // Only update default value if we have seen value for this attribute before
+        if ( valueMap != null )
+        {
+            for ( Attribute attr : valueMap.values() )
+            {
+                if ( attr.getRef() > maxRef )
+                {
+                    maxRef = attr.getRef();
+                    def = attr;
+                }
+            }
+
+            // Update default attribute's value
+            getDefault (key).setValue (def.getValue());
+        }
     }
 }

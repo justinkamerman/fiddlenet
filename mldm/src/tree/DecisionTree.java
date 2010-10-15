@@ -75,17 +75,29 @@ public class DecisionTree
     public Classification classify ( Instance inst )
     {
         Node node = __root;
-        log.fine ("classify(): classifying instance " + inst.toString());
+        log.finest ("classify(): classifying instance " + inst.toString());
 
-        while (! node.isLeaf () )
+        while ( ! node.isLeaf () )
         {            
             Attribute attr = inst.getAttribute (node.getKey());
-            node = node.getChild (attr.getValue());
-            log.fine ("classify(): examining attribute " + attr.toString());
+            Node child = node.getChild (attr.getValue());
+            log.finest ("classify(): examining attribute " + attr.toString());
+
+            // No path defined for this instance, use default
+            // classification for this subtree.
+            if ( child == null )
+            {
+                log.finest ("No path defined for this instance. Using default classification for this subtree.");
+                break;
+            }
+            else
+            {
+                node = child;
+            }
         }
         
         Classification classification = new Classification (node.getKey());
-        log.fine ("classify(): assigning classification " + classification.toString());
+        log.fine (String.format ("classify(): classified instance %s as %s", inst.toString(), classification.toString()));
         return classification;
     }
 
