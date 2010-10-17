@@ -8,6 +8,7 @@
 package tree;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.logging.Logger;
 import instance.Attribute;
 import instance.Classification;
@@ -22,12 +23,14 @@ public class Rule extends Classifier
     // Preconditions are ordered from top of tree to leaf
     private ArrayList<Attribute> __preconditions;
     private Classification __postCondition;
+    private double __accuracy;
 
 
     public Rule (Classification postcond)
     {
         __preconditions = new ArrayList<Attribute>();
         __postCondition = postcond;
+        __accuracy = 0;
     };
 
 
@@ -44,6 +47,12 @@ public class Rule extends Classifier
     }
     
 
+    public double getAccuracy ()
+    {
+        return __accuracy;
+    }
+
+
     public void addPrecondition (Attribute precond)
     {
         log.finest ("addPrecondition (" + precond + ")");
@@ -53,6 +62,7 @@ public class Rule extends Classifier
     
     public void prune (InstanceSet validationSet)
     {
+        __accuracy = evaluate (validationSet);
     }
 
 
@@ -75,7 +85,7 @@ public class Rule extends Classifier
         return __postCondition;
     }
 
-
+    
     public String toString ()
     {
         StringBuffer sb = new StringBuffer ();

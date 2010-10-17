@@ -8,6 +8,8 @@
 package tree;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.logging.Logger;
 import instance.Classification;
 import instance.Classifier;
@@ -15,7 +17,7 @@ import instance.Instance;
 import instance.InstanceSet;
 
 
-public class RuleSet extends Classifier
+public class RuleSet extends Classifier implements Comparator<Rule>
 {
     private static Logger log = Logger.getLogger (RuleSet.class.getName());
     private ArrayList<Rule> __rules;
@@ -42,6 +44,13 @@ public class RuleSet extends Classifier
     
     public void prune (InstanceSet validationSet)
     {
+        for (Rule rule : __rules )
+        {
+            rule.prune (validationSet);
+        }
+
+        // Sort rules by descending accuracy
+        Collections.sort (__rules, this);
     }
 
 
@@ -58,6 +67,33 @@ public class RuleSet extends Classifier
             }
         }
         return clas;
+    }
+
+    
+    public int compare (Rule a, Rule b)
+    {
+        if (a.getAccuracy() > b.getAccuracy())
+        {
+            return 1;
+        }
+        else if (a.getAccuracy() < b.getAccuracy())
+        {
+            return -1;
+        }
+        else return 0;
+    }
+
+    
+    public String toString ()
+    {
+        StringBuffer sb = new StringBuffer ();
+        sb.append ("[defaultClassification=" + __defaultClassification.toString() + "][rules=[");
+        for (Rule rule : __rules )
+        {
+            sb.append (rule.toString());
+        }
+        sb.append ("]]");
+        return sb.toString();
     }
 }
   

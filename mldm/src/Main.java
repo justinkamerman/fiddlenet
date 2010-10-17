@@ -104,6 +104,7 @@ public class Main
                 //double accuracy = decisionTree.evaluate (fold.getTestSet());
 
                 RuleSet ruleSet = decisionTree.ruleSet();
+                ruleSet.prune (fold.getTrainingSet());
                 double accuracy = ruleSet.evaluate (fold.getTestSet());
 
                 eval.addAccuracy (accuracy);
