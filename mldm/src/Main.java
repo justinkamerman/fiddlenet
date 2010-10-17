@@ -101,10 +101,10 @@ public class Main
             for (Fold fold :__instanceSet.fold (5))
             {
                 DecisionTree decisionTree = (new ID3()).createDecisionTree (fold.getTrainingSet());
-                double accuracy = decisionTree.evaluate (fold.getTestSet());
+                //double accuracy = decisionTree.evaluate (fold.getTestSet());
 
-                //RuleSet ruleSet = decisionTree.ruleSet();
-                //double accuracy = ruleSet.evaluate (fold.getTestSet());
+                RuleSet ruleSet = decisionTree.ruleSet();
+                double accuracy = ruleSet.evaluate (fold.getTestSet());
 
                 eval.addAccuracy (accuracy);
                 log.info (String.format ("Processed fold %d: training set size = %d; test set size = %d; accuracy = %f",
