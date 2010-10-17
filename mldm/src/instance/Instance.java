@@ -33,7 +33,7 @@ public class Instance
     }
 
 
-    public Attribute getAttribute ( Object key )
+    public Attribute getAttribute (Object key)
     {
         for (int i = 0; i < __attrs.size(); i++)
         {

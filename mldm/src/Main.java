@@ -20,6 +20,7 @@ import instance.Fold;
 import instance.Instance;
 import instance.InstanceSet;
 import tree.DecisionTree;
+import tree.RuleSet;
 import util.Evaluation;
 
 
@@ -92,6 +93,7 @@ public class Main
         }
         log.info ("Loaded data from file " + __dataFile + ": " + __instanceSet.toString());
 
+        // Test
         Evaluation eval = new Evaluation ();
         for (int i = 1; i <= 10; i++)
         {
@@ -100,6 +102,10 @@ public class Main
             {
                 DecisionTree decisionTree = (new ID3()).createDecisionTree (fold.getTrainingSet());
                 double accuracy = decisionTree.evaluate (fold.getTestSet());
+
+                //RuleSet ruleSet = decisionTree.ruleSet();
+                //double accuracy = ruleSet.evaluate (fold.getTestSet());
+
                 eval.addAccuracy (accuracy);
                 log.info (String.format ("Processed fold %d: training set size = %d; test set size = %d; accuracy = %f",
                                          fold.getIndex(),
@@ -110,8 +116,9 @@ public class Main
                 if ( __cl.hasOption ('d')) log.info (decisionTree.dot());
             }
         }
-
+        
         log.info (eval.toString());
+        
     }
 }
 

@@ -7,6 +7,7 @@
  */
 package tree;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.logging.Logger;
@@ -88,7 +89,6 @@ public class DecisionTree extends Classifier
             // classification for this subtree.
             if ( child == null )
             {
-                log.finest ("No path defined for this instance. Using default classification for this subtree.");
                 break;
             }
             else
@@ -97,8 +97,19 @@ public class DecisionTree extends Classifier
             }
         }
         
-        Classification classification = new Classification (node.getKey());
-        log.fine (String.format ("classify(): classified instance %s as %s", inst.toString(), classification.toString()));
+        Classification classification;
+        if (node.isLeaf())
+        {
+            classification = new Classification (node.getKey());
+        }
+        else
+        {
+            log.finest ("No path defined for this instance. Using default classification for this subtree.");
+            classification = node.getDefaultClassification();
+        }
+        
+        log.fine (String.format ("classify(): classified instance %s as %s", 
+                                 inst.toString(), classification.toString()));
         return classification;
     }
 
@@ -108,6 +119,34 @@ public class DecisionTree extends Classifier
      */
     public RuleSet ruleSet ()
     {
-        return new RuleSet ();
+        RuleSet ruleSet = new RuleSet ();
+        ArrayList<Node> leaves = new ArrayList<Node>();
+
+        // Find all leaves
+        Iterator<Edge> iter = __root.iterator();
+        while ( iter.hasNext() )
+        {
+            Edge edge = iter.next();
+            if (edge.getChild().isLeaf()) leaves.add (edge.getChild());
+        }
+
+        // Find path from each leaf to root
+        for ( Node leaf : leaves )
+        {
+            Rule rule = new Rule (new Classification (leaf.getKey()));
+            Node child = leaf;
+            Node parent = leaf.getParent ();
+            while ( parent != null )
+            {
+                rule.addPrecondition (new Attribute (parent.getKey(),
+                                                     parent.getWeight(child)));
+                child = parent;
+                parent = parent.getParent ();
+            }
+            ruleSet.addRule (rule);
+        }
+
+        ruleSet.setDefaultClassification (__root.getDefaultClassification());
+        return ruleSet;
     }
 }

@@ -97,7 +97,8 @@ public class ID3
                     // Push a stack frame for the next attribute
                     StackFrame sf = new StackFrame (A,
                                                     weight,
-                                                    new Node (Sv.maxInformationGain()),
+                                                    new Node (Sv.maxInformationGain(), 
+                                                              S.getDefaultClassification()),
                                                     Sv.removeAttribute (A.getKey()));
                     log.finest ("\t\tcreateDecisionTree(): pushing stack frame: " + sf.toString());
                     stack.push (sf);
