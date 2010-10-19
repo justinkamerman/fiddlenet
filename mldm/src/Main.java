@@ -32,6 +32,8 @@ public class Main
     CommandLine __cl;
     InstanceSet __instanceSet;
     String [] __attributeNames;
+    int __iterations = 10;
+    int __folds = 5;
 
     private Main ()
     {
@@ -40,6 +42,8 @@ public class Main
         __opt.addOption("f", true, "Data file");
         __opt.addOption("n", true, "Attribute names (csv)");
         __opt.addOption("d", false, "Generate DOT output");
+        __opt.addOption("i", true, "Number of iterations to perform. Default is 10");
+        __opt.addOption("o", true, "Number of folds. Default is 5");
     }
 
      
@@ -62,8 +66,10 @@ public class Main
         try
         {
             __cl = (new BasicParser()).parse (__opt, args); 
-            if ( __cl.hasOption('h')) printUsage("help", 0);
+            if ( __cl.hasOption ('h') ) printUsage ("help", 0);
             if ( __cl.hasOption ('f') ) __dataFile = __cl.getOptionValue ('f');  else printUsage("option -f is required", 1);
+            if ( __cl.hasOption ('i') ) __iterations = Integer.parseInt (__cl.getOptionValue ('i'));
+            if ( __cl.hasOption ('o') ) __folds = Integer.parseInt (__cl.getOptionValue ('o'));
             if ( __cl.hasOption ('n') ) 
             {
                 __attributeNames = __cl.getOptionValue ('n').split (",");
@@ -72,6 +78,11 @@ public class Main
             {
                 __attributeNames = new String[0];
             }
+        }
+        catch (NumberFormatException ex)
+        {
+            printUsage (ex.getMessage(), 1);
+            System.exit (1);
         }
         catch (ParseException ex)
         {
@@ -95,17 +106,17 @@ public class Main
 
         // Test
         Evaluation eval = new Evaluation ();
-        for (int i = 1; i <= 10; i++)
+        for (int i = 1; i <= __iterations; i++)
         {
             log.info ("Starting iteration " + i + " of 10");
-            for (Fold fold :__instanceSet.fold (5))
+            for (Fold fold :__instanceSet.fold (__folds))
             {
                 DecisionTree decisionTree = (new ID3()).createDecisionTree (fold.getTrainingSet());
-                //double accuracy = decisionTree.evaluate (fold.getTestSet());
+                double accuracy = decisionTree.evaluate (fold.getTestSet());
 
-                RuleSet ruleSet = decisionTree.ruleSet();
-                ruleSet.prune (fold.getTrainingSet());
-                double accuracy = ruleSet.evaluate (fold.getTestSet());
+                //RuleSet ruleSet = decisionTree.ruleSet();
+                //ruleSet.prune (fold.getTrainingSet());
+                //double accuracy = ruleSet.evaluate (fold.getTestSet());
 
                 eval.addAccuracy (accuracy);
                 log.info (String.format ("Processed fold %d: training set size = %d; test set size = %d; accuracy = %f",
@@ -114,7 +125,8 @@ public class Main
                                          fold.getTestSet().size(),
                                          accuracy));
                 
-                if ( __cl.hasOption ('d')) log.info (decisionTree.dot());
+                // Dump first decision tree DOT to stdout
+                if ( __cl.hasOption ('d') && i == 1 && fold.getIndex() == 0) System.out.println (decisionTree.dot());
             }
         }
         

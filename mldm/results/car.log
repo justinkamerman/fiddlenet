@@ -1,0 +1,62 @@
+[1:55:01][INFO][Main]: Loaded data from file data/car.data: [size=1728][entropy=1.205741][classificationSet=[[size=4][classifications=[[[good][occurence=69]][[unacc][occurence=1210]][[acc][occurence=384]][[vgood][occurence=65]]]]]][attributes=[[doors][maint][safety][buying][lug_boot][persons]]] 
+[1:55:01][INFO][Main]: Starting iteration 1 of 10 
+[1:55:04][INFO][Main]: Processed fold 0: training set size = 1383; test set size = 345; accuracy = 0.942029 
+[1:55:06][INFO][Main]: Processed fold 1: training set size = 1383; test set size = 345; accuracy = 0.939130 
+[1:55:08][INFO][Main]: Processed fold 2: training set size = 1383; test set size = 345; accuracy = 0.933333 
+[1:55:10][INFO][Main]: Processed fold 3: training set size = 1383; test set size = 345; accuracy = 0.930435 
+[1:55:11][INFO][Main]: Processed fold 4: training set size = 1383; test set size = 345; accuracy = 0.950725 
+[1:55:11][INFO][Main]: Starting iteration 2 of 10 
+[1:55:14][INFO][Main]: Processed fold 0: training set size = 1383; test set size = 345; accuracy = 0.918841 
+[1:55:16][INFO][Main]: Processed fold 1: training set size = 1383; test set size = 345; accuracy = 0.930435 
+[1:55:18][INFO][Main]: Processed fold 2: training set size = 1383; test set size = 345; accuracy = 0.944928 
+[1:55:20][INFO][Main]: Processed fold 3: training set size = 1383; test set size = 345; accuracy = 0.936232 
+[1:55:21][INFO][Main]: Processed fold 4: training set size = 1383; test set size = 345; accuracy = 0.944928 
+[1:55:21][INFO][Main]: Starting iteration 3 of 10 
+[1:55:24][INFO][Main]: Processed fold 0: training set size = 1383; test set size = 345; accuracy = 0.936232 
+[1:55:26][INFO][Main]: Processed fold 1: training set size = 1383; test set size = 345; accuracy = 0.939130 
+[1:55:28][INFO][Main]: Processed fold 2: training set size = 1383; test set size = 345; accuracy = 0.942029 
+[1:55:30][INFO][Main]: Processed fold 3: training set size = 1383; test set size = 345; accuracy = 0.915942 
+[1:55:32][INFO][Main]: Processed fold 4: training set size = 1383; test set size = 345; accuracy = 0.959420 
+[1:55:32][INFO][Main]: Starting iteration 4 of 10 
+[1:55:34][INFO][Main]: Processed fold 0: training set size = 1383; test set size = 345; accuracy = 0.939130 
+[1:55:36][INFO][Main]: Processed fold 1: training set size = 1383; test set size = 345; accuracy = 0.918841 
+[1:55:38][INFO][Main]: Processed fold 2: training set size = 1383; test set size = 345; accuracy = 0.924638 
+[1:55:40][INFO][Main]: Processed fold 3: training set size = 1383; test set size = 345; accuracy = 0.936232 
+[1:55:42][INFO][Main]: Processed fold 4: training set size = 1383; test set size = 345; accuracy = 0.947826 
+[1:55:42][INFO][Main]: Starting iteration 5 of 10 
+[1:55:44][INFO][Main]: Processed fold 0: training set size = 1383; test set size = 345; accuracy = 0.956522 
+[1:55:46][INFO][Main]: Processed fold 1: training set size = 1383; test set size = 345; accuracy = 0.939130 
+[1:55:48][INFO][Main]: Processed fold 2: training set size = 1383; test set size = 345; accuracy = 0.939130 
+[1:55:50][INFO][Main]: Processed fold 3: training set size = 1383; test set size = 345; accuracy = 0.936232 
+[1:55:52][INFO][Main]: Processed fold 4: training set size = 1383; test set size = 345; accuracy = 0.944928 
+[1:55:52][INFO][Main]: Starting iteration 6 of 10 
+[1:55:55][INFO][Main]: Processed fold 0: training set size = 1383; test set size = 345; accuracy = 0.947826 
+[1:55:57][INFO][Main]: Processed fold 1: training set size = 1383; test set size = 345; accuracy = 0.953623 
+[1:55:58][INFO][Main]: Processed fold 2: training set size = 1383; test set size = 345; accuracy = 0.939130 
+[1:56:00][INFO][Main]: Processed fold 3: training set size = 1383; test set size = 345; accuracy = 0.930435 
+[1:56:02][INFO][Main]: Processed fold 4: training set size = 1383; test set size = 345; accuracy = 0.907246 
+[1:56:02][INFO][Main]: Starting iteration 7 of 10 
+[1:56:05][INFO][Main]: Processed fold 0: training set size = 1383; test set size = 345; accuracy = 0.930435 
+[1:56:06][INFO][Main]: Processed fold 1: training set size = 1383; test set size = 345; accuracy = 0.915942 
+[1:56:08][INFO][Main]: Processed fold 2: training set size = 1383; test set size = 345; accuracy = 0.918841 
+[1:56:10][INFO][Main]: Processed fold 3: training set size = 1383; test set size = 345; accuracy = 0.944928 
+[1:56:12][INFO][Main]: Processed fold 4: training set size = 1383; test set size = 345; accuracy = 0.959420 
+[1:56:12][INFO][Main]: Starting iteration 8 of 10 
+[1:56:15][INFO][Main]: Processed fold 0: training set size = 1383; test set size = 345; accuracy = 0.939130 
+[1:56:16][INFO][Main]: Processed fold 1: training set size = 1383; test set size = 345; accuracy = 0.924638 
+[1:56:18][INFO][Main]: Processed fold 2: training set size = 1383; test set size = 345; accuracy = 0.947826 
+[1:56:20][INFO][Main]: Processed fold 3: training set size = 1383; test set size = 345; accuracy = 0.956522 
+[1:56:22][INFO][Main]: Processed fold 4: training set size = 1383; test set size = 345; accuracy = 0.933333 
+[1:56:22][INFO][Main]: Starting iteration 9 of 10 
+[1:56:25][INFO][Main]: Processed fold 0: training set size = 1383; test set size = 345; accuracy = 0.942029 
+[1:56:26][INFO][Main]: Processed fold 1: training set size = 1383; test set size = 345; accuracy = 0.915942 
+[1:56:28][INFO][Main]: Processed fold 2: training set size = 1383; test set size = 345; accuracy = 0.921739 
+[1:56:30][INFO][Main]: Processed fold 3: training set size = 1383; test set size = 345; accuracy = 0.936232 
+[1:56:32][INFO][Main]: Processed fold 4: training set size = 1383; test set size = 345; accuracy = 0.936232 
+[1:56:32][INFO][Main]: Starting iteration 10 of 10 
+[1:56:35][INFO][Main]: Processed fold 0: training set size = 1383; test set size = 345; accuracy = 0.939130 
+[1:56:36][INFO][Main]: Processed fold 1: training set size = 1383; test set size = 345; accuracy = 0.950725 
+[1:56:38][INFO][Main]: Processed fold 2: training set size = 1383; test set size = 345; accuracy = 0.933333 
+[1:56:40][INFO][Main]: Processed fold 3: training set size = 1383; test set size = 345; accuracy = 0.947826 
+[1:56:42][INFO][Main]: Processed fold 4: training set size = 1383; test set size = 345; accuracy = 0.933333 
+[1:56:42][INFO][Main]: [tests=50][mean accuracy=0.937043][standard deviation=0.012022] 

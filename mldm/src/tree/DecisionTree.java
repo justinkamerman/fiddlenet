@@ -81,7 +81,7 @@ public class DecisionTree extends Classifier
 
         while ( ! node.isLeaf () )
         {            
-            Attribute attr = inst.getAttribute (node.getKey());
+            Attribute attr = inst.getAttribute (node.getKey());            
             Node child = node.getChild (attr.getValue());
             log.finest ("classify(): examining attribute " + attr.toString());
 

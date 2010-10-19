@@ -62,7 +62,10 @@ public class Rule extends Classifier
     
     public void prune (InstanceSet validationSet)
     {
+        // Establish base accuracy
         __accuracy = evaluate (validationSet);
+
+        // 
     }
 
 

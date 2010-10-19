@@ -40,7 +40,8 @@ public class AttributeSet
         if ( UNKNOWN.equals (val) )
         {
             attr = getDefault (key);
-            log.fine (String.format ("getAttribute (%s, %s): value missing. Using default.", key.toString(), val.toString())); 
+            log.fine (String.format ("getAttribute (%s, %s): value missing. Using default %s", 
+                                     key.toString(), val.toString(), attr.toString())); 
         }
         else 
         {      
@@ -57,6 +58,7 @@ public class AttributeSet
                     // Value is unseen, add.
                     attr = new Attribute (key, val);
                     valueMap.put (val, attr);
+                    log.finest (String.format ("getAttribute (): added new value %s", attr.toString()));
                 }
             }
             else
@@ -66,9 +68,10 @@ public class AttributeSet
                 attr = new Attribute (key, val);
                 valueMap.put (val, attr);
                 __keyMap.put (key, valueMap);
+                log.finest (String.format ("getAttribute (): added new attribute %s", attr.toString()));
             }
             attr.incrRef ();
-            updateDefault (attr);
+            updateDefault (attr.getKey());
         }
 
         return attr;
@@ -126,6 +129,8 @@ public class AttributeSet
      */
     public void updateDefault (Object key)
     {
+        log.finest ("updateDefault (" + key.toString() + ")");
+
         // Find most frequently occurring value of this attribute
         int maxRef = 0;
         Attribute def = null;
@@ -136,6 +141,7 @@ public class AttributeSet
         {
             for ( Attribute attr : valueMap.values() )
             {
+                log.finest ("updateDefault (" + key.toString() + "): processing attribute " + attr.toString());
                 if ( attr.getRef() > maxRef )
                 {
                     maxRef = attr.getRef();
