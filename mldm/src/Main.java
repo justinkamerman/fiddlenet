@@ -104,8 +104,9 @@ public class Main
         }
         log.info ("Loaded data from file " + __dataFile + ": " + __instanceSet.toString());
 
-        // Test
+        // Fold data and evaluate
         Evaluation eval = new Evaluation ();
+        Evaluation prunedEval = new Evaluation ();
         for (int i = 1; i <= __iterations; i++)
         {
             log.info ("Starting iteration " + i + " of 10");
@@ -113,25 +114,26 @@ public class Main
             {
                 DecisionTree decisionTree = (new ID3()).createDecisionTree (fold.getTrainingSet());
                 double accuracy = decisionTree.evaluate (fold.getTestSet());
-
-                //RuleSet ruleSet = decisionTree.ruleSet();
-                //ruleSet.prune (fold.getTrainingSet());
-                //double accuracy = ruleSet.evaluate (fold.getTestSet());
-
                 eval.addAccuracy (accuracy);
-                log.info (String.format ("Processed fold %d: training set size = %d; test set size = %d; accuracy = %f",
+
+                RuleSet ruleSet = decisionTree.ruleSet();
+                ruleSet.prune (fold.getTrainingSet());
+                double prunedAccuracy = ruleSet.evaluate (fold.getTestSet());
+                prunedEval.addAccuracy (prunedAccuracy);
+                
+                log.info (String.format ("Processed fold %d: training set size = %d; test set size = %d; accuracy = %f; pruned_accuracy = %f",
                                          fold.getIndex(),
                                          fold.getTrainingSet().size(),
                                          fold.getTestSet().size(),
-                                         accuracy));
-                
+                                         accuracy,
+                                         prunedAccuracy));
+
                 // Dump first decision tree DOT to stdout
                 if ( __cl.hasOption ('d') && i == 1 && fold.getIndex() == 0) System.out.println (decisionTree.dot());
             }
         }
         
-        log.info (eval.toString());
-        
+        log.info ("\n\nTest Results\n\nID3:\t\t" + eval.toString() + "\nPost-pruned:\t" + prunedEval.toString());
     }
 }
 

@@ -72,11 +72,11 @@ public class RuleSet extends Classifier implements Comparator<Rule>
     
     public int compare (Rule a, Rule b)
     {
-        if (a.getAccuracy() > b.getAccuracy())
+        if (a.getAccuracy() < b.getAccuracy())
         {
             return 1;
         }
-        else if (a.getAccuracy() < b.getAccuracy())
+        else if (a.getAccuracy() > b.getAccuracy())
         {
             return -1;
         }

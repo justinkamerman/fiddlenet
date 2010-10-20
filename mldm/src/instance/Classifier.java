@@ -27,7 +27,7 @@ public abstract class Classifier
         for ( Instance inst : instSet )
         {
             Classification classification = classify (inst);
-            if ( classification.equals (inst.getClassification()) )
+            if ( classification != null && classification.equals (inst.getClassification()) )
             {
                 correct++;
             }

@@ -4,6 +4,7 @@
     <property name="src" location="src"/>
     <property name="build" location="build"/>
     <property name="dist"  location="dist"/>
+    <property name="results"  location="results"/>
     <property name="thirdparty"  location="thirdparty"/>
 
 	<path id="build.classpath">
@@ -29,6 +30,14 @@
 
     <target name="clean">
         <delete dir="${build}"/>
-        <delete dir="${dist}"/>
+        <!--<delete dir="${dist}"/>-->
+    </target>
+
+    <target name="report">
+        <exec executable="pdflatex" dir="${results}">
+            <arg value="--interaction"/>
+            <arg value="nonstopmode"/>
+            <arg value="report.tex"/>
+        </exec>
     </target>
 </project>
