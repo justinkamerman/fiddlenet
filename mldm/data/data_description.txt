@@ -1,6 +1,6 @@
 Data Set Descriptions
 ---------------------
-Program expexts data in CSV format with attributes occuring first and
+Program expects data in CSV format with attributes occuring first and
 classification at the end of each line. All data files have been
 preprocessed to fit this format.
 
