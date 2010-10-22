@@ -1,9 +1,9 @@
  /**
- * $Id: AttributeSet.java 15 2010-10-11 16:16:32Z justinkamerman $ 
+ * $Id$ 
  *
- * $LastChangedDate: 2010-10-11 13:16:32 -0300 (Mon, 11 Oct 2010) $ 
+ * $LastChangedDate$ 
  * 
- * $LastChangedBy: justinkamerman $
+ * $LastChangedBy$
  */
 package tree;
 
