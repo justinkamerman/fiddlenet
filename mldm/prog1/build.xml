@@ -6,6 +6,7 @@
     <property name="dist"  location="dist"/>
     <property name="results"  location="results"/>
     <property name="thirdparty"  location="thirdparty"/>
+    <property name="submit"  location="submit.tar.gz"/>
 
 	<path id="build.classpath">
 		<fileset dir="${thirdparty}">
@@ -28,10 +29,24 @@
         <jar jarfile="${dist}/${ant.project.name}.jar" basedir="${build}"/>
     </target>
 
+    <target name="submit" depends="dist">
+        <tar destfile="${submit}" compression="gzip">
+            <tarfileset dir=".">
+                <include name="build.xml"/>
+                <include name="run.sh"/>
+                <include name="logging.properties"/>
+                <include name="**/*.java"/>
+                <include name="**/*.jar"/>
+                <include name="**/*.data"/>
+            </tarfileset>
+        </tar>
+    </target>
+
     <target name="clean">
         <delete dir="${build}"/>
         <delete dir="${dist}"/>
         <delete file="texput.log"/>
+        <delete file="${submit}"/>
         <delete file="${results}/report.log"/>
         <delete file="${results}/report.aux"/>
         <delete file="${results}/report.bbl"/>
