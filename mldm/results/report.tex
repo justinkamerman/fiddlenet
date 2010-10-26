@@ -65,10 +65,10 @@ Initially, the decision trees constructed were unable to complete a
 classification if the instance being classified encoded a path not
 encountered in the training data i.e. no edge exists with value
 matching instance attribute. To accomodate this scenario, when a new
-attribute node is added to the tree, the most probable value of the
-attribute within the training subset is stored in the node. During
-classification, if no explicit edge exists matching an attribute
-value, the default is used so that evaluation can continue.
+attribute node is added to the tree, the most probable classification
+within the training subset is stored in the node. During
+classification, if no explicit edge exists matching an attribute  
+value, the default classification is returned.
 
 Missing attribute values are handled by preprocessing data sets,
 replacing missing attribute value with the most probable value for the
@@ -83,22 +83,22 @@ Initially, the original training set used by ID3 was reused for post
 rule pruning. However the training set is biased towards the rule
 chain and does not give accurate error estimates required for useful
 pruning ~\cite{Frank2000}. This is consistent with our results, most
-cases seeing a marginal reduction in accuracy. Only one case,
-ecoli.data, saw an improvement in accuracy but not to pracitical
+cases seeing a reduction in accuracy. Only one case,
+ecoli.data, saw an improvement in accuracy but not to practical
 levels of confidence.
 
 Further pruning attempts were made using a separate pruning data set,
 a technique called \textit{reduced-error pruning}. A portion of the training
 data (25\% - 50\%) was held back for these purposes. Once again, all
-but the ecoli.data saw marginal reductions in accuracy, comparable to
-the first pruning attemps. This technique had the disadvantage of
+but the ecoli.data saw reductions in accuracy, comparable to
+the first pruning attempts. This technique had the disadvantage of
 reducing the amount of training data available to ID3 for tree
 construction ~\cite{Frank2000}.
 
 From review of literature on the topic, it appears
 that the success of decision tree pruning depends largely on the
 ability to accurately estimate the error of a particular subtree or
-rule. Based on error estimation, rules or nodes will be retained or
+rule. Based on error estimates, rules or nodes will be retained or
 removed from the target hypothesis. The C4.5 decision tree algorithm,
 a derivative of ID3, uses a statistical pessimistic error estimate
 based on a selected confidence level. While only a heuristic and based
@@ -111,7 +111,7 @@ such a scheme to improve error estimates.
 % Data Sets
 %----------------------------------------
 \section{Data Sets}
-Program expects data in CSV format with attributes occuring first and
+Program expects data in CSV format with attributes occurring first and
 classification at the end of each line. All data files have been
 preprocessed to fit this format.
 
@@ -121,7 +121,7 @@ preprocessed to fit this format.
 \item Number of Instances: 1728
 \item Number of Attributes: 6
 \item Attribute Values:
-  \\
+  \\\\
   \begin{left}
     \begin{tabular}{ l l }
       buying     & v-high, high, med, low \\
@@ -135,7 +135,7 @@ preprocessed to fit this format.
   \\
 \item Missing Attribute Values: none
 \item Class Distribution (number of instances per class)
-  \\
+  \\\\
   \begin{left}
     \begin{tabular}{ l l }
       unacc   &  1210 \\
@@ -152,7 +152,7 @@ preprocessed to fit this format.
 \item Number of Instances:  336
 \item Number of Attributes: 7 
 \item Attribute Values:
-  \\
+  \\\\
   \begin{left}
     \begin{tabular}{ l p{10cm} }
       mcg  &   McGeoch's method for signal sequence recognition. \\
@@ -167,7 +167,7 @@ preprocessed to fit this format.
   \\   
 \item Missing Attribute Values: none.
 \item Class Distribution (number of instances per class)
-  \\
+  \\\\
   \begin{left}
     \begin{tabular}{ l l }
       cp    &      143 \\
@@ -188,7 +188,7 @@ preprocessed to fit this format.
 \item Number of Instances: 8124
 \item Number of Attributes: 22
 \item Attribute Information:
-  \\
+  \\\\
   \begin{left}
     \begin{tabular}{ l p{10cm} }
       cap-shape                 &     bell=b, conical=c, convex=x, flat=f, knobbed=k, sunken=s \\
@@ -218,7 +218,7 @@ preprocessed to fit this format.
 
 \item Missing Attribute Values: 2480, all for attribute #11.
 \item Class Distribution: 
-  \\
+  \\\\
   \begin{left}
     \begin{tabular}{ l l }
       edible:     &  4208 (51.8\%) \\
@@ -234,7 +234,7 @@ preprocessed to fit this format.
 \item Number of Instances: 20000
 \item Number of Attributes: 17 (Letter category and 16 numeric features)
 \item Attribute Information:
-  \\
+  \\\\
   \begin{left}
     \begin{tabular}{ l p{10cm} }
       lettr	   &    capital letter	(26 values from A to Z) \\
@@ -256,11 +256,10 @@ preprocessed to fit this format.
       yegvx	   &    correlation of y-ege with x	(integer) \\
     \end{tabular}
   \end{left}
-\end{itemize}
 
 \item Missing Attribute Values: None
 \item Class Distribution:
-  \\
+  \\\\
   \begin{left}
     \begin{tabular}{ l l l l l l l }
  	789 A	   & 766 B     & 736 C     & 805 D	 & 768 E	   & 775 F     & 773 G \\
@@ -277,7 +276,7 @@ preprocessed to fit this format.
 \item Number of Instances: 699
 \item Number of Attributes: 10
 \item Attribute Information: (class attribute has been moved to last column)
-  \\
+  \\\\
   \begin{left}
     \begin{tabular}{ l l }
       Clump Thickness               &  1 - 10  \\
@@ -294,7 +293,7 @@ preprocessed to fit this format.
 
 \item Missing attribute values: 16
 \item Class distribution: (2 for benign, 4 for malignant)
-  \\
+  \\\\
   \begin{left}
     \begin{tabular}{ l l }
       Benign       &  458 (65.5\%) \\
@@ -323,7 +322,7 @@ operated from the command line, taking options listed in table
     -f \<arg\>  &  Path of data file \\ \hline
     -i \<arg\>  &  Number of iterations to perform. Default is 10 \\ \hline
     -n \<arg\>  &  A comma-separated list of attribute names, matching
-    the order in which they appear in the dats file \\ \hline
+    the order in which they appear in the data file \\ \hline
     -o \<arg\>  &  Number of folds to create in the training data during. Default is 5. \\ \hline
     -h          &  Print help message \\ \hline
   \end{tabular}
@@ -334,30 +333,29 @@ operated from the command line, taking options listed in table
 The program parses a data file, assumed to contain a set of training
 instances on each line. Each training instance line is a
 comma-separated list of attribute values terminated by a
-classification or target value. Of the trainign data supplied for the
+classification or target value. Of the training data supplied for the
 assignment, some had to be preprocessed to fit the expected format.
 
-The program then executes a numer of iterations (default is 10) over
+The program then executes a number of iterations (default is 10) over
 the entire data set. During each iteration, the data set is folded
 (default is 5 times), the training set used to create a decision
 tree. The decision tree is then pruned. The details of the pruning
 methodology are described in section ~\ref{sec:results}. The instances
 in the test set are then evaluated by the decision tree and the pruned
 rule set. The accuracy of the classifications is recorded for each
-test set recorded. After the final iteration is complete, the mean
+test set evaluated. After the final iteration is complete, the mean
 accuracy and standard deviation are calculated and output by the
 program.
 
 The program implements various mechanism to facilitate
 debugging. Throughout the code, log statements have been added using
 the Java logging framework. The logging output is controlled for
-individual classes via the logging.properties file which the program
+individual classes via the \textit{logging.properties} file which the program
 read on startup. In addition to logging, code was added to generate
 Graphviz DOT (described in ~\cite{Graphviz2001}) output representing
 the decision tree created. This output can be rendered using Graphviz
-dot tool. An sample dot file for generated for the mushroom.data data
-set is shown below. The associated image generated by dot in Figure
-\ref{fig:dot}.
+dot tool. An sample dot file for the mushroom.data data set is shown
+below. The associated image generated by dot in Figure \ref{fig:dot}.
 
 
 \begin{verbatim}
@@ -445,22 +443,23 @@ description of each class:
 \begin{itemize}
 \item \textbf{Attribute} represents an attribute's name and value.
 
-\item \textbf{AttributeSet} a collection of attributes. Has
-  convenience functions to determine attribute value range and probabilities
-  of discrete values.
+\item \textbf{AttributeSet} is a collection of attributes. It has
+  convenience functions to determine attribute value range and
+  probabilities of discrete values.
 
 \item \textbf{Classification} represents an instance's classification
   or the value of the target function.
 
-\item \textbf{ClassificationSet} a collection of classifications. Has
-  convenience functions to determine classification value range and
-  probabilites of each classification. These functions are used
-  extensively during the entropy caluculation.
+\item \textbf{ClassificationSet} is a collection of
+  classifications. It has convenience functions to determine
+  classification value range and probabilities of each
+  classification. These functions are used extensively during the
+  entropy calculation. 
 
 \item \textbf{Classifier} is an interface implemented by any class
   which can take an instance and generate a classification for that
-  instance. The interface is implemented by the DecisionTree, Rule,
-  and RuleSet classes.
+  instance. The interface is implemented by the \textit{DecisionTree},
+  \textit{Rule}, and \textit{RuleSet} classes.
 
 \item \textbf{DecisionTree} represents the decision tree constructed
   by the ID3 algorithm. It consists of a root node, representing the
@@ -475,7 +474,7 @@ description of each class:
 \item \textbf{Evaluation} is a helper class for capturing test run
   accuracies and calculating final mean and standard deviation values.
 
-\item \textbf{Fold} is an encapsulation of a training set and a test
+\item \textbf{Fold} is an encapsulation of a training and a test set.
  
 \item \textbf{ID3} implements the ID3 decision tree construction
   algorithm. It uses an application stack to model the recursive
@@ -485,15 +484,15 @@ description of each class:
   capacity limits the recusive depth of the algorithm.
 
 \item \textbf{Instance} represents a collection of attributes and
-  their calssification. In the case of training data, we use the
+  their classification. In the case of training data, we use the
   classification to select the target hypothesis. In the case of test
   data, the classification is used to validate output of the target
   hypothesis.
 
-\item \textbf{InstanceSet} is a collection of Instances. This is the
+\item \textbf{InstanceSet} is a collection of \textit{Instances}. This is the
   class that parses the data file and generates individual
   Instances. Functions exist to calculate entropy and information
-  gain, create a subset of instance based on a particular attreibute's
+  gain, create a subset of instance based on a particular attribute's
   value and fold the set of instances to create test and training sets
   of instances.
 
@@ -504,7 +503,7 @@ description of each class:
 
 \item \textbf{Node} represents a node in a decision tree. Each node is
   associated with either a particular attribute or classification
-  depedning on whether the node is an internal or leaf
+  depending on whether the node is an internal or leaf
   respectively. Internal nodes are associated with a default
   classification. This classification is the classification with the
   the highest probability in the instance subset associated with the
@@ -513,7 +512,7 @@ description of each class:
   path matching the instance's attribute values may not have been
   created during training. 
 
-\item \textbf{Rule} represents a conjunctive classifcation rule with
+\item \textbf{Rule} represents a conjunctive classification rule with
   an arbitrary number of attribute preconditions and a classification
   postcondition. The classification interface will return the
   postcondition if a given instance's attributes matches the
