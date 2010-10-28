@@ -1,8 +1,8 @@
-# $Id: run.sh 17 2010-08-02 20:05:09Z justin.kamerman $ 
+# $Id$ 
 # 
-# $LastChangedDate: 2010-08-02 17:05:09 -0300 (Mon, 02 Aug 2010) $ 
+# $LastChangedDate$ 
 # 
-# $LastChangedBy: justin.kamerman $ 
+# $LastChangedBy$ 
 #
 SHELL = /bin/sh
 LATEX = /usr/bin/latex
