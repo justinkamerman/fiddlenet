@@ -1,0 +1,67 @@
+[1:59:57][INFO][Main]: Loaded data from file data/ecoli.data: [size=336][entropy=2.188746][classificationSet=[[size=8][classifications=[[[imS][occurence=2]][[cp][occurence=143]][[imL][occurence=2]][[om][occurence=20]][[omL][occurence=5]][[pp][occurence=52]][[im][occurence=77]][[imU][occurence=35]]]]]][attributes=[[chg][aac][lip][gvh][alm1][mcg][alm2]]] 
+[1:59:57][INFO][Main]: Starting iteration 1 of 10 
+[1:59:59][INFO][Main]: Processed fold 0: training set size = 269; test set size = 67; accuracy = 0.313433; pruned_accuracy = 0.343284 
+[2:00:00][INFO][Main]: Processed fold 1: training set size = 269; test set size = 67; accuracy = 0.313433; pruned_accuracy = 0.522388 
+[2:00:01][INFO][Main]: Processed fold 2: training set size = 269; test set size = 67; accuracy = 0.432836; pruned_accuracy = 0.477612 
+[2:00:02][INFO][Main]: Processed fold 3: training set size = 269; test set size = 67; accuracy = 0.343284; pruned_accuracy = 0.388060 
+[2:00:03][INFO][Main]: Processed fold 4: training set size = 269; test set size = 67; accuracy = 0.343284; pruned_accuracy = 0.507463 
+[2:00:03][INFO][Main]: Starting iteration 2 of 10 
+[2:00:05][INFO][Main]: Processed fold 0: training set size = 269; test set size = 67; accuracy = 0.313433; pruned_accuracy = 0.179104 
+[2:00:06][INFO][Main]: Processed fold 1: training set size = 269; test set size = 67; accuracy = 0.358209; pruned_accuracy = 0.432836 
+[2:00:07][INFO][Main]: Processed fold 2: training set size = 269; test set size = 67; accuracy = 0.447761; pruned_accuracy = 0.462687 
+[2:00:08][INFO][Main]: Processed fold 3: training set size = 269; test set size = 67; accuracy = 0.432836; pruned_accuracy = 0.477612 
+[2:00:08][INFO][Main]: Processed fold 4: training set size = 269; test set size = 67; accuracy = 0.477612; pruned_accuracy = 0.552239 
+[2:00:08][INFO][Main]: Starting iteration 3 of 10 
+[2:00:11][INFO][Main]: Processed fold 0: training set size = 269; test set size = 67; accuracy = 0.417910; pruned_accuracy = 0.417910 
+[2:00:11][INFO][Main]: Processed fold 1: training set size = 269; test set size = 67; accuracy = 0.328358; pruned_accuracy = 0.402985 
+[2:00:12][INFO][Main]: Processed fold 2: training set size = 269; test set size = 67; accuracy = 0.373134; pruned_accuracy = 0.179104 
+[2:00:13][INFO][Main]: Processed fold 3: training set size = 269; test set size = 67; accuracy = 0.402985; pruned_accuracy = 0.432836 
+[2:00:14][INFO][Main]: Processed fold 4: training set size = 269; test set size = 67; accuracy = 0.417910; pruned_accuracy = 0.462687 
+[2:00:14][INFO][Main]: Starting iteration 4 of 10 
+[2:00:16][INFO][Main]: Processed fold 0: training set size = 269; test set size = 67; accuracy = 0.388060; pruned_accuracy = 0.432836 
+[2:00:17][INFO][Main]: Processed fold 1: training set size = 269; test set size = 67; accuracy = 0.358209; pruned_accuracy = 0.522388 
+[2:00:18][INFO][Main]: Processed fold 2: training set size = 269; test set size = 67; accuracy = 0.373134; pruned_accuracy = 0.447761 
+[2:00:19][INFO][Main]: Processed fold 3: training set size = 269; test set size = 67; accuracy = 0.373134; pruned_accuracy = 0.567164 
+[2:00:20][INFO][Main]: Processed fold 4: training set size = 269; test set size = 67; accuracy = 0.343284; pruned_accuracy = 0.492537 
+[2:00:20][INFO][Main]: Starting iteration 5 of 10 
+[2:00:22][INFO][Main]: Processed fold 0: training set size = 269; test set size = 67; accuracy = 0.313433; pruned_accuracy = 0.328358 
+[2:00:22][INFO][Main]: Processed fold 1: training set size = 269; test set size = 67; accuracy = 0.477612; pruned_accuracy = 0.582090 
+[2:00:23][INFO][Main]: Processed fold 2: training set size = 269; test set size = 67; accuracy = 0.417910; pruned_accuracy = 0.507463 
+[2:00:24][INFO][Main]: Processed fold 3: training set size = 269; test set size = 67; accuracy = 0.462687; pruned_accuracy = 0.402985 
+[2:00:25][INFO][Main]: Processed fold 4: training set size = 269; test set size = 67; accuracy = 0.358209; pruned_accuracy = 0.477612 
+[2:00:25][INFO][Main]: Starting iteration 6 of 10 
+[2:00:27][INFO][Main]: Processed fold 0: training set size = 269; test set size = 67; accuracy = 0.328358; pruned_accuracy = 0.208955 
+[2:00:28][INFO][Main]: Processed fold 1: training set size = 269; test set size = 67; accuracy = 0.283582; pruned_accuracy = 0.522388 
+[2:00:29][INFO][Main]: Processed fold 2: training set size = 269; test set size = 67; accuracy = 0.477612; pruned_accuracy = 0.432836 
+[2:00:30][INFO][Main]: Processed fold 3: training set size = 269; test set size = 67; accuracy = 0.388060; pruned_accuracy = 0.477612 
+[2:00:31][INFO][Main]: Processed fold 4: training set size = 269; test set size = 67; accuracy = 0.388060; pruned_accuracy = 0.492537 
+[2:00:31][INFO][Main]: Starting iteration 7 of 10 
+[2:00:33][INFO][Main]: Processed fold 0: training set size = 269; test set size = 67; accuracy = 0.313433; pruned_accuracy = 0.417910 
+[2:00:34][INFO][Main]: Processed fold 1: training set size = 269; test set size = 67; accuracy = 0.358209; pruned_accuracy = 0.373134 
+[2:00:35][INFO][Main]: Processed fold 2: training set size = 269; test set size = 67; accuracy = 0.507463; pruned_accuracy = 0.582090 
+[2:00:35][INFO][Main]: Processed fold 3: training set size = 269; test set size = 67; accuracy = 0.417910; pruned_accuracy = 0.507463 
+[2:00:36][INFO][Main]: Processed fold 4: training set size = 269; test set size = 67; accuracy = 0.373134; pruned_accuracy = 0.298507 
+[2:00:36][INFO][Main]: Starting iteration 8 of 10 
+[2:00:39][INFO][Main]: Processed fold 0: training set size = 269; test set size = 67; accuracy = 0.343284; pruned_accuracy = 0.447761 
+[2:00:39][INFO][Main]: Processed fold 1: training set size = 269; test set size = 67; accuracy = 0.402985; pruned_accuracy = 0.537313 
+[2:00:40][INFO][Main]: Processed fold 2: training set size = 269; test set size = 67; accuracy = 0.328358; pruned_accuracy = 0.388060 
+[2:00:41][INFO][Main]: Processed fold 3: training set size = 269; test set size = 67; accuracy = 0.492537; pruned_accuracy = 0.477612 
+[2:00:42][INFO][Main]: Processed fold 4: training set size = 269; test set size = 67; accuracy = 0.388060; pruned_accuracy = 0.268657 
+[2:00:42][INFO][Main]: Starting iteration 9 of 10 
+[2:00:44][INFO][Main]: Processed fold 0: training set size = 269; test set size = 67; accuracy = 0.283582; pruned_accuracy = 0.537313 
+[2:00:45][INFO][Main]: Processed fold 1: training set size = 269; test set size = 67; accuracy = 0.328358; pruned_accuracy = 0.447761 
+[2:00:46][INFO][Main]: Processed fold 2: training set size = 269; test set size = 67; accuracy = 0.462687; pruned_accuracy = 0.134328 
+[2:00:47][INFO][Main]: Processed fold 3: training set size = 269; test set size = 67; accuracy = 0.507463; pruned_accuracy = 0.388060 
+[2:00:48][INFO][Main]: Processed fold 4: training set size = 269; test set size = 67; accuracy = 0.388060; pruned_accuracy = 0.507463 
+[2:00:48][INFO][Main]: Starting iteration 10 of 10 
+[2:00:50][INFO][Main]: Processed fold 0: training set size = 269; test set size = 67; accuracy = 0.417910; pruned_accuracy = 0.477612 
+[2:00:51][INFO][Main]: Processed fold 1: training set size = 269; test set size = 67; accuracy = 0.373134; pruned_accuracy = 0.537313 
+[2:00:52][INFO][Main]: Processed fold 2: training set size = 269; test set size = 67; accuracy = 0.388060; pruned_accuracy = 0.492537 
+[2:00:53][INFO][Main]: Processed fold 3: training set size = 269; test set size = 67; accuracy = 0.343284; pruned_accuracy = 0.283582 
+[2:00:54][INFO][Main]: Processed fold 4: training set size = 269; test set size = 67; accuracy = 0.373134; pruned_accuracy = 0.402985 
+[2:00:54][INFO][Main]: 
+
+Test Results
+
+ID3:		[tests=50][mean accuracy=0.384776][standard deviation=0.057519]
+Post-pruned:	[tests=50][mean accuracy=0.432836][standard deviation=0.104691] 
