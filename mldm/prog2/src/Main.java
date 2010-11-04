@@ -15,12 +15,11 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import algorithm.ID3;
+import algorithm.NaiveBayes;
+import bayes.NaiveBayesClassifier;
 import instance.Fold;
 import instance.Instance;
 import instance.InstanceSet;
-import tree.DecisionTree;
-import tree.RuleSet;
 import util.Evaluation;
 
 
@@ -41,7 +40,6 @@ public class Main
         __opt.addOption("h", false, "Print help");
         __opt.addOption("f", true, "Data file");
         __opt.addOption("n", true, "Attribute names (csv)");
-        __opt.addOption("d", false, "Generate DOT output");
         __opt.addOption("i", true, "Number of iterations to perform. Default is 10");
         __opt.addOption("o", true, "Number of folds. Default is 5");
     }
@@ -103,37 +101,29 @@ public class Main
             System.exit (1);
         }
         log.info ("Loaded data from file " + __dataFile + ": " + __instanceSet.toString());
+        NaiveBayesClassifier classifier= (new NaiveBayes()).createClassifier (__instanceSet);
 
         // Fold data and evaluate
-        Evaluation eval = new Evaluation ();
-        Evaluation prunedEval = new Evaluation ();
-        for (int i = 1; i <= __iterations; i++)
-        {
-            log.info ("Starting iteration " + i + " of 10");
-            for (Fold fold :__instanceSet.fold (__folds))
-            {
-                DecisionTree decisionTree = (new ID3()).createDecisionTree (fold.getTrainingSet());
-                double accuracy = decisionTree.evaluate (fold.getTestSet());
-                eval.addAccuracy (accuracy);
-
-                RuleSet ruleSet = decisionTree.ruleSet();
-                ruleSet.prune (fold.getTrainingSet());
-                double prunedAccuracy = ruleSet.evaluate (fold.getTestSet());
-                prunedEval.addAccuracy (prunedAccuracy);
-                
-                log.info (String.format ("Processed fold %d: training set size = %d; test set size = %d; accuracy = %f; pruned_accuracy = %f",
-                                         fold.getIndex(),
-                                         fold.getTrainingSet().size(),
-                                         fold.getTestSet().size(),
-                                         accuracy,
-                                         prunedAccuracy));
-
-                // Dump first decision tree DOT to stdout
-                if ( __cl.hasOption ('d') && i == 1 && fold.getIndex() == 0) System.out.println (decisionTree.dot());
-            }
-        }
-        
-        log.info ("\n\nTest Results\n\nID3:\t\t" + eval.toString() + "\nPost-pruned:\t" + prunedEval.toString());
+        //Evaluation eval = new Evaluation ();
+        //for (int i = 1; i <= __iterations; i++)
+        //{
+        //    log.info ("Starting iteration " + i + " of 10");
+        //    for (Fold fold :__instanceSet.fold (__folds))
+        //    {
+        //        NaiveBayesClassifier classifier= (new NaiveBayes()).createClassifier (fold.getTrainingSet());
+        //        /double accuracy = classifier.evaluate (fold.getTestSet());
+        //        eval.addAccuracy (accuracy);
+        //        
+        //        log.info (String.format ("Processed fold %d: training set size = %d; test set size = %d; accuracy = %f; pruned_accuracy = %f",
+        //                                 fold.getIndex(),
+        //                                 fold.getTrainingSet().size(),
+        //                                 fold.getTestSet().size(),
+        //                                 accuracy));
+        //
+        //    }
+        //}
+        //
+        //log.info ("\n\nTest Results\n\nID3:\t\t" + eval.toString());
     }
 }
 
