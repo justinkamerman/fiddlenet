@@ -130,10 +130,8 @@ public class InstanceSet implements Iterable<Instance>
     public void addInstance (Instance inst)
     {
         ArrayList<Attribute> attrs = new ArrayList<Attribute>();
-        Iterator<Attribute> iter = inst.getAttributeIterator ();
-        while ( iter.hasNext() )
+        for ( Attribute attr : inst )
         {
-            Attribute attr = iter.next ();
             attrs.add ( __attrSet.getAttribute ( attr.getKey(), attr.getValue() ) );
         }
 

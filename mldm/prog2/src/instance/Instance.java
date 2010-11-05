@@ -12,7 +12,7 @@ import java.util.Iterator;
 import java.util.logging.Logger;
 
 
-public class Instance 
+public class Instance implements Iterable<Attribute>
 {
     private static Logger log = Logger.getLogger (Instance.class.getName());
     Classification __classification;
@@ -50,7 +50,7 @@ public class Instance
     }
 
 
-    public Iterator<Attribute> getAttributeIterator ()
+    public Iterator<Attribute> iterator ()
     {
         return __attrs.iterator ();
     }

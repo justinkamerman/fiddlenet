@@ -1,7 +1,7 @@
 Sunny,Yes,Rich,Cinema
 Sunny,No,Rich,Tennis
 Windy,Yes,Rich,Cinema
-Rainy,?,Poor,Cinema
+Rainy,Yes,Poor,Cinema
 Rainy,No,Rich,Stay in
 Rainy,Yes,Poor,Cinema
 Windy,No,Poor,Cinema
