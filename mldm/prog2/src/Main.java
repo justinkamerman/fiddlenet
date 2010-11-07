@@ -127,7 +127,7 @@ public class Main
         }
         
         log.info ("\n\nTest Results\n\nNaive Bayes:\t\t" + eval.toString());
-        System.out.println (String.format("%s,%s,%s", eval.mean(), eval.standardDeviation(), __m));
+        System.out.println (String.format("%s %s", __m, eval.mean()));
     }
 }
 
