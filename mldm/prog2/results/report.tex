@@ -8,10 +8,11 @@
 
 \documentclass[10pt]{report}
 \usepackage{graphicx}
+\usepackage{amsmath}
 \usepackage{setspace}			
 \onehalfspacing
 
-\title{CS6735 Programming Assignment 1}
+\title{CS6735 Programming Assignment 2}
 \author{Justin Kamerman 3335272}
 \date{\today}
 
@@ -25,12 +26,13 @@
 %----------------------------------------
 \section{Assignment}
 \begin{enumerate} 
-\item Implement ID3 algorithm using Java. Evaluate your implementation
+\item Implement Na\"{\i}ve Bayes using Java. Evaluate your implementation
   on the datasets in data.zip using 10 times 5-fold cross-validation,
   and report the average accuracy and standard deviation. All datasets
   are for UCI machine learning repository. You can check the detailed
   descriptions from the following link: 
-  http://www.ics.uci.edu/~mlearn/MLRepository.html
+ 
+http://www.ics.uci.edu/~mlearn/MLRepository.html
 
 For breast cancer data see:
 http://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+%28Diagnostic%29
@@ -45,8 +47,11 @@ http://archive.ics.uci.edu/ml/datasets/Letter+Recognition
 
 For mushroom data see: http://archive.ics.uci.edu/ml/datasets/Mushroom
 
-\item Try to improve ID3 by some post pruning idea using a separate
-  validation set.
+\item Bonus question: For a given data set, can we detect whether the
+  conditional independent assumption is true or not? How? Can we
+  observe that naïve Bayes works well only on the data sets on which
+  the conditional independent assumption is true or roughly true? You
+  may need to check some reference papers. 
 \end{enumerate}
 
 %----------------------------------------
@@ -54,58 +59,46 @@ For mushroom data see: http://archive.ics.uci.edu/ml/datasets/Mushroom
 %----------------------------------------
 \section{Learning Algorithm}
 \label{sec:learningalgorithm}
-The program implements the ID3 decision tree building algorithm
-described in \cite{Mitchell1997}. While the ID3 algorithm is
-recursive, it has been implemented iteratively using an application
-stack. This is a personal preference of the student based on past
-experience with recursive programming causing JVM stack overflow
-problems.
 
-Initially, the decision trees constructed were unable to complete a
-classification if the instance being classified encoded a path not
-encountered in the training data i.e. no edge exists with value
-matching instance attribute. To accomodate this scenario, when a new
-attribute node is added to the tree, the most probable classification
-within the training subset is stored in the node. During
-classification, if no explicit edge exists matching an attribute  
-value, the default classification is returned.
+A Java program was written implementing the Na\"{i}ve Bayes Classifier as
+described in ~\cite{Mitchell1997}. During the learning phase of the
+algorithm, the program calculates a marginal probability vector, with
+each position in the vector corresponding to a possible target
+value. A three-dimensional conditional probability matrix is
+populated, one dimesion corresponding to target value, another
+dimension corresponding to attribute class, and a third dimension
+corresponding to attribute value domain. In estimating conditional
+probabilites, the \textbf{m-estimate} technique described in
+~\cite{Mitchell1997} is used:
+
+\begin{equation*}
+P(A_{j}=a_{k}|C=c_{i}) = \frac{n_{c} + mp}{n + m}
+\end{equation*}
+
+where, for a particular training set, n is the cardinality of the
+subset for which classification \(c_h\) holds and \(n_c\), the
+cardinality of the subset of instances for which classification
+\(c_i\) holds and attribute class \(A_j\) has value \(a_k\). \(p\) is
+a prior estimate of the probability we wish to calculate. In this
+case, we assume uniform distribution i.e. if the attribute in question
+has \(k\) possible values, we assign \(p = \frac{1}{k}\). \(m\) is a
+constant value which we call the \textit{equivalent sample size} and
+determines how heavily to weight p relative to the observed
+data. 
+
+Using \textit{m-estimate} to estimate conditional probabilites
+addresses the problem of a sparse probability matrix. Without
+\textit{m-estimate}, matrix nodes which are not represented in the
+training data are set to zero, resulting in a biased underestimation
+of probabilities calculated uisng these terms. Using
+\textit{m-estimate}, matrix nodes not represented in the training data
+are set to \(\frac{mp}{n + m}\) instead.
 
 Missing attribute values are handled by preprocessing data sets,
 replacing missing attribute value with the most probable value for the
 attribute in the data set.
 
-Attempt were made to counteract overfitting effects and improve the
-accuracy of the ID3 decision trees using rule post-pruning
-techniques. Various options were investigated but yielded very limited
-benefits.
-
-Initially, the original training set used by ID3 was reused for post
-rule pruning. However the training set is biased towards the rule
-chain and does not give accurate error estimates required for useful
-pruning ~\cite{Frank2000}. This is consistent with our results, most
-cases seeing a reduction in accuracy. Only one case,
-ecoli.data, saw an improvement in accuracy but not to practical
-levels of confidence.
-
-Further pruning attempts were made using a separate pruning data set,
-a technique called \textit{reduced-error pruning}. A portion of the training
-data (25\% - 50\%) was held back for these purposes. Once again, all
-but the ecoli.data saw reductions in accuracy, comparable to
-the first pruning attempts. This technique had the disadvantage of
-reducing the amount of training data available to ID3 for tree
-construction ~\cite{Frank2000}.
-
-From review of literature on the topic, it appears
-that the success of decision tree pruning depends largely on the
-ability to accurately estimate the error of a particular subtree or
-rule. Based on error estimates, rules or nodes will be retained or
-removed from the target hypothesis. The C4.5 decision tree algorithm,
-a derivative of ID3, uses a statistical pessimistic error estimate
-based on a selected confidence level. While only a heuristic and based
-on some naive assumptions, this technique seems to work well in
-practice ~\cite{Frank2000}. The student did not successfully implement
-such a scheme to improve error estimates.
-
+\cite{*}
 
 %----------------------------------------
 % Data Sets
@@ -307,23 +300,28 @@ preprocessed to fit this format.
 % Program Design
 %----------------------------------------
 \section{Program Design}
-The ID3 and rule post pruning algorithms are implemented by a Java
-program. The only external dependency is on the Apache commons-cli
-library for parsing commend line options. To that end, the program is
-operated from the command line, taking options listed in table
-~\ref{tab:commandline}.  
+The Na\"{\i}ve algorithms are implemented by a Java program. The only
+external dependency is on the Apache commons-cli library for parsing
+commend line options. To that end, the program is operated from the
+command line, taking options listed in table
+~\ref{tab:commandline}. Wrapper scripts, \textit{run.sh} and
+\textit{run.bat} are provided as a convenience for executing the
+program on UNIX and Windows platforms respectively. The header
+comments in each script contain the command lines used for executing
+the program with the varous data files provided.
 \\
 \begin{table}[h]
   \centering
   \begin{tabular}{ |l|p{10cm}|} 
     \hline
     Option & Description \\ \hline
-    -d          &  Generate Graphviz DOT output. \\ \hline
     -f \<arg\>  &  Path of data file \\ \hline
     -i \<arg\>  &  Number of iterations to perform. Default is 10 \\ \hline
     -n \<arg\>  &  A comma-separated list of attribute names, matching
     the order in which they appear in the data file \\ \hline
-    -o \<arg\>  &  Number of folds to create in the training data during. Default is 5. \\ \hline
+    -o \<arg\>  &  Number of folds to create in the training data
+    during. Default is 5. \\ \hline
+    -m \<arg\>  &  m-estimate equivalent sample size \\ \hline
     -h          &  Print help message \\ \hline
   \end{tabular}
   \caption{Command line options}
@@ -338,99 +336,22 @@ assignment, some had to be preprocessed to fit the expected format.
 
 The program then executes a number of iterations (default is 10) over
 the entire data set. During each iteration, the data set is folded
-(default is 5 times), the training set used to create a decision
-tree. The decision tree is then pruned. The details of the pruning
-methodology are described in section ~\ref{sec:results}. The instances
-in the test set are then evaluated by the decision tree and the pruned
-rule set. The accuracy of the classifications is recorded for each
-test set evaluated. After the final iteration is complete, the mean
-accuracy and standard deviation are calculated and output by the
-program.
+(default is 5 times), the training set used to create a Na\"\{i}ve
+  Bayes Classifier. The instances in the test set are then evaluated 
+  by the classifier and the accuracy of the classifications is
+  recorded for each test set evaluated. After the final iteration is
+  complete, the mean accuracy and standard deviation are calculated
+  and output by the program.
 
 The program implements various mechanism to facilitate
 debugging. Throughout the code, log statements have been added using
 the Java logging framework. The logging output is controlled for
 individual classes via the \textit{logging.properties} file which the program
-read on startup. In addition to logging, code was added to generate
-Graphviz DOT (described in ~\cite{Graphviz2001}) output representing
-the decision tree created. This output can be rendered using Graphviz
-dot tool. An sample dot file for the mushroom.data data set is shown
-below. The associated image generated by dot in Figure \ref{fig:dot}.
-
-
-\begin{verbatim}
-digraph G {
-	23934262  [label="odor", shape=box];
-	12617107  [label="p", shape=ellipse];
-	23934262 -> 12617107 [label="y"];
-	25277396  [label="p", shape=ellipse];
-	23934262 -> 25277396 [label="m"];
-	4536207  [label="e", shape=ellipse];
-	23934262 -> 4536207 [label="l"];
-	4368408  [label="spore-print-color", shape=box];
-	23934262 -> 4368408 [label="n"];
-	2741851  [label="e", shape=ellipse];
-	4368408 -> 2741851 [label="y"];
-	12064621  [label="e", shape=ellipse];
-	4368408 -> 12064621 [label="h"];
-	662907  [label="e", shape=ellipse];
-	4368408 -> 662907 [label="k"];
-	1409681  [label="e", shape=ellipse];
-	4368408 -> 1409681 [label="o"];
-	3087989  [label="e", shape=ellipse];
-	4368408 -> 3087989 [label="n"];
-	24688203  [label="p", shape=ellipse];
-	4368408 -> 24688203 [label="r"];
-	536608  [label="e", shape=ellipse];
-	4368408 -> 536608 [label="b"];
-	26188661  [label="habitat", shape=box];
-	4368408 -> 26188661 [label="w"];
-	19351067  [label="cap-color", shape=box];
-	26188661 -> 19351067 [label="l"];
-	23830114  [label="p", shape=ellipse];
-	19351067 -> 23830114 [label="y"];
-	7037649  [label="e", shape=ellipse];
-	19351067 -> 7037649 [label="n"];
-	2409492  [label="e", shape=ellipse];
-	19351067 -> 2409492 [label="c"];
-	29687596  [label="p", shape=ellipse];
-	19351067 -> 29687596 [label="w"];
-	5023414  [label="e", shape=ellipse];
-	26188661 -> 5023414 [label="p"];
-	5581355  [label="ring-number", shape=box];
-	26188661 -> 5581355 [label="d"];
-	21209219  [label="p", shape=ellipse];
-	5581355 -> 21209219 [label="o"];
-	14615126  [label="e", shape=ellipse];
-	5581355 -> 14615126 [label="t"];
-	17988434  [label="e", shape=ellipse];
-	26188661 -> 17988434 [label="g"];
-	6189088  [label="e", shape=ellipse];
-	26188661 -> 6189088 [label="w"];
-	1269167  [label="p", shape=ellipse];
-	23934262 -> 1269167 [label="p"];
-	23826509  [label="e", shape=ellipse];
-	23934262 -> 23826509 [label="a"];
-	13551501  [label="p", shape=ellipse];
-	23934262 -> 13551501 [label="c"];
-	26155569  [label="p", shape=ellipse];
-	23934262 -> 26155569 [label="s"];
-	50512  [label="p", shape=ellipse];
-	23934262 -> 50512 [label="f"];
-}
-\end{verbatim}
+read on startup.
 
 \begin{figure}
   \begin{center}
-	\includegraphics[angle=90,width=!,height=0.90\textheight]{mushroom}
-  \end{center}
-  \caption{Decision Tree visualization generated by DOT}
-  \label{fig:dot}
-\end{figure} 
-
-\begin{figure}
-  \begin{center}
-	\includegraphics[angle=90,width=\textwidth,height=!]{uml}
+	\includegraphics[width=\textwidth,height=!]{uml}
   \end{center}
   \caption{UML class diagram}
   \label{fig:uml}
@@ -461,27 +382,10 @@ description of each class:
   instance. The interface is implemented by the \textit{DecisionTree},
   \textit{Rule}, and \textit{RuleSet} classes.
 
-\item \textbf{DecisionTree} represents the decision tree constructed
-  by the ID3 algorithm. It consists of a root node, representing the
-  root of the decision tree, and a collection of functions to
-  traverse the tree, prune the tree, generate dot output, generate a
-  rule set and classify
-  an instance. 
-
-\item \textbf{Edge} represents an edge in the decision tree. Each Edge
-  is associated with an attribute value.
-
 \item \textbf{Evaluation} is a helper class for capturing test run
   accuracies and calculating final mean and standard deviation values.
 
 \item \textbf{Fold} is an encapsulation of a training and a test set.
- 
-\item \textbf{ID3} implements the ID3 decision tree construction
-  algorithm. It uses an application stack to model the recursive
-  nature of the algorithm. This design choice was a preference of the
-  student. While adding to the complexity of the implementation, the
-  application stack has much larger capacity than the JVM stack. Stack
-  capacity limits the recusive depth of the algorithm.
 
 \item \textbf{Instance} represents a collection of attributes and
   their classification. In the case of training data, we use the
@@ -501,38 +405,16 @@ description of each class:
 \item \textbf{Main} is the class which is started from the command
   line. It parses command line options and starts the test iterations.
 
-\item \textbf{Node} represents a node in a decision tree. Each node is
-  associated with either a particular attribute or classification
-  depending on whether the node is an internal or leaf
-  respectively. Internal nodes are associated with a default
-  classification. This classification is the classification with the
-  the highest probability in the instance subset associated with the
-  subtree rooted at the given node. This default classification allows
-  the decision tree to classify unseen instances even though an explicit
-  path matching the instance's attribute values may not have been
-  created during training. 
+\item \textbf{NaiveBayes} creates a Na\"{\i}ve Bayes classifier
+  given a training data \textit{InstanceSet}. It calculates marginal
+  and conditional probabilites and populates a probability matrix
+  within the \textit{NaiveBayesClassifier}. It uses the m-estimation
+  technique to estimate conditional probabilities.
 
-\item \textbf{Rule} represents a conjunctive classification rule with
-  an arbitrary number of attribute preconditions and a classification
-  postcondition. The classification interface will return the
-  postcondition if a given instance's attributes matches the
-  preconditions. Otherwise, null is returned indicating that the rule
-  cannot classify the instance.
-
-\item \textbf{RuleSet} is an ordered collection of rules. Rules are
-  ordered by descending accuracy in approximating the target
-  function. The RuleSet maintains a default classification, being the
-  same as the default classification of the root node of the decision
-  tree from whence it was generated i.e. the most probable
-  classification in the original training set. The classification
-  interface, given a test instance, will apply each of 
-  its rules, in order, until one of them returns a non-null
-  classification. If the end of the rule chain is reached before a
-  classification is reached, the default classification of the rule
-  set is returned.
-
-\item \textbf{TreeIterator} is a helper class for performing a
-  depth-first traversal of the decision tree.
+\item \textbf{NaiveBayesClassifier} classifies an \textit{Instance}
+  using the Na\"{i}ve Bayes Classifier algorithm, based on a matrix of
+  marginal and conditional probabilities which are calculated from a
+  previously seen training set.
 
 \end{itemize}
 
@@ -543,12 +425,7 @@ description of each class:
 \section{Results}
 \label{sec:results}
 The results of processing each data file through ten iterations of
-5-fold cross-validation are presented below. The rule post-pruning
-accuracy statistics were obtained using the training set for rule
-pruning. As described in section \ref{sec:learningalgorithm}, this is
-not a prescribed method for post pruning, however, the results were
-not significantly different for other rule pruning techniques executed
-so are included here for reference:
+5-fold cross-validation are presented below. 
 
 \subsection*{car.data}
 {\small
@@ -702,9 +579,10 @@ Post-pruned:	[tests=50][mean accuracy=0.869928][standard deviation=0.031122]
 %----------------------------------------
 % Bibliography
 %----------------------------------------
-\bibliography{bibliography}
-\bibliographystyle{plain}
-
+% changes default name Bibliography to References
+\renewcommand{\bibname}{References}
+\bibliographystyle{IEEEtran}
+\bibliography{IEEEabrv,bibliography}
 
 %--------------------------------------------------
 \end{document}

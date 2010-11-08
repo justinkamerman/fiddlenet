@@ -1,0 +1,66 @@
+[5:28:42][INFO][Main]: Loaded data from file data/letter-recognition.data: [size=20000][classificationSet=[[size=26][classifications=[[[D][occurence=805]][[E][occurence=768]][[F][occurence=775]][[G][occurence=773]][[A][occurence=789]][[B][occurence=766]][[C][occurence=736]][[L][occurence=761]][[M][occurence=792]][[N][occurence=783]][[O][occurence=753]][[H][occurence=734]][[I][occurence=755]][[J][occurence=747]][[K][occurence=739]][[U][occurence=813]][[T][occurence=796]][[W][occurence=752]][[V][occurence=764]][[Q][occurence=783]][[P][occurence=803]][[S][occurence=748]][[R][occurence=758]][[Y][occurence=786]][[X][occurence=787]][[Z][occurence=734]]]]]][attributes=[[y-ege][xy2br][x-bar][x-ege][x2bar][x2ybr][width][xegvy][onpix][x-box][y2bar][y-bar][y-box][high][yegvx][xybar]]] 
+[5:28:42][INFO][Main]: Starting iteration 1 of 10 
+[5:32:13][INFO][Main]: Processed fold 0: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.657250 
+[5:34:23][INFO][Main]: Processed fold 1: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.658000 
+[5:36:32][INFO][Main]: Processed fold 2: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.659500 
+[5:38:41][INFO][Main]: Processed fold 3: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.667000 
+[5:40:50][INFO][Main]: Processed fold 4: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.665250 
+[5:40:50][INFO][Main]: Starting iteration 2 of 10 
+[5:44:20][INFO][Main]: Processed fold 0: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.658750 
+[5:46:29][INFO][Main]: Processed fold 1: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.662750 
+[5:48:38][INFO][Main]: Processed fold 2: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.657000 
+[5:50:47][INFO][Main]: Processed fold 3: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.662500 
+[5:52:56][INFO][Main]: Processed fold 4: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.656500 
+[5:52:56][INFO][Main]: Starting iteration 3 of 10 
+[5:56:26][INFO][Main]: Processed fold 0: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.660000 
+[5:58:35][INFO][Main]: Processed fold 1: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.666750 
+[6:00:44][INFO][Main]: Processed fold 2: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.667000 
+[6:02:53][INFO][Main]: Processed fold 3: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.663250 
+[6:05:02][INFO][Main]: Processed fold 4: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.653750 
+[6:05:02][INFO][Main]: Starting iteration 4 of 10 
+[6:08:32][INFO][Main]: Processed fold 0: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.654500 
+[6:10:41][INFO][Main]: Processed fold 1: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.664250 
+[6:12:49][INFO][Main]: Processed fold 2: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.653250 
+[6:14:58][INFO][Main]: Processed fold 3: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.662750 
+[6:17:07][INFO][Main]: Processed fold 4: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.669500 
+[6:17:07][INFO][Main]: Starting iteration 5 of 10 
+[6:20:38][INFO][Main]: Processed fold 0: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.666500 
+[6:22:47][INFO][Main]: Processed fold 1: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.662750 
+[6:24:56][INFO][Main]: Processed fold 2: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.656500 
+[6:27:05][INFO][Main]: Processed fold 3: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.661000 
+[6:29:14][INFO][Main]: Processed fold 4: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.661250 
+[6:29:14][INFO][Main]: Starting iteration 6 of 10 
+[6:32:44][INFO][Main]: Processed fold 0: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.666000 
+[6:34:54][INFO][Main]: Processed fold 1: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.662750 
+[6:37:02][INFO][Main]: Processed fold 2: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.664750 
+[6:39:11][INFO][Main]: Processed fold 3: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.657500 
+[6:41:20][INFO][Main]: Processed fold 4: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.657250 
+[6:41:20][INFO][Main]: Starting iteration 7 of 10 
+[6:44:50][INFO][Main]: Processed fold 0: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.656000 
+[6:46:59][INFO][Main]: Processed fold 1: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.657000 
+[6:49:08][INFO][Main]: Processed fold 2: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.673750 
+[6:51:17][INFO][Main]: Processed fold 3: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.662500 
+[6:53:25][INFO][Main]: Processed fold 4: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.654500 
+[6:53:25][INFO][Main]: Starting iteration 8 of 10 
+[6:56:56][INFO][Main]: Processed fold 0: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.653750 
+[6:59:05][INFO][Main]: Processed fold 1: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.670250 
+[7:01:14][INFO][Main]: Processed fold 2: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.650250 
+[7:03:22][INFO][Main]: Processed fold 3: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.667750 
+[7:05:31][INFO][Main]: Processed fold 4: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.672500 
+[7:05:31][INFO][Main]: Starting iteration 9 of 10 
+[7:09:01][INFO][Main]: Processed fold 0: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.654000 
+[7:11:10][INFO][Main]: Processed fold 1: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.672250 
+[7:13:19][INFO][Main]: Processed fold 2: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.648750 
+[7:15:28][INFO][Main]: Processed fold 3: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.661000 
+[7:17:37][INFO][Main]: Processed fold 4: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.659250 
+[7:17:37][INFO][Main]: Starting iteration 10 of 10 
+[7:21:08][INFO][Main]: Processed fold 0: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.649000 
+[7:23:16][INFO][Main]: Processed fold 1: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.669250 
+[7:25:25][INFO][Main]: Processed fold 2: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.650250 
+[7:27:34][INFO][Main]: Processed fold 3: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.680500 
+[7:29:43][INFO][Main]: Processed fold 4: training set size = 16000; test set size = 4000; __m = 1000; accuracy = 0.661250 
+[7:29:43][INFO][Main]: 
+
+Test Results
+
+Naive Bayes:		[tests=50][mean accuracy=0.661190][standard deviation=0.006750] 
