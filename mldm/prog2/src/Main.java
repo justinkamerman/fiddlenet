@@ -104,6 +104,8 @@ public class Main
             System.exit (1);
         }
         log.info ("Loaded data from file " + __dataFile + ": " + __instanceSet.toString());
+        log.info ("total correlation = " + __instanceSet.totalCorrelation());
+        //System.exit (0);
         
         // Fold data and evaluate
         Evaluation eval = new Evaluation ();
@@ -127,6 +129,8 @@ public class Main
         }
         
         log.info ("\n\nTest Results\n\nNaive Bayes:\t\t" + eval.toString());
+
+        // Points for m-estimate plot to STDOUT
         System.out.println (String.format("%s %s", __m, eval.mean()));
     }
 }

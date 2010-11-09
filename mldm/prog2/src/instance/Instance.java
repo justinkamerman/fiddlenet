@@ -62,6 +62,20 @@ public class Instance implements Iterable<Attribute>
     }
 
     
+    /**
+     * Return string that uniquely identifies this instance
+     */
+    public String hashString ()
+    {
+        StringBuffer sb = new StringBuffer ();
+        for ( Attribute attr : __attrs )
+        {
+            sb.append (String.format("[%s=%s]", attr.getKey(), attr.getValue()));
+        }
+        return sb.toString();
+    }
+
+    
     public String toString ()
     {
         StringBuffer sb = new StringBuffer();

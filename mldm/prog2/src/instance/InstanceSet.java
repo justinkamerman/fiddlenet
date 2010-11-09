@@ -88,6 +88,90 @@ public class InstanceSet implements Iterable<Instance>
 
 
     /**
+     * Calculate Information entropy of the instance set wrt to
+     * classification label
+     */
+    public double entropy ()
+    {
+        double entropy = 0;
+        for ( Classification clas : __classSet )
+        {
+            double probability = (double) __classSet.getOccurence (clas) /  (double) this.size();
+            double ei = (probability * Math.log (probability) / Math.log (2));
+            entropy = entropy - ei;
+        }
+
+        return entropy;
+    }
+
+
+    /**
+     * Calculate Information entropy of the instance set wrt to
+     * given attribute
+     */
+    public double entropy (Object key)
+    {
+        double entropy = 0;
+        for ( Object val : __attrSet.getValues (key) )
+        {
+            Attribute attr = __attrSet.getAttribute (key, val);
+            double probability = (double) attr.getRef() /  (double) this.size();
+            double ei = (probability * Math.log (probability) / Math.log (2));
+            entropy = entropy - ei;
+        }
+
+        return entropy;
+    }
+
+
+    /**
+     * Calculate Total Correlation (Watanabe 1960)
+     */
+    public double totalCorrelation ()
+    {
+        double tc = 0;
+
+        // Sigma(Hxi)
+        double maxH = 0;
+        for ( Object key : __attrSet.getKeys() )
+        {
+            double entropyX = entropy (key);
+            log.info (String.format ("H(%s) = %f", key.toString(), entropyX));
+            tc += entropyX;
+            
+            if (entropyX > maxH) maxH = entropyX;
+        }
+
+        // H(x1,x2,...,xn): count occurence of each instance.
+        HashMap<String, Integer> instMap = new HashMap<String, Integer>();
+        for ( Instance inst : __instances )
+        {
+            String hash = inst.hashString();
+            if ( instMap.containsKey (hash) )
+            {
+                instMap.put (hash, instMap.get(hash) + 1);
+            }
+            else
+            {
+                instMap.put (hash, new Integer(1));
+            }
+        }
+
+        // H(x1,x2,...,xn): calculate probabilities and entropy.
+        double jointEntropy = 0;
+        for ( String hash : instMap.keySet() )
+        {
+            double probability = (double) instMap.get(hash) / (double) size();
+            double ei = (probability * Math.log (probability) / Math.log (2));
+            jointEntropy -= ei;
+        }
+
+        log.info (String.format("SigmaH = %f; H(max) = %f, jointEntropy = %f, C = %f, Cmax = %f",
+                                tc, maxH, jointEntropy, tc - jointEntropy, tc - maxH));
+        return tc - jointEntropy;
+    }
+
+    /**
      * Create a subset of this instance set where all instances have
      * given value for given key.
      */
@@ -132,7 +216,7 @@ public class InstanceSet implements Iterable<Instance>
         ArrayList<Attribute> attrs = new ArrayList<Attribute>();
         for ( Attribute attr : inst )
         {
-            attrs.add ( __attrSet.getAttribute ( attr.getKey(), attr.getValue() ) );
+            attrs.add ( __attrSet.addAttribute ( attr.getKey(), attr.getValue() ) );
         }
 
         Classification c = __classSet.getClassification (inst.getClassification().getValue());
@@ -202,8 +286,8 @@ public class InstanceSet implements Iterable<Instance>
     public String toString ()
     {
         StringBuffer sb = new StringBuffer ();
-        sb.append ( String.format ("[size=%d][classificationSet=[%s]][attributes=[", 
-                                   size(), __classSet) );
+        sb.append ( String.format ("[size=%d][entropy=%f][classificationSet=[%s]][attributes=[", 
+                                   size(), entropy(), __classSet) );
         for ( Object key : __attrSet.getKeys() )
         {
             sb.append (String.format("[%s]", key.toString()));

@@ -30,7 +30,20 @@ public class AttributeSet
     }
   
     
+    /**
+     * Return attribute with given key and value, if a member of this
+     * set. Otherwise, return null.
+     */
     public Attribute getAttribute (Object key, Object val)
+    {
+        Attribute attr = null;
+        HashMap<Object, Attribute> valueMap = __keyMap.get (key);
+        if ( valueMap != null ) attr = valueMap.get (val);
+        return attr;
+    }
+
+
+    public Attribute addAttribute (Object key, Object val)
     {
         log.finest (String.format ("getAttribute (%s, %s)", key.toString(), val.toString())); 
         HashMap<Object, Attribute> valueMap;
@@ -141,7 +154,9 @@ public class AttributeSet
         {
             for ( Attribute attr : valueMap.values() )
             {
-                log.finest ("updateDefault (" + key.toString() + "): processing attribute " + attr.toString());
+                log.finest (String.format ("updateDefault (%s): processing attribute %s",
+                                           key.toString(),
+                                           attr.toString()));
                 if ( attr.getRef() > maxRef )
                 {
                     maxRef = attr.getRef();
@@ -152,5 +167,22 @@ public class AttributeSet
             // Update default attribute's value
             getDefault (key).setValue (def.getValue());
         }
+    }
+
+    
+    public String toString ()
+    {
+        StringBuffer sb = new StringBuffer ();
+        for ( Object key : __keyMap.keySet() )
+        {
+            HashMap<Object, Attribute> valueMap = __keyMap.get (key);
+            for ( Object val : valueMap.keySet() )
+            {
+                Attribute attr = valueMap.get (val);
+                sb.append (String.format("[%s]", attr.toString()));
+            }
+        }
+
+        return sb.toString ();
     }
 }

@@ -49,7 +49,11 @@ public class Attribute
     }
 
 
-    public void incrRef () { __refCount++; }
+    public void incrRef () 
+    { 
+        __refCount++; 
+    }
+
     public void decrRef () { __refCount--; }
     public int getRef () { return __refCount; }
         
@@ -70,8 +74,9 @@ public class Attribute
 
     public String toString ()
     {
-        return String.format ("[%s=%s]", 
+        return String.format ("[%s=%s][refCount=%d]", 
                               __key != null ? __key.toString() : "null", 
-                              __value != null ? __value.toString() : "null");
+                              __value != null ? __value.toString() : "null",
+                              __refCount);
     }
 }
