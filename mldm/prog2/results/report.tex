@@ -49,7 +49,7 @@ For mushroom data see: http://archive.ics.uci.edu/ml/datasets/Mushroom
 
 \item Bonus question: For a given data set, can we detect whether the
   conditional independent assumption is true or not? How? Can we
-  observe that naïve Bayes works well only on the data sets on which
+  observe that Na\"{i}ve Bayes works well only on the data sets on which
   the conditional independent assumption is true or roughly true? You
   may need to check some reference papers. 
 \end{enumerate}
@@ -65,10 +65,10 @@ described in ~\cite{Mitchell1997}. During the learning phase of the
 algorithm, the program calculates a marginal probability vector, with
 each position in the vector corresponding to a possible target
 value. A three-dimensional conditional probability matrix is
-populated, one dimesion corresponding to target value, another
+populated, one dimension corresponding to target value, another
 dimension corresponding to attribute class, and a third dimension
 corresponding to attribute value domain. In estimating conditional
-probabilites, the \textbf{m-estimate} technique described in
+probabilities, the \textbf{m-estimate} technique described in
 ~\cite{Mitchell1997} is used:
 
 \begin{equation*}
@@ -86,7 +86,7 @@ constant value which we call the \textit{equivalent sample size} and
 determines how heavily to weight p relative to the observed
 data. 
 
-Using \textit{m-estimate} to estimate conditional probabilites
+Using \textit{m-estimate} to estimate conditional probabilities
 addresses the problem of a sparse probability matrix. Without
 \textit{m-estimate}, matrix nodes which are not represented in the
 training data are set to zero, resulting in a biased underestimation
@@ -96,12 +96,14 @@ are set to \(\frac{mp}{n + m}\) instead.
 
 In order to determine suitable \textit{m} values for each of the data
 sets, various tests were performed to see how the selection of
-\textit{m} effected mean accuracy of the Na\"{i}ve Bayes Classifer
+\textit{m} effected mean accuracy of the Na\"{i}ve Bayes Classifier
 during K-fold cross-validation. Figure \ref{fig:mlog} shows how in
 each case the mean accuracy was a maximum when m was small (< 10) and
-decreased as \textit{m} was increased before stabilizing. From these
-results, a value of \textit{m} = 10 was selected for all remaining
-tests.
+decreased as \textit{m} was increased before stabilizing. It is the
+student's opinion that as \textit{m} is increased, the probability
+estimates tends towards a uniform distribution, the \textit{equivalent sample}
+parameters overwhelming \(\frac{n_c}{n}\). From these results, a value
+of \textit{m} = 10 was selected for all remaining tests.
 
 \begin{figure}
   \begin{center}
@@ -324,7 +326,7 @@ command line, taking options listed in table
 \textit{run.bat} are provided as a convenience for executing the
 program on UNIX and Windows platforms respectively. The header
 comments in each script contain the command lines used for executing
-the program with the varous data files provided.
+the program with the various data files provided.
 \\
 \begin{table}[h]
   \centering
@@ -352,7 +354,7 @@ assignment, some had to be preprocessed to fit the expected format.
 
 The program then executes a number of iterations (default is 10) over
 the entire data set. During each iteration, the data set is folded
-(default is 5 times), the training set used to create a Na\"\{i}ve
+(default is 5 times), the training set used to create a Na\"{i}ve
   Bayes Classifier. The instances in the test set are then evaluated 
   by the classifier and the accuracy of the classifications is
   recorded for each test set evaluated. After the final iteration is
@@ -363,7 +365,7 @@ The program implements various mechanism to facilitate
 debugging. Throughout the code, log statements have been added using
 the Java logging framework. The logging output is controlled for
 individual classes via the \textit{logging.properties} file which the program
-read on startup.
+read on start-up.
 
 \begin{figure}
   \begin{center}
@@ -423,7 +425,7 @@ description of each class:
 
 \item \textbf{NaiveBayes} creates a Na\"{\i}ve Bayes classifier
   given a training data \textit{InstanceSet}. It calculates marginal
-  and conditional probabilites and populates a probability matrix
+  and conditional probabilities and populates a probability matrix
   within the \textit{NaiveBayesClassifier}. It uses the m-estimation
   technique to estimate conditional probabilities.
 
@@ -441,7 +443,25 @@ description of each class:
 \section{Results}
 \label{sec:results}
 The results of processing each data file through ten iterations of
-5-fold cross-validation are presented below. 
+5-fold cross-validation are presented below. Table \ref{tab:comparison} tabulates accuracy scores for the Na\"{i}ve Bayes classifier and ID3 Decision Tree for comparison. TODO
+
+
+\\
+\begin{table}[h]
+  \centering
+  \begin{tabular}{ |l|l|l|} 
+    \hline
+    \textbf{Data Set} & \textbf{ID3 Accuracy} & \textbf{Na\"{i}ve Bayes Accuracy} \\ \hline
+    car                      &  0.841449  &  0.938377 \\ \hline
+    ecoli                    &  0.684776  &  0.384776 \\ \hline
+    mushroom                 &  0.952007  &  1.000000 \\ \hline
+    letter-recognition       &  TODO      &  0.760870 \\ \hline
+    breast-cancer-wisconsin  &  0.972662  &  0.945899 \\ \hline
+  \end{tabular}
+  \caption{Comparison of N\"{i}ve Bayes and ID3 Decision Tree performance}
+  \label{tab:comparison}
+\end{table}
+
 
 \subsection*{car.data}
 {\small
@@ -558,14 +578,14 @@ Naive Bayes:		[tests=50][mean accuracy=0.972662][standard deviation=0.012294]
 % Conditional Independence
 %----------------------------------------
 \section{Conditional Independence}
-The Na\"{i}ve Bayes Classifier is based on the simplifying assuption
+The Na\"{i}ve Bayes Classifier is based on the simplifying assumption
 that attribute values are independent of one another, given the target
 value. An attempt was made to quantify the conditional independence of
 each of our data sets to see if there was any correlation between
 conditional independence and well our Na\"{i}ve Bayes Classifiers
 performed. A property called \textit{total correlation}
 \cite{RefWorks:44} was selected as our measure of conditional
-independence between betwen the attributes in each data
+independence between between the attributes in each data
 set. \textit{Total Correlation} expresses the amount of redundancy or
 dependency existing between a set of variables and is given by:
 
@@ -604,20 +624,20 @@ mean accuracy of the associated Na\"{i}ve Bayes Classifier in Figure
 \ref{fig:correlation}. The car data set is the only set to exhibit
 zero \textit{Total Correlation} but does not represent the best mean
 accuracy during evaluation. Looking at Figure \ref{tab:correlation},
-there does not seem to be any obvious realtionship between accuracy
-and \textit{Total Correlation}. This phenomenon can could be acounted
+there does not seem to be any obvious relationship between accuracy
+and \textit{Total Correlation}. This phenomenon can could be accounted
 for by one or more of the following factors:
 
 \begin{itemize}
   \item While conditional independence is an assumption upon which the
     Na\"{i}ve Bayes Classifier is based, the classifier still performs
     well in certain domains where conditional independence does not
-    hold. In practice, the Na\"{i}ve Bayes Classifier performs
+    hold. In practise, the Na\"{i}ve Bayes Classifier performs
     remarkably well in many text classification problems despite the
     incorrectness of the conditional independence assumption
     \cite{Mitchell1997}. 
 
-  \item The data sets provided are samples of in a probablity
+  \item The data sets provided are samples of in a probability
     distribution covering all possible attribute
     combinations. Depending on how representative the sample is in
     each case, classifiers trained on the data will perform with
@@ -628,8 +648,8 @@ for by one or more of the following factors:
     probabilities from the data set due to the large population
     size. Better estimates could be obtained by correlating attribute
     pairs rather than trying to calculate a single metric
-    representating the entire data set. This modification was not
-    implemented by the student due to time contraints. 
+    representing the entire data set. This modification was not
+    implemented by the student due to time constraints. 
 \end{itemize}
 
 \\
@@ -641,7 +661,7 @@ for by one or more of the following factors:
     car                      &  0.841449  &  0.0       \\ \hline
     ecoli                    &  0.684776  &  23.112473 \\ \hline
     mushroom                 &  0.952007  &  18.239124 \\ \hline
-    letter-recognition       &            &  \\ \hline
+    letter-recognition       &  TODO      &  TODO      \\ \hline
     breast-cancer-wisconsin  &  0.972662  &  12.120860 \\ \hline
   \end{tabular}
   \caption{Total Correlation}
