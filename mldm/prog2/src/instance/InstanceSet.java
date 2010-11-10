@@ -129,16 +129,14 @@ public class InstanceSet implements Iterable<Instance>
      */
     public double totalCorrelation ()
     {
-        double tc = 0;
-
         // Sigma(Hxi)
         double maxH = 0;
+        double marginalEntropy = 0;
         for ( Object key : __attrSet.getKeys() )
         {
             double entropyX = entropy (key);
-            log.info (String.format ("H(%s) = %f", key.toString(), entropyX));
-            tc += entropyX;
-            
+            log.finest (String.format ("H(%s) = %f", key.toString(), entropyX));
+            marginalEntropy += entropyX;
             if (entropyX > maxH) maxH = entropyX;
         }
 
@@ -166,9 +164,14 @@ public class InstanceSet implements Iterable<Instance>
             jointEntropy -= ei;
         }
 
-        log.info (String.format("SigmaH = %f; H(max) = %f, jointEntropy = %f, C = %f, Cmax = %f",
-                                tc, maxH, jointEntropy, tc - jointEntropy, tc - maxH));
-        return tc - jointEntropy;
+        double totalCorrelation = marginalEntropy - jointEntropy;
+        double maxTotalCorrelation = marginalEntropy - maxH;
+        log.info (String.format("C = %f; Cmax = %f; C/Cmax = %f",
+                                totalCorrelation, 
+                                maxTotalCorrelation, 
+                                totalCorrelation/maxTotalCorrelation));
+
+        return totalCorrelation;
     }
 
     /**

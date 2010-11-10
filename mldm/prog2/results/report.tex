@@ -90,9 +90,26 @@ Using \textit{m-estimate} to estimate conditional probabilites
 addresses the problem of a sparse probability matrix. Without
 \textit{m-estimate}, matrix nodes which are not represented in the
 training data are set to zero, resulting in a biased underestimation
-of probabilities calculated uisng these terms. Using
+of probabilities calculated using these terms. Using
 \textit{m-estimate}, matrix nodes not represented in the training data
 are set to \(\frac{mp}{n + m}\) instead.
+
+In order to determine suitable \textit{m} values for each of the data
+sets, various tests were performed to see how the selection of
+\textit{m} effected mean accuracy of the Na\"{i}ve Bayes Classifer
+during K-fold cross-validation. Figure \ref{fig:mlog} shows how in
+each case the mean accuracy was a maximum when m was small (< 10) and
+decreased as \textit{m} was increased before stabilizing. From these
+results, a value of \textit{m} = 10 was selected for all remaining
+tests.
+
+\begin{figure}
+  \begin{center}
+	\includegraphics[width=\textwidth,height=!]{mlog}
+  \end{center}
+  \caption{m-estimate tuning}
+  \label{fig:mlog}
+\end{figure} 
 
 Missing attribute values are handled by preprocessing data sets,
 replacing missing attribute value with the most probable value for the
@@ -429,26 +446,26 @@ The results of processing each data file through ten iterations of
 \subsection*{car.data}
 {\small
 \begin{verbatim}
-[1:20:27][INFO][Main]: Loaded data from file data/car.data:
- [size=1728][entropy=1.205741][classificationSet=[[size=4][classifications=
-[[[good][occurence=69]][[unacc][occurence=1210]][[acc][occurence=384]][[vgood]
-[occurence=65]]]]]][attributes=[[doors][maint][safety][buying][lug_boot][persons]]]
- [1:20:27][INFO][Main]: Starting iteration 1 of 10
- [1:21:54][INFO][Main]: Starting iteration 2 of 10
- [1:23:19][INFO][Main]: Starting iteration 3 of 10
- [1:24:42][INFO][Main]: Starting iteration 4 of 10
- [1:26:07][INFO][Main]: Starting iteration 5 of 10
- [1:27:29][INFO][Main]: Starting iteration 6 of 10
- [1:28:54][INFO][Main]: Starting iteration 7 of 10
- [1:30:18][INFO][Main]: Starting iteration 8 of 10
- [1:31:42][INFO][Main]: Starting iteration 9 of 10
- [1:33:06][INFO][Main]: Starting iteration 10 of 10
- [1:34:30][INFO][Main]:
+[8:49:05][INFO][Main]: Loaded data from file data/car.data:
+[size=1728][entropy=1.205741][classificationSet=[[size=4][classifications=
+[[[good][occurence=69]][[unacc][occurence=1210]][[acc][occurence=384]]
+[[vgood][occurence=65]]]]]][attributes=[[doors][maint][safety][buying][lug_boot][persons]]] 
+[8:49:05][INFO][instance.InstanceSet]: C = 0.000000; Cmax = 8.754888; C/Cmax = 0.000000 
+[8:49:05][INFO][Main]: total correlation = 0.000000 
+[8:49:05][INFO][Main]: Starting iteration 1 of 10 
+[8:49:36][INFO][Main]: Starting iteration 2 of 10 
+[8:50:09][INFO][Main]: Starting iteration 3 of 10 
+[8:50:47][INFO][Main]: Starting iteration 4 of 10 
+[8:51:20][INFO][Main]: Starting iteration 5 of 10 
+[8:51:54][INFO][Main]: Starting iteration 6 of 10 
+[8:52:26][INFO][Main]: Starting iteration 7 of 10 
+[8:52:58][INFO][Main]: Starting iteration 8 of 10 
+[8:53:30][INFO][Main]: Starting iteration 9 of 10 
+[8:54:01][INFO][Main]: Starting iteration 10 of 10 
 
 Test Results
 
-ID3: [tests=50][mean accuracy=0.938377][standard deviation=0.015048]
-Post-pruned: [tests=50][mean accuracy=0.722609][standard deviation=0.019412]
+Naive Bayes:		[tests=50][mean accuracy=0.841449][standard deviation=0.023485] 
 \end{verbatim}
 }
 
@@ -456,27 +473,27 @@ Post-pruned: [tests=50][mean accuracy=0.722609][standard deviation=0.019412]
 \subsection*{ecoli.data}
 {\small
 \begin{verbatim}
-[1:59:57][INFO][Main]: Loaded data from file data/ecoli.data:
-[size=336][entropy=2.188746][classificationSet=[[size=8][classifications=
-[[[imS][occurence=2]][[cp][occurence=143]][[imL][occurence=2]][[om][occurence=20]]
-[[omL][occurence=5]][[pp][occurence=52]][[im][occurence=77]][[imU][occurence=35]]]]]]
+[8:55:16][INFO][Main]: Loaded data from file data/ecoli.data:
+[size=336][entropy=2.188746][classificationSet=
+[[size=8][classifications=[[[imS][occurence=2]][[cp][occurence=143]][[imL][occurence=2]]
+[[om][occurence=20]][[omL][occurence=5]][[pp][occurence=52]][[im][occurence=77]][[imU][occurence=35]]]]]]
 [attributes=[[chg][aac][lip][gvh][alm1][mcg][alm2]]] 
-[1:59:57][INFO][Main]: Starting iteration 1 of 10 
-[2:00:03][INFO][Main]: Starting iteration 2 of 10 
-[2:00:08][INFO][Main]: Starting iteration 3 of 10 
-[2:00:14][INFO][Main]: Starting iteration 4 of 10 
-[2:00:20][INFO][Main]: Starting iteration 5 of 10 
-[2:00:25][INFO][Main]: Starting iteration 6 of 10 
-[2:00:31][INFO][Main]: Starting iteration 7 of 10 
-[2:00:36][INFO][Main]: Starting iteration 8 of 10 
-[2:00:42][INFO][Main]: Starting iteration 9 of 10 
-[2:00:48][INFO][Main]: Starting iteration 10 of 10 
-[2:00:54][INFO][Main]: 
+[8:55:16][INFO][instance.InstanceSet]: C = 20.792162; Cmax = 23.112473; C/Cmax = 0.899608 
+[8:55:16][INFO][Main]: total correlation = 20.792162 
+[8:55:16][INFO][Main]: Starting iteration 1 of 10 
+[8:55:39][INFO][Main]: Starting iteration 2 of 10 
+[8:56:00][INFO][Main]: Starting iteration 3 of 10 
+[8:56:22][INFO][Main]: Starting iteration 4 of 10 
+[8:56:43][INFO][Main]: Starting iteration 5 of 10 
+[8:57:04][INFO][Main]: Starting iteration 6 of 10 
+[8:57:25][INFO][Main]: Starting iteration 7 of 10 
+[8:57:46][INFO][Main]: Starting iteration 8 of 10 
+[8:58:06][INFO][Main]: Starting iteration 9 of 10 
+[8:58:27][INFO][Main]: Starting iteration 10 of 10 
 
 Test Results
 
-ID3:		[tests=50][mean accuracy=0.384776][standard deviation=0.057519]
-Post-pruned:	[tests=50][mean accuracy=0.432836][standard deviation=0.104691] 
+Naive Bayes:		[tests=50][mean accuracy=0.684776][standard deviation=0.053285] 
 \end{verbatim}
 }
 
@@ -484,29 +501,7 @@ Post-pruned:	[tests=50][mean accuracy=0.432836][standard deviation=0.104691]
 \subsection*{mushroom.data}
 {\small
 \begin{verbatim}
-[2:51:56][INFO][Main]: Loaded data from file data/mushroom.data:
-[size=8124][entropy=0.999068][classificationSet=[[size=2][classifications=
-[[[e][occurence=4208]][[p][occurence=3916]]]]]][attributes=[[cap-surface]
-[veil-color][odor][ring-number][gill-size][stalk-surface-below-ring][stalk-root]
-[cap-shape][gill-color][stalk-surface-above-ring][gill-spacing][habitat]
-[veil-type][cap-color][bruises?][stalk-color-above-ring][stalk-shape]
-[stalk-color-below-ring][spore-print-color][gill-attachment][ring-type][population]]] 
-[2:51:56][INFO][Main]: Starting iteration 1 of 10 
-[3:00:32][INFO][Main]: Starting iteration 2 of 10 
-[3:09:08][INFO][Main]: Starting iteration 3 of 10 
-[3:17:47][INFO][Main]: Starting iteration 4 of 10  
-[3:26:23][INFO][Main]: Starting iteration 5 of 10 
-[3:35:02][INFO][Main]: Starting iteration 6 of 10 
-[3:43:42][INFO][Main]: Starting iteration 7 of 10 
-[3:52:22][INFO][Main]: Starting iteration 8 of 10 
-[4:01:03][INFO][Main]: Starting iteration 9 of 10 
-[4:09:42][INFO][Main]: Starting iteration 10 of 10 
-[4:18:17][INFO][Main]: 
 
-Test Results
-
-ID3:		[tests=50][mean accuracy=1.000000][standard deviation=0.000000]
-Post-pruned:	[tests=50][mean accuracy=0.538165][standard deviation=0.010261] 
 \end{verbatim}
 }
 
@@ -514,33 +509,7 @@ Post-pruned:	[tests=50][mean accuracy=0.538165][standard deviation=0.010261]
 \subsection*{letter-recognition.data}
 {\small
 \begin{verbatim}
-[5:44:54][INFO][Main]: Loaded data from file
-data/letter-recognition.data:
-[size=20000][entropy=4.699811][classificationSet=[[size=26][classifications=
-[[[D][occurence=805]][[E][occurence=768]][[F][occurence=775]][[G][occurence=773]]
-[[A][occurence=789]][[B][occurence=766]][[C][occurence=736]][[L][occurence=761]]
-[[M][occurence=792]][[N][occurence=783]][[O][occurence=753]][[H][occurence=734]]
-[[I][occurence=755]][[J][occurence=747]][[K][occurence=739]][[U][occurence=813]]
-[[T][occurence=796]][[W][occurence=752]][[V][occurence=764]][[Q][occurence=783]]
-[[P][occurence=803]][[S][occurence=748]][[R][occurence=758]][[Y][occurence=786]]
-[[X][occurence=787]][[Z][occurence=734]]]]]][attributes=[[y-ege][xy2br][x-bar]
-[x-ege][x2bar][x2ybr][width][xegvy][onpix][x-box][y2bar][y-bar][y-box][high][yegvx][xybar]]]  
-[5:44:54][INFO][Main]: Starting iteration 1 of 10 
-[10:23:27][INFO][Main]: Starting iteration 2 of 10 
-[2:58:56][INFO][Main]: Starting iteration 3 of 10 
-[7:33:33][INFO][Main]: Starting iteration 4 of 10 
-[12:08:46][INFO][Main]: Starting iteration 5 of 10 
-[4:45:24][INFO][Main]: Starting iteration 6 of 10 
-[9:23:46][INFO][Main]: Starting iteration 7 of 10 
-[2:08:24][INFO][Main]: Starting iteration 8 of 10 
-[6:42:48][INFO][Main]: Starting iteration 9 of 10 
-[11:17:12][INFO][Main]: Starting iteration 10 of 10 
-[3:52:49][INFO][Main]: 
 
-Test Results
-
-ID3:		[tests=50][mean accuracy=0.760870][standard deviation=0.005610]
-Post-pruned:	[tests=50][mean accuracy=0.101170][standard deviation=0.006650] 
 \end{verbatim}
 }
 
@@ -548,32 +517,39 @@ Post-pruned:	[tests=50][mean accuracy=0.101170][standard deviation=0.006650]
 \subsection*{breast-cancer.data}
 {\small
 \begin{verbatim}
-[2:36:30][INFO][Main]: Loaded data from file
-data/breast-cancer-wisconsin.data:
-[size=699][entropy=0.929318][classificationSet=[[size=2][classifications=
-[[[2][occurence=458]][[4][occurence=241]]]]]][attributes=[[Uniformity_of_Cell_Size]
-[Clump_Thickness][Bland_Chromatin][Uniformity_of_Cell_Shape][Marginal_Adhesion]
-[Mitoses][Bare_Nuclei][Normal_Nucleoli][Single_Epithelial_Cell_Size]]] 
-[2:36:30][INFO][Main]: Starting iteration 1 of 10 
-[2:36:47][INFO][Main]: Starting iteration 2 of 10 
-[2:37:03][INFO][Main]: Starting iteration 3 of 10  
-[2:37:18][INFO][Main]: Starting iteration 4 of 10 
-[2:37:35][INFO][Main]: Starting iteration 5 of 10 
-[2:37:50][INFO][Main]: Starting iteration 6 of 10 
-[2:38:06][INFO][Main]: Starting iteration 7 of 10  
-[2:38:21][INFO][Main]: Starting iteration 8 of 10 
-[2:38:36][INFO][Main]: Starting iteration 9 of 10 
-[2:38:53][INFO][Main]: Starting iteration 10 of 10 
-[2:39:09][INFO][Main]: 
+[9:21:52][INFO][Main]: Loaded data from file data/breast-cancer-wisconsin.data: [size=699][entropy=0.929318][classificationSet=[[size=2][classifications=[[[2][occurence=458]][[4][occurence=241]]]]]][attributes=[[Uniformity_of_Cell_Size][Clump_Thickness][Bland_Chromatin][Uniformity_of_Cell_Shape][Marginal_Adhesion][Mitoses][Bare_Nuclei][Normal_Nucleoli][Single_Epithelial_Cell_Size]]] 
+[9:21:52][INFO][instance.InstanceSet]: C = 12.120860; Cmax = 17.214665; C/Cmax = 0.704101 
+[9:21:52][INFO][Main]: total correlation = 12.120860 
+[9:21:52][INFO][Main]: Starting iteration 1 of 10 
+[9:23:42][INFO][Main]: Starting iteration 2 of 10 
+[9:25:24][INFO][Main]: Starting iteration 3 of 10 
+[9:27:02][INFO][Main]: Starting iteration 4 of 10 
+[9:28:52][INFO][Main]: Starting iteration 5 of 10 
+[9:30:18][INFO][Main]: Starting iteration 6 of 10 
+[9:31:46][INFO][Main]: Starting iteration 7 of 10 
+[9:33:12][INFO][Main]: Starting iteration 8 of 10 
+[9:34:44][INFO][Main]: Starting iteration 9 of 10 
+[9:36:09][INFO][Main]: Starting iteration 10 of 10 
 
 Test Results
 
-ID3:		[tests=50][mean accuracy=0.945899][standard deviation=0.017927]
-Post-pruned:	[tests=50][mean accuracy=0.869928][standard deviation=0.031122] 
-
+Naive Bayes:		[tests=50][mean accuracy=0.972662][standard deviation=0.012294] 
 \end{verbatim}
 }
 
+
+%----------------------------------------
+% Conditional Independence
+%----------------------------------------
+\section{Conditional Independence}
+
+\begin{figure}
+  \begin{center}
+	\includegraphics[width=\textwidth,height=!]{correlation}
+  \end{center}
+  \caption{Total Correlation of Data Sets}
+  \label{fig:correlation}
+\end{figure} 
 
 %----------------------------------------
 % Bibliography

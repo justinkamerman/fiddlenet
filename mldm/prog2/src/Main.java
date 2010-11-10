@@ -33,7 +33,7 @@ public class Main
     String [] __attributeNames;
     int __iterations = 10;
     int __folds = 5;
-    int __m = 1000;
+    int __m = 10;
 
     private Main ()
     {
@@ -104,7 +104,7 @@ public class Main
             System.exit (1);
         }
         log.info ("Loaded data from file " + __dataFile + ": " + __instanceSet.toString());
-        log.info ("total correlation = " + __instanceSet.totalCorrelation());
+        log.info (String.format("total correlation = %f", __instanceSet.totalCorrelation()));
         //System.exit (0);
         
         // Fold data and evaluate
