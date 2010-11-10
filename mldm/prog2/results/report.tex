@@ -501,7 +501,23 @@ Naive Bayes:		[tests=50][mean accuracy=0.684776][standard deviation=0.053285]
 \subsection*{mushroom.data}
 {\small
 \begin{verbatim}
+[9:00:27][INFO][Main]: Loaded data from file data/mushroom.data: [size=8124][entropy=0.999068][classificationSet=[[size=2][classifications=[[[e][occurence=4208]][[p][occurence=3916]]]]]][attributes=[[cap-surface][veil-color][odor][ring-number][gill-size][stalk-surface-below-ring][stalk-root][cap-shape][gill-color][stalk-surface-above-ring][gill-spacing][habitat][veil-type][cap-color][bruises?][stalk-color-above-ring][stalk-shape][stalk-color-below-ring][spore-print-color][gill-attachment][ring-type][population]]] 
+[9:00:28][INFO][instance.InstanceSet]: C = 18.239124; Cmax = 28.196665; C/Cmax = 0.646854 
+[9:00:28][INFO][Main]: total correlation = 18.239124 
+[9:00:28][INFO][Main]: Starting iteration 1 of 10 
+[9:43:37][INFO][Main]: Starting iteration 2 of 10 
+[10:14:24][INFO][Main]: Starting iteration 3 of 10 
+[10:44:10][INFO][Main]: Starting iteration 4 of 10 
+[11:16:12][INFO][Main]: Starting iteration 5 of 10 
+[11:57:28][INFO][Main]: Starting iteration 6 of 10 
+[12:48:49][INFO][Main]: Starting iteration 7 of 10 
+[1:40:13][INFO][Main]: Starting iteration 8 of 10 
+[2:31:27][INFO][Main]: Starting iteration 9 of 10 
+[3:22:06][INFO][Main]: Starting iteration 10 of 10 
 
+Test Results
+
+Naive Bayes:		[tests=50][mean accuracy=0.952007][standard deviation=0.006205] 
 \end{verbatim}
 }
 
@@ -514,7 +530,7 @@ Naive Bayes:		[tests=50][mean accuracy=0.684776][standard deviation=0.053285]
 }
 
 
-\subsection*{breast-cancer.data}
+\subsection*{breast-cancer-wisconsin.data}
 {\small
 \begin{verbatim}
 [9:21:52][INFO][Main]: Loaded data from file data/breast-cancer-wisconsin.data: [size=699][entropy=0.929318][classificationSet=[[size=2][classifications=[[[2][occurence=458]][[4][occurence=241]]]]]][attributes=[[Uniformity_of_Cell_Size][Clump_Thickness][Bland_Chromatin][Uniformity_of_Cell_Shape][Marginal_Adhesion][Mitoses][Bare_Nuclei][Normal_Nucleoli][Single_Epithelial_Cell_Size]]] 
@@ -542,6 +558,95 @@ Naive Bayes:		[tests=50][mean accuracy=0.972662][standard deviation=0.012294]
 % Conditional Independence
 %----------------------------------------
 \section{Conditional Independence}
+The Na\"{i}ve Bayes Classifier is based on the simplifying assuption
+that attribute values are independent of one another, given the target
+value. An attempt was made to quantify the conditional independence of
+each of our data sets to see if there was any correlation between
+conditional independence and well our Na\"{i}ve Bayes Classifiers
+performed. A property called \textit{total correlation}
+\cite{RefWorks:44} was selected as our measure of conditional
+independence between betwen the attributes in each data
+set. \textit{Total Correlation} expresses the amount of redundancy or
+dependency existing between a set of variables and is given by:
+
+\begin{equation*}
+C(X_1,X_2,...,X_n) = \sum_{i=0}^n H(X_i) - H(X_1,X_2,...,X_n)
+\end{equation*}
+
+where \(H(X_i)\) is the information entropy of variable \(X_i\) and
+\(H(X_1,X_2,...,X_n)\) is the joint entropy of the variable set
+\(\{X_1,X_2,...,X_n\}\). In terms of the discrete probability
+  distributions on variables \(\{X_1,X_2,...,X_n\}\), the
+  \textit(Total Correlation} is given by 
+
+\begin{equation*}
+C(X_1,X_2,...,X_n) = \sum_{x_1 \in \matthcal{X_1}}\sum_{x_2 \in \matthcal{X_2}}...\sum_{x_n \in \matthcal{X_n}}p(x_i,x_2,...,x_n)log\frac{p(x_i,x_2,...,x_n)}{p(x_1)p(x_2)...p(x_n)}
+\end{equation*}
+
+In our case, \(\{X_1,X_2,...,X_n\}\) was taken to be the set of
+attributes for each data set. 
+
+The sum \(\sum_{i=0}^n H(X_i)\) represents the amount of
+information shared among the variables in the set in terms of the
+average code length to transmit the values of all the variables if
+each variable was (optimally) coded independently. The term
+\(H(X_1,X_2,...,X_n)\) quantifies the actual amount of information
+that the variable set contains in terms of the the average code length
+to transmit the values of all the variables if the set of variables
+was optimally coded together. The difference in these two terms
+represents the absolute redundancy (in bits) present in a given set of
+variables, and thus provides a general quantitative measure of the
+structure or organization embodied in the set
+\cite{wiki:total_correlation}. 
+The results of our \textit{Total Correlation} calculations for each
+data set shown in Table \ref{table:correlation}. These results are plotted against
+mean accuracy of the associated Na\"{i}ve Bayes Classifier in Figure
+\ref{fig:correlation}. The car data set is the only set to exhibit
+zero \textit{Total Correlation} but does not represent the best mean
+accuracy during evaluation. Looking at Figure \ref{tab:correlation},
+there does not seem to be any obvious realtionship between accuracy
+and \textit{Total Correlation}. This phenomenon can could be acounted
+for by one or more of the following factors:
+
+\begin{itemize}
+  \item While conditional independence is an assumption upon which the
+    Na\"{i}ve Bayes Classifier is based, the classifier still performs
+    well in certain domains where conditional independence does not
+    hold. In practice, the Na\"{i}ve Bayes Classifier performs
+    remarkably well in many text classification problems despite the
+    incorrectness of the conditional independence assumption
+    \cite{Mitchell1997}. 
+
+  \item The data sets provided are samples of in a probablity
+    distribution covering all possible attribute
+    combinations. Depending on how representative the sample is in
+    each case, classifiers trained on the data will perform with
+    varying degrees of success against unseen instances.
+
+  \item In calculating joint entropy, \(H(X_1,X_2,...,X_n)\), for
+    \textit{Total Correlation}, it is difficult to estimate
+    probabilities from the data set due to the large population
+    size. Better estimates could be obtained by correlating attribute
+    pairs rather than trying to calculate a single metric
+    representating the entire data set. This modification was not
+    implemented by the student due to time contraints. 
+\end{itemize}
+
+\\
+\begin{table}[h]
+  \centering
+  \begin{tabular}{ |l|l|l|} 
+    \hline
+    \textbf{Data Set} & \textbf{Mean Accuracy} & \textbf{Total Correlation} \\ \hline
+    car                      &  0.841449  &  0.0       \\ \hline
+    ecoli                    &  0.684776  &  23.112473 \\ \hline
+    mushroom                 &  0.952007  &  18.239124 \\ \hline
+    letter-recognition       &            &  \\ \hline
+    breast-cancer-wisconsin  &  0.972662  &  12.120860 \\ \hline
+  \end{tabular}
+  \caption{Total Correlation}
+  \label{tab:correlation}
+\end{table}
 
 \begin{figure}
   \begin{center}
