@@ -443,7 +443,12 @@ description of each class:
 \section{Results}
 \label{sec:results}
 The results of processing each data file through ten iterations of
-5-fold cross-validation are presented below. Table \ref{tab:comparison} tabulates accuracy scores for the Na\"{i}ve Bayes classifier and ID3 Decision Tree for comparison. TODO
+5-fold cross-validation are presented below. Table
+\ref{tab:comparison} tabulates accuracy scores for the Na\"{i}ve Bayes
+classifier and ID3 Decision Tree for comparison. In three of the five
+data set, ID3 performed marginally better than Na\"{i}ve Bayes and in
+one case, Na\"{i}ve Bayes better than ID3. In the case of the ecoli
+data set, Na\"{i}ve Bayes performed significantly better than ID3.
 
 \begin{table}[h]
   \centering
@@ -453,7 +458,7 @@ The results of processing each data file through ten iterations of
     car                      &  0.841449  &  0.938377 \\ \hline
     ecoli                    &  0.684776  &  0.384776 \\ \hline
     mushroom                 &  0.952007  &  1.000000 \\ \hline
-    letter-recognition       &  TODO      &  0.760870 \\ \hline
+    letter-recognition       &  0.737670  &  0.760870 \\ \hline
     breast-cancer-wisconsin  &  0.972662  &  0.945899 \\ \hline
   \end{tabular}
   \caption{Comparison of Na\"{i}ve Bayes and ID3 Decision Tree performance}
@@ -521,7 +526,16 @@ Naive Bayes:		[tests=50][mean accuracy=0.684776][standard deviation=0.053285]
 \subsection*{mushroom.data}
 {\small
 \begin{verbatim}
-[9:00:27][INFO][Main]: Loaded data from file data/mushroom.data: [size=8124][entropy=0.999068][classificationSet=[[size=2][classifications=[[[e][occurence=4208]][[p][occurence=3916]]]]]][attributes=[[cap-surface][veil-color][odor][ring-number][gill-size][stalk-surface-below-ring][stalk-root][cap-shape][gill-color][stalk-surface-above-ring][gill-spacing][habitat][veil-type][cap-color][bruises?][stalk-color-above-ring][stalk-shape][stalk-color-below-ring][spore-print-color][gill-attachment][ring-type][population]]] 
+[9:00:27][INFO][Main]: Loaded data from file data/mushroom.data:
+[size=8124][entropy=0.999068][classificationSet=
+[[size=2][classifications=[[[e][occurence=4208]]
+[[p][occurence=3916]]]]]][attributes=
+[[cap-surface][veil-color][odor][ring-number]
+[gill-size][stalk-surface-below-ring][stalk-root]
+[cap-shape][gill-color]
+[stalk-surface-above-ring][gill-spacing][habitat]
+[veil-type][cap-color] [bruises?][stalk-color-above-ring][stalk-shape]
+[stalk-color-below-ring][spore-print-color][gill-attachment][ring-type][population]]] 
 [9:00:28][INFO][instance.InstanceSet]: C = 18.239124; Cmax = 28.196665; C/Cmax = 0.646854 
 [9:00:28][INFO][Main]: total correlation = 18.239124 
 [9:00:28][INFO][Main]: Starting iteration 1 of 10 
@@ -546,6 +560,34 @@ Naive Bayes:		[tests=50][mean accuracy=0.952007][standard deviation=0.006205]
 \subsection*{letter-recognition.data}
 {\small
 \begin{verbatim}
+[11:40:12][INFO][Main]: Loaded data from file
+data/letter-recognition.data: [size=20000]
+[entropy=4.699811][classificationSet= [[size=26][classifications=[[[D]
+[occurence=805]][[E][occurence=768]][[F][occurence=775]][[G][occurence=773]]
+[[A][occurence=789]][[B][occurence=766]][[C][occurence=736]][[L][occurence=761]]
+[[M][occurence=792]][[N][occurence=783]][[O][occurence=753]][[H][occurence=734]]
+[[I][occurence=755]][[J][occurence=747]][[K][occurence=739]][[U][occurence=813]]
+[[T][occurence=796]][[W][occurence=752]][[V][occurence=764]][[Q][occurence=783]]
+[[P][occurence=803]][[S][occurence=748]][[R][occurence=758]][[Y][occurence=786]]
+[[X][occurence=787]][[Z][occurence=734]]]]]][attributes=[[y-ege][xy2br][x-bar]
+[x-ege][x2bar][x2ybr][width][xegvy][onpix][x-box][y2bar][y-bar][y-box][high][yegvx][xybar]]] 
+[11:40:17][INFO][instance.InstanceSet]: C = 35.346037; Cmax = 45.803145; C/Cmax = 0.771695 
+[11:40:17][INFO][Main]: total correlation = 35.346037 
+[11:40:17][INFO][Main]: Starting iteration 1 of 10 
+[1:41:01][INFO][Main]: Starting iteration 2 of 10 
+[3:39:41][INFO][Main]: Starting iteration 3 of 10 
+[4:55:15][INFO][Main]: Starting iteration 4 of 10 
+[5:54:03][INFO][Main]: Starting iteration 5 of 10 
+[6:52:51][INFO][Main]: Starting iteration 6 of 10 
+[7:52:01][INFO][Main]: Starting iteration 7 of 10 
+[8:51:05][INFO][Main]: Starting iteration 8 of 10 
+[9:49:54][INFO][Main]: Starting iteration 9 of 10 
+[10:48:47][INFO][Main]: Starting iteration 10 of 10 
+[11:47:39][INFO][Main]: 
+
+Test Results
+
+Naive Bayes:		[tests=50][mean accuracy=0.737670][standard deviation=0.007147] 
 
 \end{verbatim}
 }
@@ -662,7 +704,7 @@ for by one or more of the following factors:
     car                      &  0.841449  &  0.0       \\ \hline
     ecoli                    &  0.684776  &  23.112473 \\ \hline
     mushroom                 &  0.952007  &  18.239124 \\ \hline
-    letter-recognition       &  TODO      &  TODO      \\ \hline
+    letter-recognition       &  0.737670  &  35.346037 \\ \hline
     breast-cancer-wisconsin  &  0.972662  &  12.120860 \\ \hline
   \end{tabular}
   \caption{Total Correlation vs Accuracy}

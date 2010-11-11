@@ -9,4 +9,5 @@ set data style dot
 plot "car.mlog" using 1:2 index 0 title "car" smooth bezier, \
      "ecoli.mlog" using 1:2 index 0 title "ecoli" smooth bezier, \
      "breast-cancer-wisconsin.mlog" using 1:2 index 0 title "breast-cancer" smooth bezier, \
-     "mushroom.mlog" using 1:2 index 0 title "mushroom" smooth bezier
+     "mushroom.mlog" using 1:2 index 0 title "mushroom" smooth bezier, \
+     "letter-recognition.mlog" using 1:2 index 0 title "letter-recognition" smooth bezier
