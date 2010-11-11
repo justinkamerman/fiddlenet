@@ -65,7 +65,7 @@ described in ~\cite{Mitchell1997}. During the learning phase of the
 algorithm, the program calculates a marginal probability vector, with
 each position in the vector corresponding to a possible target
 value. A three-dimensional conditional probability matrix is
-populated, one dimension corresponding to target value, another
+created, one dimension corresponding to target value, another
 dimension corresponding to attribute class, and a third dimension
 corresponding to attribute value domain. In estimating conditional
 probabilities, the \textbf{m-estimate} technique described in
@@ -75,22 +75,22 @@ probabilities, the \textbf{m-estimate} technique described in
 P(A_{j}=a_{k}|C=c_{i}) = \frac{n_{c} + mp}{n + m}
 \end{equation*}
 
-where, for a particular training set, n is the cardinality of the
-subset for which classification \(c_h\) holds and \(n_c\), the
+where, for a particular training set, \(n\) is the cardinality of the
+subset for which classification \(c_i\) holds and \(n_c\), the
 cardinality of the subset of instances for which classification
 \(c_i\) holds and attribute class \(A_j\) has value \(a_k\). \(p\) is
 a prior estimate of the probability we wish to calculate. In this
 case, we assume uniform distribution i.e. if the attribute in question
 has \(k\) possible values, we assign \(p = \frac{1}{k}\). \(m\) is a
 constant value which we call the \textit{equivalent sample size} and
-determines how heavily to weight p relative to the observed
+determines how heavily to weight \(p\) relative to the observed
 data. 
 
 Using \textit{m-estimate} to estimate conditional probabilities
 addresses the problem of a sparse probability matrix. Without
-\textit{m-estimate}, matrix nodes which are not represented in the
-training data are set to zero, resulting in a biased underestimation
-of probabilities calculated using these terms. Using
+\textit{m-estimate}, conditional probability matrix nodes which are
+not represented in the training data are set to zero, resulting in a
+biased underestimation of probabilities calculated using these terms. Using
 \textit{m-estimate}, matrix nodes not represented in the training data
 are set to \(\frac{mp}{n + m}\) instead.
 
@@ -98,8 +98,8 @@ In order to determine suitable \textit{m} values for each of the data
 sets, various tests were performed to see how the selection of
 \textit{m} effected mean accuracy of the Na\"{i}ve Bayes Classifier
 during K-fold cross-validation. Figure \ref{fig:mlog} shows how in
-each case the mean accuracy was a maximum when m was small (< 10) and
-decreased as \textit{m} was increased before stabilizing. It is the
+each case the mean accuracy was a maximum when m was small and
+decreases as \textit{m} increases before stabilizing. It is the
 student's opinion that as \textit{m} is increased, the probability
 estimates tends towards a uniform distribution, the \textit{equivalent sample}
 parameters overwhelming \(\frac{n_c}{n}\). From these results, a value
@@ -318,8 +318,8 @@ line. All data files have been preprocessed to fit this format.
 % Program Design
 %----------------------------------------
 \section{Program Design}
-The Na\"{\i}ve algorithms are implemented by a Java program. The only
-external dependency is on the Apache commons-cli library for parsing
+The Na\"{\i}ve Bayes Classifier is implemented in a Java program. The only
+external dependency of the program is the Apache commons-cli library for parsing
 commend line options. To that end, the program is operated from the
 command line, taking options listed in table
 ~\ref{tab:commandline}. Wrapper scripts, \textit{run.sh} and
@@ -327,7 +327,7 @@ command line, taking options listed in table
 program on UNIX and Windows platforms respectively. The header
 comments in each script contain the command lines used for executing
 the program with the various data files provided.
-\\
+
 \begin{table}[h]
   \centering
   \begin{tabular}{ |l|p{10cm}|} 
@@ -345,7 +345,7 @@ the program with the various data files provided.
   \caption{Command line options}
   \label{tab:commandline}
 \end{table}
-\\\\
+
 The program parses a data file, assumed to contain a set of training
 instances on each line. Each training instance line is a
 comma-separated list of attribute values terminated by a
@@ -354,9 +354,9 @@ assignment, some had to be preprocessed to fit the expected format.
 
 The program then executes a number of iterations (default is 10) over
 the entire data set. During each iteration, the data set is folded
-(default is 5 times), the training set used to create a Na\"{i}ve
+(default is 5 times) and the training set used to create a Na\"{i}ve
   Bayes Classifier. The instances in the test set are then evaluated 
-  by the classifier and the accuracy of the classifications is
+  by the classifier and the accuracy of the classifications 
   recorded for each test set evaluated. After the final iteration is
   complete, the mean accuracy and standard deviation are calculated
   and output by the program.
@@ -423,14 +423,14 @@ description of each class:
 \item \textbf{Main} is the class which is started from the command
   line. It parses command line options and starts the test iterations.
 
-\item \textbf{NaiveBayes} creates a Na\"{\i}ve Bayes classifier
+\item \textbf{NaiveBayes} creates a Na\"{\i}ve Bayes Classifier
   given a training data \textit{InstanceSet}. It calculates marginal
   and conditional probabilities and populates a probability matrix
   within the \textit{NaiveBayesClassifier}. It uses the m-estimation
   technique to estimate conditional probabilities.
 
 \item \textbf{NaiveBayesClassifier} classifies an \textit{Instance}
-  using the Na\"{i}ve Bayes Classifier algorithm, based on a matrix of
+  using the Na\"{i}ve Bayes Classifier, based on a matrix of
   marginal and conditional probabilities which are calculated from a
   previously seen training set.
 
@@ -445,20 +445,18 @@ description of each class:
 The results of processing each data file through ten iterations of
 5-fold cross-validation are presented below. Table \ref{tab:comparison} tabulates accuracy scores for the Na\"{i}ve Bayes classifier and ID3 Decision Tree for comparison. TODO
 
-
-\\
 \begin{table}[h]
   \centering
   \begin{tabular}{ |l|l|l|} 
     \hline
-    \textbf{Data Set} & \textbf{ID3 Accuracy} & \textbf{Na\"{i}ve Bayes Accuracy} \\ \hline
+    \textbf{Data Set} & \textbf{Na\"{i}ve Bayes Accuracy} & \textbf{ID3 Accuracy} \\ \hline
     car                      &  0.841449  &  0.938377 \\ \hline
     ecoli                    &  0.684776  &  0.384776 \\ \hline
     mushroom                 &  0.952007  &  1.000000 \\ \hline
     letter-recognition       &  TODO      &  0.760870 \\ \hline
     breast-cancer-wisconsin  &  0.972662  &  0.945899 \\ \hline
   \end{tabular}
-  \caption{Comparison of N\"{i}ve Bayes and ID3 Decision Tree performance}
+  \caption{Comparison of Na\"{i}ve Bayes and ID3 Decision Tree performance}
   \label{tab:comparison}
 \end{table}
 
@@ -482,6 +480,7 @@ The results of processing each data file through ten iterations of
 [8:52:58][INFO][Main]: Starting iteration 8 of 10 
 [8:53:30][INFO][Main]: Starting iteration 9 of 10 
 [8:54:01][INFO][Main]: Starting iteration 10 of 10 
+[8:54:32][INFO][Main]:
 
 Test Results
 
@@ -510,6 +509,7 @@ Naive Bayes:		[tests=50][mean accuracy=0.841449][standard deviation=0.023485]
 [8:57:46][INFO][Main]: Starting iteration 8 of 10 
 [8:58:06][INFO][Main]: Starting iteration 9 of 10 
 [8:58:27][INFO][Main]: Starting iteration 10 of 10 
+[8:58:48][INFO][Main]: 
 
 Test Results
 
@@ -534,6 +534,7 @@ Naive Bayes:		[tests=50][mean accuracy=0.684776][standard deviation=0.053285]
 [1:40:13][INFO][Main]: Starting iteration 8 of 10 
 [2:31:27][INFO][Main]: Starting iteration 9 of 10 
 [3:22:06][INFO][Main]: Starting iteration 10 of 10 
+[4:12:59][INFO][Main]:
 
 Test Results
 
@@ -566,6 +567,7 @@ Naive Bayes:		[tests=50][mean accuracy=0.952007][standard deviation=0.006205]
 [9:33:12][INFO][Main]: Starting iteration 8 of 10 
 [9:34:44][INFO][Main]: Starting iteration 9 of 10 
 [9:36:09][INFO][Main]: Starting iteration 10 of 10 
+[9:37:33][INFO][Main]: 
 
 Test Results
 
@@ -582,12 +584,12 @@ The Na\"{i}ve Bayes Classifier is based on the simplifying assumption
 that attribute values are independent of one another, given the target
 value. An attempt was made to quantify the conditional independence of
 each of our data sets to see if there was any correlation between
-conditional independence and well our Na\"{i}ve Bayes Classifiers
-performed. A property called \textit{total correlation}
+conditional independence and the accuracy of our Na\"{i}ve Bayes
+Classifiers. A property called \textit{total correlation} 
 \cite{RefWorks:44} was selected as our measure of conditional
-independence between between the attributes in each data
-set. \textit{Total Correlation} expresses the amount of redundancy or
-dependency existing between a set of variables and is given by:
+independence between the attributes in each data set. \textit{Total
+  Correlation} expresses the amount of redundancy or dependency
+existing between a set of variables and is given by: 
 
 \begin{equation*}
 C(X_1,X_2,...,X_n) = \sum_{i=0}^n H(X_i) - H(X_1,X_2,...,X_n)
@@ -597,7 +599,7 @@ where \(H(X_i)\) is the information entropy of variable \(X_i\) and
 \(H(X_1,X_2,...,X_n)\) is the joint entropy of the variable set
 \(\{X_1,X_2,...,X_n\}\). In terms of the discrete probability
   distributions on variables \(\{X_1,X_2,...,X_n\}\), the
-  \textit(Total Correlation} is given by 
+  \textit{total correlation} is given by 
 
 \begin{equation*}
 C(X_1,X_2,...,X_n) = \sum_{x_1 \in \matthcal{X_1}}\sum_{x_2 \in \matthcal{X_2}}...\sum_{x_n \in \matthcal{X_n}}p(x_i,x_2,...,x_n)log\frac{p(x_i,x_2,...,x_n)}{p(x_1)p(x_2)...p(x_n)}
@@ -618,14 +620,14 @@ represents the absolute redundancy (in bits) present in a given set of
 variables, and thus provides a general quantitative measure of the
 structure or organization embodied in the set
 \cite{wiki:total_correlation}. 
-The results of our \textit{Total Correlation} calculations for each
-data set shown in Table \ref{table:correlation}. These results are plotted against
+The results of our \textit{total correlation} calculations for each
+data set shown in Table \ref{tab:correlation}. These results are plotted against
 mean accuracy of the associated Na\"{i}ve Bayes Classifier in Figure
 \ref{fig:correlation}. The car data set is the only set to exhibit
-zero \textit{Total Correlation} but does not represent the best mean
+zero \textit{total correlation} but does not represent the best mean
 accuracy during evaluation. Looking at Figure \ref{tab:correlation},
 there does not seem to be any obvious relationship between accuracy
-and \textit{Total Correlation}. This phenomenon can could be accounted
+and \textit{total correlation}. This phenomenon could be accounted
 for by one or more of the following factors:
 
 \begin{itemize}
@@ -637,14 +639,14 @@ for by one or more of the following factors:
     incorrectness of the conditional independence assumption
     \cite{Mitchell1997}. 
 
-  \item The data sets provided are samples of in a probability
+  \item The data sets provided are samples from a probability
     distribution covering all possible attribute
     combinations. Depending on how representative the sample is in
     each case, classifiers trained on the data will perform with
     varying degrees of success against unseen instances.
 
   \item In calculating joint entropy, \(H(X_1,X_2,...,X_n)\), for
-    \textit{Total Correlation}, it is difficult to estimate
+    \textit{total correlation}, it is difficult to estimate
     probabilities from the data set due to the large population
     size. Better estimates could be obtained by correlating attribute
     pairs rather than trying to calculate a single metric
@@ -652,7 +654,6 @@ for by one or more of the following factors:
     implemented by the student due to time constraints. 
 \end{itemize}
 
-\\
 \begin{table}[h]
   \centering
   \begin{tabular}{ |l|l|l|} 
@@ -664,7 +665,7 @@ for by one or more of the following factors:
     letter-recognition       &  TODO      &  TODO      \\ \hline
     breast-cancer-wisconsin  &  0.972662  &  12.120860 \\ \hline
   \end{tabular}
-  \caption{Total Correlation}
+  \caption{Total Correlation vs Accuracy}
   \label{tab:correlation}
 \end{table}
 
@@ -672,7 +673,7 @@ for by one or more of the following factors:
   \begin{center}
 	\includegraphics[width=\textwidth,height=!]{correlation}
   \end{center}
-  \caption{Total Correlation of Data Sets}
+  \caption{Total Correlation vs Accuracy}
   \label{fig:correlation}
 \end{figure} 
 

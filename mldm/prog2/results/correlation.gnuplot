@@ -5,7 +5,6 @@ set xlabel "total correlation C"
 set ylabel "mean accuracy"
 set yrange [0:1]
 set xrange [0:30]
-set title "Total Correlation vs Accuracy"
 set data style point
 set pointsize 2.5
 plot "correlation.data" using 1:2 index 0 title "car", \
