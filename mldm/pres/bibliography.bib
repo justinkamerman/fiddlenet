@@ -4,7 +4,7 @@
 @article{RefWorks:32,
 	author={A. P. Bradley},
 	year={1997},
-	title={The use of the area under the ROC curve in the evaluation of machine learning algorithms},
+	title={{The use of the area under the ROC curve in the evaluation of machine learning algorithms}},
 	journal={Pattern recognition.},
 	volume={30},
 	number={7},
@@ -14,10 +14,50 @@
 	language={english}
 }
 
+@inproceedings{RefWorks:49,
+	author={Rich Caruana and Alexandru Niculescu-Mizil},
+	year={2004},
+	title={Data mining in metric space: an empirical analysis of supervised learning performance criteria},
+	booktitle={{Proceedings of the tenth ACM SIGKDD international conference on Knowledge discovery and data mining}},
+	series={KDD '04},
+	publisher={ACM},
+	address={New York, NY, USA},
+	location={Seattle, WA, USA},
+	pages={69-78},
+	keywords={ROC; cross entropy; lift; metrics; performance evaluation; precision; recall; supervised learning},
+	isbn={1-58113-888-1}
+}
+
+@article{RefWorks:47,
+	author={Janez Dem\v{s}ar},
+	year={2006},
+	month={December},
+	title={{Statistical Comparisons of Classifiers over Multiple Data Sets}},
+	journal={Journal of Machine Learning Research},
+	volume={7},
+	pages={1-30},
+	isbn={1532-4435}
+}
+
+@inproceedings{RefWorks:52,
+	author={Chris Drummond and Robert C. Holte},
+	year={2000},
+	title={{Explicitly representing expected cost: an alternative to ROC representation}},
+	booktitle={Proceedings of the sixth ACM SIGKDD international conference on Knowledge Discovery and Data Mining},
+	series={KDD '00},
+	publisher={ACM},
+	address={New York, NY, USA},
+	location={Boston, Massachusetts, United States},
+	pages={198-207},
+	abstract={This paper proposes an alternative to ROC representation, in which the expected cost of a classfier is represented explicitly . This expected cost representation maintains many of the advantages of ROC representation, but is easier to understand. It allows the experimenter to immediately see the range of costs and class frequencies where a particular classier is the best and quantitatively how much better it is than other classiers. This paper demonstrates there is a point/line duality between the two representations. A point in ROC space representing a classfier becomes a line segment spanning the full range of costs and class frequencies. This duality produces equivalen t operations in the two spaces, allowing most techniques used in ROC analysis to be readily reproduced in the cost space.},
+	keywords={ROC analysis; cost sensitive learning},
+	isbn={1-58113-233-6}
+}
+
 @article{RefWorks:34,
 	author={Chris Drummond and Nathalie Japkowicz},
 	year={2010},
-	title={Warning: statistical benchmarking is addictive. {K}icking the habit in machine learning},
+	title={{Warning: statistical benchmarking is addictive. Kicking the habit in machine learning}},
 	journal={Journal of Experimental {\&} Theoretical Artificial Intelligence},
 	volume={22},
 	number={1},
@@ -25,6 +65,18 @@
 	abstract={Algorithm performance evaluation is so entrenched in the machine learning community that one could call it an addiction. Like most addictions, it is harmful and very difficult to give up. It is harmful because it has serious limitations. Yet, we have great faith in practicing it in a ritualistic manner: we follow a fixed set of rules telling us the measure, the data sets and the statistical test to use. When we read a paper, even as reviewers, we are not sufficiently critical of results that follow these rules. Here, we will debate what are the limitations and how to best address them. This article may not cure the addiction but hopefully it will be a good first step along that road.},
 	isbn={0952-813X},
 	language={english}
+}
+
+@inbook{RefWorks:53,
+	author={William Elazmeh and Nathalie Japkowicz and Stan Matwin},
+	editor={Fürnkranz,Johannes and Scheffer,Tobias and Spiliopoulou,Myra},
+	year={2006},
+	title={{Evaluating Misclassifications in Imbalanced Data}},
+	series={Machine Learning: ECML 2006},
+	publisher={Springer Berlin / Heidelberg},
+	volume={4212},
+	pages={126-137},
+	abstract={Evaluating classifier performance with ROC curves is popular in the machine learning community. To date, the only method to assess confidence of ROC curves is to construct ROC bands. In the case of severe class imbalance with few instances of the minority class, ROC bands become unreliable. We propose a generic framework for classifier evaluation to identify a segment of an ROC curve in which misclassifications are balanced. Confidence is measured by Tango’s 95%-confidence interval for the difference in misclassification in both classes. We test our method with severe class imbalance in a two-class problem. Our evaluation favors classifiers with low numbers of misclassifications in both classes. Our results show that the proposed evaluation method is more confident than ROC bands.}
 }
 
 @article{RefWorks:39,
@@ -52,6 +104,14 @@
 	isbn={0167-8655}
 }
 
+@inproceedings{RefWorks:48,
+	author={G. Forman},
+	year={2002},
+	title={A method for discovering the insignificance of one's best classifier and the unlearnability of a classification task},
+	booktitle={Workshop on Data Mining Lessons Learned},
+	abstract={Consider the following common scenario: a data mining practitioner tries various specialized classification algorithms on a new dataset of unknown difficulty and selects the apparent best.  Supposing its accuracy were 70% on a held-out test set, how can one know whether this is a significant result or not? It can be difficult to tell in the absence of standard benchmark results for the dataset. Surprisingly, it can also be difficult to tell even when the dataset has hundreds of benchmark results. This paper presents a method to address this question by comparing the chosen best classifier to the distribution of performance scores obtained by many simple classifiers that are randomly generated. This can also serve to discover when a classification problem appears nearly unlearnable. It is demonstrated for the results of the 2001 KDD Cup thrombin competition.}
+}
+
 @inbook{RefWorks:40,
 	author={Cyril Goutte and Eric Gaussier},
 	editor={Losada,David E. and Fernández-Luna,Juan M.},
@@ -62,17 +122,6 @@
 	volume={3408},
 	pages={345-359},
 	abstract={We address the problems of 1/ assessing the confidence of the standard point estimates, precision, recall and F-score, and 2/ comparing the results, in terms of precision, recall and F-score, obtained using two different methods. To do so, we use a probabilistic setting which allows us to obtain posterior distributions on these performance indicators, rather than point estimates. This framework is applied to the case where different methods are run on different datasets from the same source, as well as the standard situation where competing results are obtained on the same data.}
-}
-
-@inproceedings{RefWorks:42,
-	author={Jin Huang and Charles X. Ling},
-	year={2007},
-	title={Constructing new and better evaluation measures for machine learning},
-	booktitle={IJCAI'07: Proceedings of the 20th international joint conference on Artifical intelligence},
-	publisher={Morgan Kaufmann Publishers Inc},
-	address={San Francisco, CA, USA},
-	location={Hyderabad, India},
-	pages={859-864}
 }
 
 @inproceedings{RefWorks:43,
@@ -87,6 +136,29 @@
 	language={english}
 }
 
+@inproceedings{RefWorks:42,
+	author={Jin Huang and C. X. Ling},
+	year={2007},
+	title={Constructing new and better evaluation measures for machine learning},
+	booktitle={IJCAI'07: Proceedings of the 20th international joint conference on Artificial Intelligence},
+	publisher={Morgan Kaufmann Publishers Inc},
+	address={San Francisco, CA, USA},
+	location={Hyderabad, India},
+	pages={859-864}
+}
+
+@inbook{RefWorks:56,
+	author={Charles Ling and Jin Huang and Harry Zhang},
+	editor={Xiang,Yang and Chaib-draa,Brahim},
+	year={2003},
+	title={AUC: A Better Measure than Accuracy in Comparing Learning Algorithms},
+	series={Advances in Artificial Intelligence},
+	publisher={Springer Berlin / Heidelberg},
+	volume={2671},
+	pages={991-991},
+	abstract={Predictive accuracy has been widely used as the main criterion for comparing the predictive ability of classification systems (such as C4.5, neural networks, and Naive Bayes). Most of these classifiers also produce probability estimations of the classification, but they are completely ignored in the accuracy measure. This is often taken for granted because both training and testing sets only provide class labels. In this paper we establish rigourously that, even in this setting, the area under the ROC (Receiver Operating Characteristics) curve, or simply AUC, provides a better measure than accuracy. Our result is quite significant for three reasons. First, we establish, for the first time, rigourous criteria for comparing evaluation measures for learning algorithms. Second, it suggests that AUC should replace accuracy when measuring and comparing classification systems. Third, our result also prompts us to re-evaluate many well-established conclusions based on accuracy in machine learning. For example, it is well accepted in the machine learning community that, in terms of predictive accuracy, Naive Bayes and decision trees are very similar. Using AUC, however, we show experimentally that Naive Bayes is significantly better than the decision-tree learning algorithms.}
+}
+
 @inproceedings{RefWorks:38,
 	author={M. A. Maloof},
 	year={2002},
@@ -96,6 +168,28 @@
 	pages={204-207 vol.2},
 	abstract={Receiver operating characteristic (ROC) analysis is being used with greater frequency as an evaluation methodology in machine learning and pattern recognition. Researchers have used ANOVA to determine if the results from such analysis are statistically significant. Yet, in the medical decision making community, the prevailing method is LABMRMC. Although this latter method uses ANOVA, before doing so, it applies the Jackknife method to account for case-sample variance. To determine whether these two tests make the same decisions regarding statistical significance, we conducted a Monte Carlo simulation using several problems derived from Gaussian distributions, three machine-learning algorithms, ROC analysis, ANOVA, and LABMRMC. Results suggest that the decisions these tests make are not the same, even for simple problems. Furthermore, the larger issue is that since ANOVA does not account for case-sample variance, one cannot generalize experimental results to the population from which the data were drawn.},
 	isbn={1051-4651}
+}
+
+@inproceedings{RefWorks:45,
+	author={F. Provost and T. Fawcett and R. Kohavi},
+	year={1998},
+	month={1998},
+	title={{The Case Against Accuracy Estimation for Comparing Induction Algorithms}},
+	booktitle={Proceedings of the Fifteenth International Conference on Machine Learning},
+	pages={43-48},
+	abstract={We analyze critically the use of classification accuracy to compare classi ers on natural data sets, providing a thorough investigation using ROC analysis, standard machine learning algorithms, and standard benchmark data sets. The results raise serious concerns about the use of accuracy for comparing classifiers and draw into question the conclusions that can be drawn from such studies. In the course of the presentation, we describe and demonstrate what we believe to be the proper use of ROC analysis for comparative studies in machine learning research. We argue that this methodology is preferable both for making practical choices and for drawing scientific conclusions.}
+}
+
+@article{RefWorks:46,
+	author={Lorenza Saitta and Filippo Neri},
+	year={1998},
+	title={{Learning in the “Real World”}},
+	journal={Machine Learning},
+	volume={30},
+	number={2},
+	pages={133-163},
+	abstract={In this paper we define and characterize the process of developing a real-world Machine Learning application, with its difficulties and relevant issues, distinguishing it from the popular practice of exploiting ready-to-use data sets. To this aim, we analyze and summarize the lessons learned from applying Machine Learning techniques to a variety of problems. We believe that these lessons, though primarily based on our personal experience, can be generalized to a wider range of situations and are supported by the reported experiences of other researchers.},
+	isbn={0885-6125}
 }
 
 @inproceedings{RefWorks:36,
@@ -130,5 +224,17 @@
 	abstract={This paper presents a systematic analysis of twenty four performance measures used in the complete spectrum of Machine Learning classification tasks, i.e., binary, multi-class, multi-labelled, and hierarchical. For each classification task, the study relates a set of changes in a confusion matrix to specific characteristics of data. Then the analysis concentrates on the type of changes to a confusion matrix that do not change a measure, therefore, preserve a classifier's evaluation (measure invariance). The result is the measure invariance taxonomy with respect to all relevant label distribution changes in a classification problem. This formal analysis is supported by examples of applications where invariance properties of measures lead to a more reliable evaluation of classifiers. Text classification supplements the discussion with several case studies.},
 	isbn={0306-4573},
 	language={english}
+}
+
+@article{RefWorks:44,
+	author={Satosi Watanabe},
+	year={1960},
+	title={{Information Theoretical Analysis of Multivariate Correlation}},
+	journal={IBM Journal of Research and Development},
+	volume={4},
+	number={1},
+	pages={66-82},
+	abstract={A set λ of stochastic variables, y1 ,y2, …, yn, is grouped into subsets, µ1, µ2, ..., µk. The correlation existing in λ with respect to the µ's is adequately expressed by an equation where S(ν) is the entropy function defined with reference to the variables y in subset ν. For a given λ, C becomes maximum when each µi consists of only one variable, (n = k). The value C is then called the total correlation in λ, Ctot(λ). The present paper gives various theorems, according to which Ctot(λ) can be decomposed in terms of the partial correlations existing in subsets of λ, and of quantities derivable therefrom. The information-theoretical meaning of each decomposition is carefully explained. As illustrations, two problems are discussed at the end of the paper: (1) redundancy in geometrical figures in pattern recognition, and (2) randomization effect of shuffling cards marked “zero” or “one.”},
+	isbn={0018-8646}
 }
 

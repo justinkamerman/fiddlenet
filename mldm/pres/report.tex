@@ -9,6 +9,7 @@
 \documentclass[10pt]{unbthesis}
 \usepackage{graphicx}
 \usepackage{url}
+\usepackage{multirow}
 \usepackage{setspace}			
 \onehalfspacing
 
@@ -27,7 +28,151 @@
 %----------------------------------------
 \section*{Abstract}
 \cite{*}
-Hello World!
+
+\section*{Introduction}
+Key to the field of machine learning is the ability to evaluate a
+classifiers performance objectively and extrapolate performance
+metrics to predict how a classifier will perform on a previously
+unseen inputs. 
+
+Few machine learning algorithms offer the luxury of being analytically
+comprehensable e.g. Decision Trees. Such algorithms
+allow researchers to analytically predict and compare classifier
+performance. In most cases, however, researchers must rely on
+empirical methods to evaluate machine learning algorithms. It is
+important for the field in general to establish a well defined set of
+methods for comparing machine learning methods. If researchers cannot
+convince others that they have discovered a better algorithm, or do
+convince others with unreliable evaluation techniques, the field risks
+excusions down dead-end paths of research or abandonment of those to
+potential breakthroughs. 
+
+The ability to evaluate a classifier suitably is not
+only important for comparing one classifier or one algorithm to
+another but also in the generation classifiers themselves. In
+principal, machine learning algorithms involve the search of a
+\textit{hypothesis space} for an optimal target function that best
+fits the training data. In many cases, this hypothesis space search
+involves an explicit comparison of the performance of competing target
+function candidates. The ability to pick the best candidate for the
+job is at the heart of success, or failure, of a machine learning
+algorithm. If such methods cannot converge on an optimal (local or
+global) target function, their will be of limited utility in
+practice.
+
+In this paper we examine the prevalent evaluation metrics in use by
+machine language researchers as well as their origins and shortcomings as
+applied in the field. We track the development of new methods which,
+in most cases, extend and complement exisiting. We identify domain
+specific factors which effect different metrics and should be
+considered when selecting a particular evaluation method. In
+particular, we look at how the structure and composition of the
+training set should effect the choice of evaluation methods.
+
+Essentially any training set is a labelled sample drawn from a
+probability distribution of possible instances in the problem
+domain. If the set of possible instances is small enough to be
+enumerated and labelled, the classification task becomes
+trivial. Useful machine learning application are faced with...
+
+While our discussion will deal with the evaluation of binary
+classifiers, the same arguments apply in principal to multiclass
+classifiers. In effect, any multiclass classifier can be reduced to a
+binary classification problem by decomposition of the hypothesis. 
+
+
+\section*{What's Wrong with Accuracy ?}
+Accuracy is the simplest and most intuitive evalaution measure for
+classifiers \cite{refworks:43}. Simply stated, accuracy, \(A\), is the
+count of how many mistakes classification mistakes made over a finite
+set of instances:
+
+\begin{equation}
+\label{equ:accuracy}
+A = \frac{t_p + t_n}{P + N}
+\end{equation}
+
+where \(t_p\) is the number of \textit{true positive} classifications
+i.e. postitive training instances that were correctly classified as
+positive; \(t_n\) is the number of \textit{true negative}
+classifications i.e. negative training instances that were correctly
+classified as such. \(P\) is the total number of positive training
+example and \(N\) the total number of negative training examples.
+
+Essentially any training set is a labelled sample drawn from a
+probability distribution of possible instances in the problem
+domain. If the set of possible instances is small enough to be
+enumerated and labelled, the classification task becomes
+trivial. Useful machine learning application are typically given a
+sample of labelled instances from which to infer the probability
+distribution of a large population. How representative
+this sample is of the underlying population is key to how well our
+classifiers can hope to perform classifying the rest of the instance
+population. The structure of the training set effects different evaluation
+metrics differently and, by implication, the target function upon
+which they converge. It is important to analyse any evaluation method
+in terms of its variability with respect to the structure of the
+training set. Certain metrics will be better suited to certain
+situations depending on the composition of the training set.
+
+Accuracy does not distinguish the types of errors it makes (false
+positives vs true negatives). While this is acceptable if the evaluation
+data set contains as many examples of both classes (i.e. it is
+balanced)...
+
+Classification Cost...
+
+\section*{The Confusion Matrix}
+A useful contruct for comparing classifiers as well as comparing
+different scalar classifier metrics, is the \textit{confusion
+  matrix}. 
+
+The \textit{confusion matrix} allows one to make 
+
+\begin{table}
+\centering
+  \begin{tabular}{c|c|c|}
+    & \multicolumn{2}{|c|}{Actual} \\ \hline
+    Predicted & + & - \\ \hline
+    + & \(t_p\)           & \(f_p\)          \\ \hline
+    - & \(f_n\)           & \(t_n\)          \\ \hline
+    & \(P = t_n + f_n\) & \(N = f_p + t_n\) \\ \cline{2-3}
+  \end{tabular}
+  \caption{A confusion matrix. \(t_p\) = true positive count, \(f_n\)
+  = false negative count, \(f_p\) = false positive count, and \(t_n\)
+  is true negative count.}
+  \label{tab:commandline}
+\end{table}
+
+
+\section*{Scalar Evaluation Methods}
+
+
+\subsection*{Precision and Recall}
+
+\begin{equation}
+\label{equ:precision}
+Precision = \frac{t_p}{t_p + f_p}
+\end{equation}
+
+
+\begin{equation}
+\label{equ:recall}
+Recall = \frac{t_p}{t_p + f_n}
+\end{equation}
+
+
+\section*{Non-Scalar Evaluation Methods}
+
+
+\section*{Graphical Evaluation Methods}
+\
+
+\section*{Confidence Estimation}
+
+
+\section*{Summary}
+
 
 %----------------------------------------
 % Bibliography
