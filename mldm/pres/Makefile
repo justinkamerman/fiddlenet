@@ -9,21 +9,19 @@ LATEX = /usr/bin/latex
 PDFLATEX = /usr/bin/pdflatex
 PDFLATEXFLAGS = --interaction nonstopmode
 BIBTEX = /usr/bin/bibtex
+GNUPLOT = /usr/bin/gnuplot
+IMAGES = roc.png
 
 .PHONY: all clean
 
 all: report.pdf
 
-report.pdf: report.tex bibliography.bib
+report.pdf: report.tex bibliography.bib $(IMAGES)
+
 
 clean:
 	$(RM) *.log *.blg *.bbl *.aux *.pdf
 
-%.dvi: %.tex
-	$(LATEX) $(LATEXFLAGS) $<
-	-$(BIBTEX) $(BIBTEXFLAGS) $*
-	$(LATEX) $(LATEXFLAGS) $<
-	$(LATEX) $(LATEXFLAGS) $<
 
 %.pdf: %.tex
 	$(PDFLATEX) $(PDFLATEXFLAGS) $<
@@ -32,8 +30,8 @@ clean:
 	$(PDFLATEX) $(PDFLATEXFLAGS) $<
 
 
-%.ps: %.dvi
-	$(DVIPS) $(DVIPSFLAGS) $@ $<
+%.png: %.gnuplot %.data
+	$(GNUPLOT) $<
 
 
 

@@ -1,4 +1,4 @@
-set terminal png size 1200,800
+set terminal png size 800, 800
 set output "roc.png"
 set size .75,1
 set size ratio 1
@@ -11,5 +11,4 @@ set key right bottom
 set ylabel "True Positive Rate"
 set xlabel "False Positive Rate" 
 f(x)=x
-plot f(x), \
-     "roc.data" using 1:2 index 0 title "A" with lines
+plot f(x), "roc.data" using 1:2 index 0 title "HelloWorld" with lines
