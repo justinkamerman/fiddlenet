@@ -146,12 +146,12 @@ subsequent sections.
   \begin{tabular}{c|c|c|c}
     & \multicolumn{2}{|c|}{Actual} \\ \cline{1-3}
     Predicted & + & - & \\ \hline
-    + & \(t_p\)           & \(f_p\)           & \(C_p = t_p + f_p\)  \\ \hline
-    - & \(f_n\)           & \(t_n\)           & \(C_n = f_n + t_n\)  \\ \hline
-    & \(P = t_n + f_n\) & \(N = f_p + t_n\) \\ \cline{2-3}
+    + & \(T_p\)           & \(F_p\)           & \(C_p = T_p + F_p\)  \\ \hline
+    - & \(F_n\)           & \(T_n\)           & \(C_n = F_n + T_n\)  \\ \hline
+    & \(P = T_n + F_n\) & \(N = F_p + T_n\) \\ \cline{2-3}
   \end{tabular}
-  \caption{A confusion matrix. \(t_p\) = true positive count, \(f_n\)
-  = false negative count, \(f_p\) = false positive count, and \(t_n\)
+  \caption{A confusion matrix. \(T_p\) = true positive count, \(F_n\)
+  = false negative count, \(F_p\) = false positive count, and \(T_n\)
   is true negative count.}
   \label{tab:confusionmatrix}
 \end{table}
@@ -182,23 +182,59 @@ Recall = \frac{t_p}{t_p + f_n}
 \section*{Non-Scalar Evaluation Methods}
 The measures of performance dicussed so far are valid only for one
 particular \textit{operating point}, an operating point normally being
-chosen so as to minimize the \textit{probability of error}. Non-scalar
-evaluation methods try to characterize the performance of a classifier
-over a range of operating conditions. Although this makes direct
-performance comparisons more difficult, we are more likely to be ...
-
-Some non-scalar performance measures are discussed below.
-
-\subsection*{ROC Curves}
-The use of ROC curves to evaluate machine learning algorithms was
-first discussed by \cite{RefWorks:32}. By generating a ...
-
- 
+chosen so as to minimize the \textit{probability of error}. However,
+in general it is not misclasification rate we want to minimize, but
+rather \textit{misclassification cost}. \textit{Misclassification
+  cost} is usually defined as follows:
 
 \begin{equation}
 \label{equ:misclasscost}
-Cost = f_p * C_f_p + f_n * C_f_n
+Cost = F_p * {C_F}_p + F_n * {C_F}_n
 \end{equation}
+
+where \(F_p\) and \(F_n\) are the false postive and false negative
+counts respectively, and \({C_F}_p\) and \({C_F}_n\) are the cost of a
+false positive and false negative classification respectively.
+Unfortunately, we rarely know the individual misclassification costs
+are and so system performance is often specified in terms of the
+required false positive an false negative rates. The specification of
+a particular set of misclassification costs or false and positive
+misclassifcation rates define a particular \textit{operating point} of
+a classifier.
+
+Non-scalar evaluation methods try to characterize the performance of a classifier
+over a range of operating conditions. Although this makes direct
+performance comparisons ambiguous, we are more likely to be able
+to select the classifier which will perform best in the real world by
+applying domain expertise to the results of a non-scalar evaluation
+which captures the performance of a classifier over a range of
+\textit{operating points}. Despite the benefits of non-scalar
+evaluation techniques, there is still a need for a single measure of
+classifier performance that is invariant to the decision criteria, and
+is easily extended to inlcude cost/benefit analysis
+\cite{Refworks:32}. In some cases non-scalar evaluation
+techniques have scalar derivatives which allow unqualifed comparison
+of classifiers and qualitative comparison of variances between scalar
+and non-scalar metrics.
+
+There seems to be growing recognition in the field of the limitations
+of scalar evaluation techniques and increased use and development of
+non-scalar methods. Below we consider important non-scalar evalauation
+techniques:
+
+\subsection*{ROC Curves}
+The \textit{ROC} curve was first developed by electrical and radar
+engineers during World War II for detecting enemy objects in battle
+fields. The curve is a plot of the \textit{sensitivity}, or
+\textit{true positive rate}, vs. \textit{false positive rate} (\(1 −
+specificity\) or \(1 - true negative rate\)), for a binary classifier
+system as its discrimination threshold is varied. \textit{ROC}
+analysis provides tools to select possibly optimal models and to
+discard suboptimal ones independently from (and prior to specifying)
+the cost context or the class distribution.
+
+The use of ROC curves to evaluate machine learning algorithms was
+first discussed by \cite{RefWorks:32}.
 
 
 
@@ -217,15 +253,24 @@ Cost = f_p * C_f_p + f_n * C_f_n
 %----------------------------------------
 \section*{Statistical Techniques}
 Ultimately all machine learning evaluation techniques use a finite set
-of training samples to approximate the performance characteristics of
-a classifier over unseen data. It is important to quantify as far as
-possible the level of confidence that such approximations offer in
-favouring one target function or classifier over another. 
-application of statistical techniques is becoming more widespread in
-the field of machine learning to addres these requirements. This
-serves to rigorize the results of machine learning experimatation and
-bring it in line with more established fields of diagnostics and
-classification. 
+of training samples to project the performance characteristics of
+a classifier over unseen data. It is known that single train and
+test partitions are not reliable estimators of true error rate of a
+classification scheme on a limited data set \cite{RefWorks:57}. In
+addition to selecting an appropriate performance metric, it important
+to employ some random sub-sampling scheme to minimize any estimation
+bias. \textit{Cross-validation} is a common sub-sampling technique used in machine
+learning evaluation. 
+
+Even with the use of some subsampling technique, it is important to
+quantify as far as possible the level of confidence that such
+approximations offer in favouring one target function or classifier
+over another.  We must be able to detect whether test results
+indicating that one classifier is superior to another is statisitaclly
+significant. Application of statistical techniques is becoming more
+widespread in the field of machine learning and serve to rigorize the results of machine learning
+experimatation and bring it in line with more established fields of
+diagnostics and classification.
 
 A common technique used to describe the uncertainity associated with
 an estimate is to use \textit{confidence interval} estimates.
