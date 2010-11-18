@@ -27,7 +27,7 @@
 % Abstract
 %----------------------------------------
 \section*{Abstract}
-\cite{*}
+
 
 \section*{Introduction}
 Key to the field of machine learning is the ability to evaluate a
@@ -123,28 +123,43 @@ balanced)...
 Classification Cost...
 
 \section*{The Confusion Matrix}
-A useful contruct for comparing classifiers as well as comparing
-different scalar classifier metrics, is the \textit{confusion
-  matrix}. 
-
-The \textit{confusion matrix} allows one to make 
+The raw data produced by a classification scheme during testing are
+counts of the correct and incorrect classifications from each
+class. This information is normally displayed in a \textit{confusion
+  matrix} showing the difference between the true and predicted
+classes for a set of labelled examples as shown in Table
+\ref{tab:confusionmatrix}. In Table \ref{tab:confusionmatrix}, \(t_p\)
+and \(t_n\) are the number of true positives and true negatives
+respectively. \(f_p\) and \(f_n\) are the number of false positives
+and false negatives respectively. The row totals, \(C_p\) and \(C_n\),
+are the number of truely positive and negative examples, and the
+column totals, \(P\) and \(N\), are the number of predicted positive
+and negative examples. Allthough the \textit{confusion matrix} shows
+all of the information about the classifier's performance, more
+meaningful measures can be extracted from it to illustrate certain
+performance criteria. These measures, such as \textit{Accuracy},
+\textit{Precision}, and \textit{Recall}, are described in detail in
+subsequent sections.
 
 \begin{table}
 \centering
-  \begin{tabular}{c|c|c|}
-    & \multicolumn{2}{|c|}{Actual} \\ \hline
-    Predicted & + & - \\ \hline
-    + & \(t_p\)           & \(f_p\)          \\ \hline
-    - & \(f_n\)           & \(t_n\)          \\ \hline
+  \begin{tabular}{c|c|c|c}
+    & \multicolumn{2}{|c|}{Actual} \\ \cline{1-3}
+    Predicted & + & - & \\ \hline
+    + & \(t_p\)           & \(f_p\)           & \(C_p = t_p + f_p\)  \\ \hline
+    - & \(f_n\)           & \(t_n\)           & \(C_n = f_n + t_n\)  \\ \hline
     & \(P = t_n + f_n\) & \(N = f_p + t_n\) \\ \cline{2-3}
   \end{tabular}
   \caption{A confusion matrix. \(t_p\) = true positive count, \(f_n\)
   = false negative count, \(f_p\) = false positive count, and \(t_n\)
   is true negative count.}
-  \label{tab:commandline}
+  \label{tab:confusionmatrix}
 \end{table}
 
 
+%----------------------------------------
+% Scalar Evaluation Methods
+%----------------------------------------
 \section*{Scalar Evaluation Methods}
 
 
@@ -161,12 +176,33 @@ Precision = \frac{t_p}{t_p + f_p}
 Recall = \frac{t_p}{t_p + f_n}
 \end{equation}
 
-
+%----------------------------------------
+% Non-Scalar Evaluation Methods
+%----------------------------------------
 \section*{Non-Scalar Evaluation Methods}
+The measures of performance dicussed so far are valid only for one
+particular \textit{operating point}, an operating point normally being
+chosen so as to minimize the \textit{probability of error}. Non-scalar
+evaluation methods try to characterize the performance of a classifier
+over a range of operating conditions. Although this makes direct
+performance comparisons more difficult, we are more likely to be ...
 
+Some non-scalar performance measures are discussed below.
 
-\section*{Graphical Evaluation Methods}
 \subsection*{ROC Curves}
+The use of ROC curves to evaluate machine learning algorithms was
+first discussed by \cite{RefWorks:32}. By generating a ...
+
+ 
+
+\begin{equation}
+\label{equ:misclasscost}
+Cost = f_p * C_f_p + f_n * C_f_n
+\end{equation}
+
+
+
+
 \begin{figure}
   \begin{center}
 	\includegraphics[width=\textwidth,height=!]{roc}
@@ -176,7 +212,25 @@ Recall = \frac{t_p}{t_p + f_n}
 \end{figure} 
 
 
-\section*{Confidence Estimation}
+%----------------------------------------
+% Statistical Techniques
+%----------------------------------------
+\section*{Statistical Techniques}
+Ultimately all machine learning evaluation techniques use a finite set
+of training samples to approximate the performance characteristics of
+a classifier over unseen data. It is important to quantify as far as
+possible the level of confidence that such approximations offer in
+favouring one target function or classifier over another. 
+application of statistical techniques is becoming more widespread in
+the field of machine learning to addres these requirements. This
+serves to rigorize the results of machine learning experimatation and
+bring it in line with more established fields of diagnostics and
+classification. 
+
+A common technique used to describe the uncertainity associated with
+an estimate is to use \textit{confidence interval} estimates.
+
+
 
 
 \section*{Summary}
