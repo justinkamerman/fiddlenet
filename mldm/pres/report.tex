@@ -73,7 +73,17 @@ Essentially any training set is a labelled sample drawn from a
 probability distribution of possible instances in the problem
 domain. If the set of possible instances is small enough to be
 enumerated and labelled, the classification task becomes
-trivial. Useful machine learning application are faced with...
+trivial. Useful machine learning application are typically given a
+sample of labelled instances from which to infer the probability
+distribution of a large population. How representative
+this sample is of the underlying population is key to how well our
+classifiers can hope to perform classifying the rest of the instance
+population. The structure of the training set effects different evaluation
+metrics differently and, by implication, the target function upon
+which they converge. It is important to analyse evaluation methods
+in terms of their variability with respect to the structure of the
+training set. Certain metrics will be better suited to certain
+situations depending on the composition of the training set.
 
 While our discussion will deal with the evaluation of binary
 classifiers, the same arguments apply in principal to multiclass
@@ -99,28 +109,16 @@ classifications i.e. negative training instances that were correctly
 classified as such. \(P\) is the total number of positive training
 example and \(N\) the total number of negative training examples.
 
-Essentially any training set is a labelled sample drawn from a
-probability distribution of possible instances in the problem
-domain. If the set of possible instances is small enough to be
-enumerated and labelled, the classification task becomes
-trivial. Useful machine learning application are typically given a
-sample of labelled instances from which to infer the probability
-distribution of a large population. How representative
-this sample is of the underlying population is key to how well our
-classifiers can hope to perform classifying the rest of the instance
-population. The structure of the training set effects different evaluation
-metrics differently and, by implication, the target function upon
-which they converge. It is important to analyse any evaluation method
-in terms of its variability with respect to the structure of the
-training set. Certain metrics will be better suited to certain
-situations depending on the composition of the training set.
-
 Accuracy does not distinguish the types of errors it makes (false
 positives vs true negatives). While this is acceptable if the evaluation
 data set contains as many examples of both classes (i.e. it is
-balanced)...
+balanced), for most real-world problems one type of misclassification
+error is much more expensive than another \cite{Refworks:45}. Accuracy
+maximization also assumes that the class distribution is known for the
+target environment. Without knowledge of target class distribution we
+cannot be sure that we are actually maximizing accuracy for the
+problem domain from which the data set was drawn \cite{RefWorks:45}. 
 
-Classification Cost...
 
 \section*{The Confusion Matrix}
 The raw data produced by a classification scheme during testing are
@@ -202,20 +200,20 @@ a particular set of misclassification costs or false and positive
 misclassifcation rates define a particular \textit{operating point} of
 a classifier.
 
-Non-scalar evaluation methods try to characterize the performance of a classifier
-over a range of operating conditions. Although this makes direct
-performance comparisons ambiguous, we are more likely to be able
-to select the classifier which will perform best in the real world by
-applying domain expertise to the results of a non-scalar evaluation
-which captures the performance of a classifier over a range of
-\textit{operating points}. Despite the benefits of non-scalar
+Non-scalar evaluation methods try to characterize the performance of a
+classifier over a range of operating conditions. Although this makes
+direct performance comparisons ambiguous, we are more likely to be
+able to select the classifier which will perform best in the real
+world by applying domain expertise to the results of a non-scalar
+evaluation which captures the performance of a classifier over a range
+of \textit{operating points}. Despite the benefits of non-scalar
 evaluation techniques, there is still a need for a single measure of
 classifier performance that is invariant to the decision criteria, and
 is easily extended to inlcude cost/benefit analysis
-\cite{Refworks:32}. In some cases non-scalar evaluation
-techniques have scalar derivatives which allow unqualifed comparison
-of classifiers and qualitative comparison of variances between scalar
-and non-scalar metrics.
+\cite{Refworks:32}. In some cases non-scalar evaluation techniques
+have scalar derivatives which allow unqualifed comparison of
+classifiers and qualitative comparison of variances between scalar and
+non-scalar metrics.
 
 There seems to be growing recognition in the field of the limitations
 of scalar evaluation techniques and increased use and development of
@@ -229,15 +227,9 @@ fields. The curve is a plot of the \textit{sensitivity}, or
 \textit{true positive rate}, vs. \textit{false positive rate} (\(1 −
 specificity\) or \(1 - true negative rate\)), for a binary classifier
 system as its discrimination threshold is varied. \textit{ROC}
-analysis provides tools to select possibly optimal models and to
-discard suboptimal ones independently from (and prior to specifying)
-the cost context or the class distribution.
-
-The use of ROC curves to evaluate machine learning algorithms was
-first discussed by \cite{RefWorks:32}.
-
-
-
+curves describe the predictive behaviour of a classifier independent
+of class distribution or error costs, thereby decoupling
+classification performance from these measures \cite{Refworks:45}.
 
 \begin{figure}
   \begin{center}
@@ -248,37 +240,101 @@ first discussed by \cite{RefWorks:32}.
 \end{figure} 
 
 
+In order evalaute the \textit{ROC} curve as a whole i.e. extract a
+single distinguishable scalar metric, the area under the \textit{ROC}
+curve, \textit{AUC} seems to exhibit desirable
+properties. \textit{AUC} represents the probability that a randomly
+chosen positive example is correctly ranked with greater suspicion
+than a randomly chosen negative example. \cite{Refworks:32} found good
+agreement between \textit{accuracy} and \textit{AUC} with respect to
+performance ranking as well as the following desirable properties:
+
+\begin{itemize}
+\item Increased sensitivity in the Analysis of Variance (ANOVA) tests.
+\item It is not dependent on the decision threshold chosen.
+\item It is invariant to prior class probabilities.
+\end{itemize}
+
 %----------------------------------------
 % Statistical Techniques
 %----------------------------------------
 \section*{Statistical Techniques}
+We assume that the true distribution of examples to which a classifier
+will be applied is not known in advance. To make an informed choice,
+performance must be estimated using the data available
+\cite{RefWorks:45}. Application of statistical techniques is
+becoming more widespread in the field of machine learning and serve to
+rigorize the results of machine learning experimatation and bring it
+in line with more established fields of diagnostics and
+classification. Below we discuss some of the techniques employed in
+machine learning evaluation papers:
+
+\subsection*{Sub-sampling}
 Ultimately all machine learning evaluation techniques use a finite set
-of training samples to project the performance characteristics of
-a classifier over unseen data. It is known that single train and
-test partitions are not reliable estimators of true error rate of a
+of training samples to project the performance characteristics of a
+classifier over unseen data. It is known that single train and test
+partitions are not reliable estimators of true error rate of a
 classification scheme on a limited data set \cite{RefWorks:57}. In
 addition to selecting an appropriate performance metric, it important
 to employ some random sub-sampling scheme to minimize any estimation
-bias. \textit{Cross-validation} is a common sub-sampling technique used in machine
-learning evaluation. 
+bias. \textit{Cross-validation} is a common sub-sampling technique
+used in machine learning evaluation.
 
+Scalar metrics obtained from sub-sampling are easily combined into
+means and standard deviations. Non-scalar metrics are not so easily
+combined and the best method depends on the metric itself as well as
+the specific goals of the study. During a
+study by Bradley (\cite{RefWorks:32}) using \textit{ROC} curves, it was found
+that averaging raw data (frequencies of true and false positives) from
+\textit{cross-validation} to produce a \textit{pooled} plots,
+depressed the combined index of accuracy, AUC. In the same study,
+Bradley selected a technique known as \textit{pooling} to combine the
+results of cross-validation to generate ROC curves. Foster et al
+(\cite{RefWorks:45} used an alternative methodology, called
+\textit{averaging}, after considering Bradley's methods inappropriate
+for their requirements.
+
+\subsection*{Analysis of Variance}
+ANOVA
+
+\subsection*{Confidence Intervals}
 Even with the use of some subsampling technique, it is important to
 quantify as far as possible the level of confidence that such
 approximations offer in favouring one target function or classifier
 over another.  We must be able to detect whether test results
-indicating that one classifier is superior to another is statisitaclly
-significant. Application of statistical techniques is becoming more
-widespread in the field of machine learning and serve to rigorize the results of machine learning
-experimatation and bring it in line with more established fields of
-diagnostics and classification.
+indicating that one classifier is superior to another are
+statisitaclly significant. 
 
 A common technique used to describe the uncertainity associated with
 an estimate is to use \textit{confidence interval} estimates.
 
 
+%----------------------------------------
+% Benchmark Data Sets
+%----------------------------------------
+\section*{The Real World}
+While the selection of appropriate metrics and statistical techniques
+are important in evaluating and selecting classifiers, it is important
+to remember that our application cannot be expected to perform well in
+the real world if the training data does not adequately represent the
+problem domain. Very few systems generated with machine learning have
+been deployed and used in the field for a sizeable period of time
+\cite{RefWorks:46}. Part of the reason for this is that the users of
+the system and domain experts must be convinced that the system will
+perform well with actual data. Real world data from the field can be
+surprisingly dirty \cite{RefWorks:58} and historical data used for
+training may have been cleaned. It is common practise to use benchmark
+data sets like those collected in the Irvine repository
+\cite{RefWorks:59} for performance evaluation of machine learning
+algorithms. While this practice provides importatnt insights, it is
+wrong to judge, on their basis, an algorithm's practical adequacy
+\cite{RefWorks:46}.
 
+Comprehensibility goes a long way to building confidence among
+stakeholders of a classifiers capabilities, however as mentioned
+previously, few machine learning models offer much in this respect.
 
-\section*{Summary}
+\section*{Conclusions}
 
 
 %----------------------------------------
