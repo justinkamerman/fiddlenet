@@ -117,7 +117,7 @@ error is much more expensive than another \cite{Refworks:45}. Accuracy
 maximization also assumes that the class distribution is known for the
 target environment. Without knowledge of target class distribution we
 cannot be sure that we are actually maximizing accuracy for the
-problem domain from which the data set was drawn \cite{RefWorks:45}. 
+problem domain from which the data set was drawn \cite{RefWorks:45}.
 
 
 \section*{The Confusion Matrix}
@@ -192,13 +192,18 @@ Cost = F_p * {C_F}_p + F_n * {C_F}_n
 
 where \(F_p\) and \(F_n\) are the false postive and false negative
 counts respectively, and \({C_F}_p\) and \({C_F}_n\) are the cost of a
-false positive and false negative classification respectively.
-Unfortunately, we rarely know the individual misclassification costs
-are and so system performance is often specified in terms of the
-required false positive an false negative rates. The specification of
-a particular set of misclassification costs or false and positive
-misclassifcation rates define a particular \textit{operating point} of
-a classifier.
+false positive and false negative classification respectively. Class
+imbalance and asymmetric misclassification costs are related. Training
+set imbalance may be addressed by training a cost sensitive classifier
+with the misclassification cost of the minority class greater than
+that of the majority class, and one way to make an algorithm cost
+sensative is to synthetically imbalance the training set to reflect
+the cost ratio \cite{RefWorks:52}. Unfortunately, we rarely know the individual
+misclassification costs or the true class distribution and so system
+performance is often specified in terms of the required false positive
+an false negative rates. The specification of a particular set of
+misclassification costs or false and positive misclassifcation rates
+define a particular \textit{operating point} of a classifier. 
 
 Non-scalar evaluation methods try to characterize the performance of a
 classifier over a range of operating conditions. Although this makes
@@ -226,10 +231,31 @@ engineers during World War II for detecting enemy objects in battle
 fields. The curve is a plot of the \textit{sensitivity}, or
 \textit{true positive rate}, vs. \textit{false positive rate} (\(1 −
 specificity\) or \(1 - true negative rate\)), for a binary classifier
-system as its discrimination threshold is varied. \textit{ROC}
-curves describe the predictive behaviour of a classifier independent
-of class distribution or error costs, thereby decoupling
-classification performance from these measures \cite{Refworks:45}.
+system as its discrimination threshold is varied. The sample points
+obtained for various discrimination thresholds are treated as points
+on a continuous curve and normal curve fitting techniques applied. 
+For classifiers which do not use an explicit decision threshold, like
+Decision Trees, class frequencies in the training set can be changed
+by under or oversampling to simulate a change in class priors or
+misclassification costs. 
+
+\textit{ROC} curves describe the predictive
+behaviour of a classifier independent of class distribution or error
+costs, thereby decoupling classification performance from these
+measures \cite{Refworks:45}. Figure \ref{fig:roc} shows a sample
+\textit{ROC} curve for a single classifier. The diagonal line between
+\((0,0)\) and \((1,1\) represents the performance of a random
+classifier and a performance baseline. No classifier should produce a
+curve which falls below this line...
+
+Classifier \textit{ROC} curves may be overlaid for comparison. One
+point in the diagram dominates another if it is above and to the left
+i.e. has a higher true positive and a lower false positive rate. If
+point \(A\) dominates point \(B\), \(A\) will have a lower expected
+cost than \(B\) for all possible cost ratios and class
+distributions. One set of points \(A\) is dominated by another \(B\)
+when each point in \(A\) is dominated by some point in \(B\) and no
+point in \(B\) is dominated by a point in \(A\).
 
 \begin{figure}
   \begin{center}
@@ -238,6 +264,8 @@ classification performance from these measures \cite{Refworks:45}.
   \caption{ROC Curve}
   \label{fig:roc}
 \end{figure} 
+
+
 
 
 In order evalaute the \textit{ROC} curve as a whole i.e. extract a

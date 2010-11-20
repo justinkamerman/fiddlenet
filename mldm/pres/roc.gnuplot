@@ -11,4 +11,4 @@ set key right bottom
 set ylabel "True Positive Rate"
 set xlabel "False Positive Rate" 
 f(x)=x
-plot f(x), "roc.data" using 1:2 index 0 title "HelloWorld" with lines
+plot f(x) title "random classifier", "roc.data" using 1:2 index 0 notitle with lines
