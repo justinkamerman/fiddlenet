@@ -6,7 +6,7 @@
 % $LastChangedBy$
 %
 
-\documentclass[12pt]{unbthesis}
+\documentclass[10pt]{unbthesis}
 \usepackage{graphicx}
 \usepackage{url}
 \usepackage{multirow}
@@ -141,18 +141,17 @@ subsequent sections.
 
 \begin{table}
 \centering
-  \begin{tabular}{c|c|c|c}
+  \begin{tabular}{c|c|c|}
     & \multicolumn{2}{|c|}{Actual} \\ \cline{1-3}
-    Predicted & + & - & \\ \hline
-    + & \(T_p\)           & \(F_p\)           & \(C_p = T_p + F_p\)  \\ \hline
-    - & \(F_n\)           & \(T_n\)           & \(C_n = F_n + T_n\)  \\ \hline
-    & \(P = T_p + F_n\) & \(N = F_p + T_n\) \\ \cline{2-3}
+ Predicted & +                   & -                  \\ \hline
+    +      & \(T_p\)             & \(F_p\)             \\ \hline
+    -      & \(F_n\)             & \(T_n\)             \\ \hline
+           & \(P = T_p + F_n\)   & \(N = F_p + T_n\)    \\ \cline{2-3}
   \end{tabular}
   \caption{A confusion matrix. \(T_p\) = true positive count, \(F_n\)
   = false negative count, \(F_p\) = false positive count, and \(T_n\)
   is true negative count, \(P\) = actual positive count, \(N\) = actual
-  negative count, \(C_p\) = predicted postive count, \(C_n\) =
-  predicted negative count.}
+  negative count.}
   \label{tab:confusionmatrix}
 \end{table}
 
@@ -234,13 +233,25 @@ fields and more recently, it has been employed in the medical decision
 making community. In addition to being a useful performance graphing
 method, \textit{ROC} curves exhibit useful properties that make them
 especially useful for domains with skewed class distributions and
-unequal classification cost errors \cite{Refworks:39}.
+unequal classification cost errors \cite{Refworks:39}. 
 
 The curve is a plot of the \textit{sensitivity}, or \textit{true
   positive rate}, vs. \textit{false positive rate} (\(1 −
 specificity\) or \(1 - true negative rate\)), for a binary classifier
 system as its discrimination threshold is varied (each threshold
-defines a classifier). The sample points obtained for various
+defines a classifier).
+
+\begin{equation}
+\label{equ:truepositiverate}
+TP = \frac{T_p}{T_p + F_n}
+\end{equation}
+
+\begin{equation}
+\label{equ:falsepositiverate}
+TN = \frac{F_p}{T_n + F_p}
+\end{equation}
+
+The sample points obtained for various
 discrimination thresholds are treated as points on a continuous curve
 and normal curve fitting techniques applied. Together with the sample
 points obtained during testing, the points \((0,0)\) and \((1,1\) are
@@ -253,30 +264,32 @@ frequencies in the training set can be changed by under or
 oversampling to simulate a change in class priors or misclassification
 costs. 
 
-\textit{ROC} curves have the attractive property of being invariant
-in the face of class distribution changes. If the proportion of positive and
-negative instances changes in a test set, the \textit{ROC} curve
-remains the same. This is evident from the \textit{confusion matrix}
-shown in Figure \ref{tab:confusionmatrix}. \textit{ROC} curves are
-based on \textit{true positive rate} (\ref{equ:truepositiverate}) and
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=\textwidth,height=!]{roc}
+  \end{center}
+  \caption{ROC Curves}
+  \label{fig:roc}
+\end{figure} 
+
+If the proportion of positive and negative instances changes in a test
+set, the \textit{ROC} curve remains the same. This is evident from the
+\textit{confusion matrix} shown in Figure
+\ref{tab:confusionmatrix}. \textit{ROC} curves are based on
+\textit{true positive rate} (\ref{equ:truepositiverate}) and
 \textit{false postive rate} (\ref{equ:falsepositiverate}) which are
-ratios, normalized for class distribution.
-
-\begin{equation}
-\label{equ:truepositiverate}
-true postive rate = \frac{t_p}{t_p + f_n}
-\end{equation}
-
-\begin{equation}
-\label{equ:falsepositiverate}
-true negative rate = \frac{f_p}{t_n + f_p}
-\end{equation}
-
+ratios, normalized for class distribution. Given the relationship
+between class distribution and error cost, which we explore below, we
+can say that \textit{ROC} curves are invariant with respect to the
+operating conditions (class skew and error cost). This is a desirable
+property for performance anaylsis since as operating conditions
+change, the region of interest on the graph may change, but not the
+graph itself.
 
 Figure \ref{fig:roc} shows a sample
-\textit{ROC} curve for a single classifier. The diagonal line between
-\((0,0)\) and \((1,1\) represents the performance of a random
-classifier which expoits no information in the training data. Any
+\textit{ROC} curve for three classification systems (A, B and C). The
+line \(TP=FP\) represents the performance of a random
+classifier which exploits no information in the training data. Any
 classifier that produces a point below this line performs worse than
 random guessing. Such a classifier is said to have useful infomation
 but is applying it incorrectly and the sign of the classifier can be
@@ -284,8 +297,9 @@ negated to produce a useful \textit{operating point} \cite{Refworks:60}.
 
 \subsection{Comparing Classifiers}
 \textit{ROC} curves may be overlaid for comparison. One
-point in the diagram is better than anther if it is above and to the left
-i.e. has a higher true positive and a lower false positive
+point in the diagram is better than another if it is above and to the
+left (northwest)
+of the other point i.e. has a higher true positive and a lower false positive
 rate. Classifiers appearing on the left hand side of the graph near
 the \(X\) axis, make positive
 classifications only with strong evidence. Such classifiers make few
@@ -293,7 +307,9 @@ false positive errors but often have low true positive rates as
 well. Classifiers on the upper right hand side of the graph make
 positive classifications with weak evidence. Such classifiers will
 classifiy nearly all positives correctly but will have a high false
-positve rate \cite{Refworks:39}.
+positve rate \cite{Refworks:39}. With respect to Figure \ref{fig:roc},
+curve \(A\) represents a dominant classifier system, clearly bettering
+systems \(B\) and \(C\), between which there is no clear winner. 
 
 \textit{ROC} curves show the ability of a classifier to rank the
 positive instances relative to the negative ones. The scores produced
@@ -301,20 +317,79 @@ by a \textit{probablistic} classifier are relative to other instances
 only and not properly \textit{calibrated} as true probabilitues
 are. For this reason, classifier scores should not be compared across
 model classes and conparing model performance at a common theshold is
-meaningless \cite{Refworks:39}.
+meaningless \cite{Refworks:39}. 
 
-\begin{figure}
-  \begin{center}
-	\includegraphics[width=\textwidth,height=!]{roc}
-  \end{center}
-  \caption{ROC Curve}
-  \label{fig:roc}
-\end{figure} 
+Provost and Fawcett (\cite{RefWorks:61}) describe techniques for
+comparing the performance of a set of learned classifiers. These
+techniques are based on the principles of separation of classifier
+performance from class and cost distribution and the use of a convex
+hull to identify potentially optimal classifier subsets. These
+techniques were examined further by Drummond and Holte
+(\cite{RefWorks:52}) who describe an alternate projection of the
+\textit{ROC} plot in which the expected cost of a classifier is
+represented explicitly. These treatments are described in more detail
+below: 
 
 
 \subsubsection{Iso-performance Lines}
+The expected cost of applying the classifier represented by a point
+\((FP, TP\) in \textit{ROC} space  is:
 
-\subsubsection{Area Under the \textit{ROC} Curve}
+\begin{equation}
+\label{equ:expectedcost}
+p(+)(1-TP){C_F}_n + p(-)FP{C_F}_p
+\end{equation}
+
+Where \(p(+)\) and \(p(-) = 1 - p(+)\), represent the classes' prior
+distribution. Therefore, two points \((FP_1, TP_1\) and \((FP_2,
+TP_2\), have the same performance if 
+
+\begin{equation}
+  \frac{TP_2 - TP_1}{FP_2 - FP_1} = \frac{{C_F}_p . p(+)}{{C_F}_n . p(-)}
+\end{equation}
+
+This equation defines the slope of an \textit{iso-performance
+  line}. All classifiers corresponding to points on the line have the
+same expected cost. Lines having larger \(TP\)-intercept correspond to
+a lower expected cost \cite{RefWorks:61}.
+
+In Figure \ref{fig:roc}, point \(a\) on curve \(A\) represents the
+intercept of an \textit{iso-performance line} with gradient
+\(3/2\). This corresponds to a scenario in which negatives outnumber
+positives by 3 to 2 but false positives and false negatives have equal
+cost. Since the classifier on curve \(A\) at point \(a\) is the most
+northwest line of slope \(3/2\), it represents the best classifier for
+these conditions. Each set of class and cost distribututions defines a
+family of \textit{iso-performance} lines.
+
+
+\subsubsection{\textit{ROC} Convex Hull (ROCCH)}
+Given that in the real world, the operating conditions within a
+problem domain are seldom known precicely, it is useful to be able to
+identify those classifiers which are potentially optimal
+\cite{RefWorks:61}. If a collection \textit{ROC} curves are plotted
+together, the \textit{convex hull} of the set of points has important
+properties. A classifier is potentially optimal if and only if it lies
+on the \textit{convex hull} of this set of points in \textit{ROC}
+space. Intuitively, the \textit{convex hull} represents the northwest
+boundry of the set of points in \textit{ROC} space and, as discussed
+above, the locus of the stongest classifiers. An \textit{ROC} curve
+with no points on the \textit{convex hull} is not optimal for any
+operating conditions. In Figure \ref{fig:roc}, curve \(A\) alone forms
+the convex hull of the collection of points so it is potentially
+optimal for all operating conditions. Curves \(B\) and \(C\) are
+clearly suboptimal for all operating conditions.
+
+As discussed above, a particular operating point defines the slope of
+an \textit{iso-performance line} and the \textit{iso-performance line}
+with the lowest expected cost is that with the highest
+\(TP\)-intercept. It is easy to see that optimal performance for these
+operating conditions is achieved by the classifier on the
+\textit{ROCCH}, tangent to this \textit{iso-performance line} line. In
+Figure \ref{fig:roc} this corresponds to classifier \(a\).
+
+
+\subsubsection{Area Under the \textit{ROC} Curve (AUC)}
 In order evalaute the \textit{ROC} curve as a whole i.e. extract a
 single distinguishable scalar metric, the area under the \textit{ROC}
 curve, \textit{AUC} seems to exhibit desirable
@@ -330,6 +405,54 @@ performance ranking as well as the following desirable properties:
 \item It is invariant to prior class probabilities.
 \end{itemize}
 
+The area under the \textit{ROC} curve can be adequately approximated
+using a trapezoid rule.
+
+It is not possible with a single scalar metric to capture
+entirely the performance of a classification system over a range of
+operating conditions. It is possible for a high \textit{AUC}
+classification system to perform worse than a low
+\textit{AUC}. However, in practice the \textit{AUC} is a stron g
+predictor of performance and is often used when a general measure of
+predictiveness is required \cite{RefWorks:39}.
+
+
+\subsubsection{Cost Curves}
+Drummond and Holte (\cite{RefWorks:52} describe a technique called
+\textit{cost curves} to facilitate quantifying the performance
+difference between two \textit{ROC} curves. In \textit{ROC} space, the
+performance difference between two classifiers is not the Euclidian
+distance normal to the lower curve but weighted linear function
+incorporating the operating conditions. They argue that while it
+is possible to obtain this information from \textit{ROC} curves
+directly, it is not trivial. A \textit{cost curve} is a tranform of
+the \textit{ROC} space, plotting a probability cost function (Equation
+\ref{equ:probcostfunc}) on the \(x\)-axis, against the expected cost
+normalized with respect to the cost incurred when every example is
+incorrectly classified. 
+
+\begin{equation}
+\label{equ:probcostfunc}
+\frac{p(+){C_F}_n}{p(+){C_F}_n + p(-){C_F}_p}
+\end{equation}
+
+Each point in the \textit{cost curve} corresponds to an
+\textit{iso-performance line} in \textit{ROC} space. The probability
+cost function of the \textit{cost curve} governing the slope of the
+\textit{iso-performance line} and the normalized expected cost, the
+\(TP\) intercept. The distance between two cost curves directly
+indicates the performance between the two. 
+
+\textit{Cost curves} are no more powerful than \textit{ROC} curves,
+offering only an alternative representation of the results of
+performance testing that explicitly represents cost differences
+between classifiers. While this representation is useful, it is this
+authors opinion that its primary motivation is the explicit
+quantification of performance differentials. As discussed previously,
+performance evaluation is a statistical estimation exercise and should
+be used qualitatively to select one classifier as optimal over
+another, not to quantify said performance differential.
+
 %----------------------------------------
 % Statistical Techniques
 %----------------------------------------
@@ -340,7 +463,7 @@ performance must be estimated using the data available
 \cite{RefWorks:45}. Application of statistical techniques is
 becoming more widespread in the field of machine learning and serve to
 rigorize the results of machine learning experimatation and bring it
-in line with more established fields of diagnostics and
+ in line with more established fields of diagnostics and
 classification. Below we discuss some of the techniques employed in
 machine learning evaluation papers:
 
@@ -370,7 +493,21 @@ results of cross-validation to generate ROC curves. Foster et al
 for their requirements.
 
 \subsection{Analysis of Variance}
-ANOVA
+Analysis of Variance (ANOVA) is a statistical technique to
+determine whether or not the means of several groups are equal. In
+machine learning it has been used to determine if the results of
+performance tests of different classifiers are statisitically
+significant.
+
+Studies conducted by \cite{RefWorks:38} examined
+the use of ANOVA to determine the significance of means of
+\textit{AUC} in Monte Carlo experiments for a
+variety of machine learning algorithms. It was indicated that since
+ANOVA does not estimate case-sample variance, it tends to be
+optimistic, especially for lasrge samples. While study was based on
+normal distributions, and therefore not generally applicable, it does
+suggest that problem domain specifics should be taken into account
+when using ANOVA.
 
 \subsection{Bootstrapping}
 
