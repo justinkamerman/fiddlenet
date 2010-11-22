@@ -12,6 +12,7 @@ set key right bottom
 set ylabel "True Positive Rate"
 set xlabel "False Positive Rate" 
 set label "a" at 0.08,0.75
+
 random(x)=x
 iso1(x)=1.51*x+0.48
 plot random(x) title "TP = FP", \

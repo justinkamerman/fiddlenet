@@ -37,7 +37,7 @@ and confidence levels is analyzed.
 \section{Introduction}
 Key to the field of machine learning is the ability to evaluate a
 classifiers performance objectively and extrapolate performance
-metrics to predict how a classifier will perform on a previously
+metrics to predict how a classifier will perform on previously
 unseen inputs. 
 
 Few machine learning algorithms offer the luxury of being analytically
@@ -49,26 +49,26 @@ important for the field in general to establish a well defined set of
 methods for comparing machine learning methods. If researchers cannot
 convince others that they have discovered a better algorithm, or do
 convince others with unreliable evaluation techniques, the field risks
-excursions down dead-end paths of research or abandonment of those to
-potential breakthroughs. 
+excursions down dead-end paths of research or abandonment of those
+leading to potential breakthroughs. 
 
 The ability to evaluate a classifier suitably is not
 only important for comparing one classifier or one algorithm to
-another but also in the generation classifiers themselves. In
-principal, machine learning algorithms involve the search of a
+another but also in the generation of classifiers themselves. In
+principal, machine learning algorithms search a
 \textit{hypothesis space} for an optimal target function that best
 fits the training data. In many cases, this hypothesis space search
 involves an explicit comparison of the performance of competing target
 function candidates. The ability to pick the best candidate for the
 job is at the heart of the success, or failure, of a machine learning
-algorithm. If such methods cannot converge on an optimal (local or
-global) target function, their will be of limited utility in
+algorithm. If search methods cannot converge on an optimal (local or
+global) target function, they will be of limited utility in
 practise.
 
 In this paper we examine the prevalent evaluation metrics in use by
 machine language researchers as well as their origins and shortcomings as
 applied in the field. We track the development of new methods which,
-in most cases, extend and complement existing. We identify domain
+in most cases, extend and complement existing methods. We identify domain
 specific factors which effect different metrics and should be
 considered when selecting a particular evaluation method. In
 particular, we look at how the structure and composition of the
@@ -82,21 +82,23 @@ binary classification problem by decomposition of the hypothesis.
 
 \section{What's Wrong with Accuracy ?}
 Accuracy is the simplest and most intuitive evaluation measure for
-classifiers \cite{RefWorks:43}. Simply stated, accuracy, \(A\), is the
-count of how many mistakes classification mistakes made over a finite
+classifiers \cite{RefWorks:43}. Simply stated, \textit{accuracy}, is the
+count of how many classification mistakes are made over a finite
 set of instances:
 
 \begin{equation}
 \label{equ:accuracy}
-A = \frac{T_p + T_n}{T_p + F_p + F_n + T_n}
+accuracy = \frac{T_p + T_n}{T_p + F_p + F_n + T_n}
 \end{equation}
 
-where \(t_p\) is the number of \textit{true positive} classifications
+where \(T_p\) is the number of \textit{true positive} classifications
 i.e. positive training instances that were correctly classified as
-positive; \(t_n\) is the number of \textit{true negative}
+positive. \(T_n\) is the number of \textit{true negative}
 classifications i.e. negative training instances that were correctly
-classified as such. \(P\) is the total number of positive training
-example and \(N\) the total number of negative training examples.
+classified as such. \(F_p\) is the number of negative training
+examples that were incorrectly classified as positive. \(F_n\) is the
+number of positive training examples that were incorrectly classified
+as negative.
 
 Accuracy does not distinguish the types of errors it makes (false
 positives vs true negatives). While this is acceptable if the evaluation
@@ -108,39 +110,39 @@ target environment. Without knowledge of target class distribution we
 cannot be sure that we are actually maximizing accuracy for the
 problem domain from which the data set was drawn \cite{RefWorks:45}.
 
+In the following sections we examine alternative measures of
+classifier performance and how they compare to
+\textit{accuracy}. First we discuss the \textit{confusion matrix} 
+which defines the raw data gathered during any classifier evaluation
+and is the basis of most performance measures.
+
 
 \section{The Confusion Matrix}
 \label{sec:confusionmatrix}
-Essentially any training set is a labelled sample drawn from a
+Essentially a training set is a labelled sample drawn from a
 probability distribution of possible instances in the problem
 domain. Useful machine learning application are typically given a
 sample of labelled instances from which to infer the probability
-distribution of a large population. How representative
-this sample is of the underlying population is key to how well our
-classifiers can hope to perform classifying the rest of the instance
-population. The structure of the training set effects different evaluation
-metrics differently and, by implication, the target function upon
-which they converge if the metric is used for training. Bea cause of
-this, it is
-important to analyze evaluation methods 
-in terms of their variability with respect to the structure of the
-training set. Certain metrics will be better suited to certain
-situations depending on the composition of the training set. The basis
-of this analysis of variability is a structure called the
-\textit{confusion matrix}.
+distribution of a larger population. How representative this sample is
+of the underlying population is key to how well our classifiers can
+hope to perform classifying the rest of the instance population. The
+structure of the training set effects different evaluation metrics
+differently and, by implication, the target function upon which they
+converge if the metric is used for training. Beacause of this, it is
+important to analyze evaluation methods in terms of their variability
+with respect to the structure of the training set. Certain metrics
+will be better suited to certain situations depending on the
+composition of the training set. The basis of this analysis of
+variability is a structure called the \textit{confusion matrix}.
 
-The raw data produced by a classification scheme during testing are
-counts of the correct and incorrect classifications from each
-class. This information is normally displayed in a \textit{confusion
-  matrix} showing the difference between the true and predicted
-classes for a set of labelled examples as shown in Table
-\ref{tab:confusionmatrix}. In Table \ref{tab:confusionmatrix}, \(t_p\)
-and \(t_n\) are the number of true positives and true negatives
-respectively. \(f_p\) and \(f_n\) are the number of false positives
-and false negatives respectively. The row totals, \(C_p\) and \(C_n\),
-are the number of predicted positive and negative examples, and the
-column totals, \(P\) and \(N\), are the number of actual positive
-and negative examples. 
+The \textit{confusion matrix} captures raw classifier performance
+data, showing the difference between the true and predicted 
+classes for a set of labelled examples. The general form of the
+\textit{consusion matrix} is shown in Table \ref{tab:confusionmatrix}: \(T_p\)
+and \(T_n\) are the number of true positives and true negatives
+respectively. \(F_p\) and \(F_n\) are the number of false positives
+and false negatives respectively. The column totals, \(P\) and \(N\),
+are the number of actual positive and negative examples. 
 
 \begin{table}
 \centering
@@ -160,23 +162,23 @@ and negative examples.
 
 Most machine learning evaluation metrics are derived from the raw
 values in the \textit{confusion matrix}. Depending on how they combine
-these raw values, they will be effected by changes in
-therein. Analyzing the invariance of machine learning measures with
-respect to changes in the \textit{confusion matrix} gives
-insight into the suitability of the metrics to different problem
-domains \cite{RefWorks:36}. Invariance of a measure to a specific
+these raw values, they will be effected by changes therein. Analyzing
+the invariance of machine learning measures with respect to changes in
+the \textit{confusion matrix} gives insight into the suitability of
+the metrics to different problem domains
+\cite{RefWorks:36}. Invariance of a measure to a specific
 \textit{confusion matrix} transform indicates that it does not detect
 this change. Depending on the learning goals, invariance can be
-beneficial or adverse. The following invariance properties effect the
+beneficial or adverse. The following invariance properties effect
 a measures applicability and trustworthiness \cite{RefWorks:36}:
 
 \begin{itemize}
-  \item \textbf{p1:} invariance under the change of \(T_p\) with
+  \item \textbf{p1:} invariance under the exchange of \(T_p\) with
     \(T_n\) and \(F_n\) with \(F_p\). This property reflects a
     measure's permanence with respect to classification results
     distribution. The measure may not recognize asymmetry of
     classification results and may not be trustworthy when classifiers
-    are compared on data sets unbalanced class distributions. On the
+    are compared on data sets with unbalanced class distributions. On the
     other hand, this invariance makes \textit{accuracy} a robust
     measure for an algorithm's overall performance and insensitive to
     performance on a specific class \cite{RefWorks:33}.
@@ -193,7 +195,7 @@ a measures applicability and trustworthiness \cite{RefWorks:36}:
 
   \item \textbf{p4:} invariance under the classification scaling \(T_p
     \rightarrow k_1 T_p; T_n \rightarrow k_2 T_n; F_p \rightarrow k_1
-    F_p; F_n \rightarrow k2 F_n\) where \(k_1,k_2 > 0\). This property
+    F_p; F_n \rightarrow k_2 F_n\) where \(k_1,k_2 > 0\). This property
     shows measure uniformity with respect to proportional changes in
     classification results. If the measure is non-invariant, then its
     applicability may depend on class size.
@@ -206,20 +208,18 @@ a measures applicability and trustworthiness \cite{RefWorks:36}:
 % Scalar Evaluation Methods
 %----------------------------------------
 \section{Scalar Evaluation Methods}
-Although the \textit{confusion matrix} shows
-all of the information about the classifier's performance at a
-particular operating point, more
-meaningful measures can be extracted from it to illustrate certain
-performance criteria. Such measures are described in
-this section and their suitability in different domains analyzed with
-respect to the invariance properties described above.
+In general, the raw data presented in the \textit{confusion matrix} is
+not used directly to measure classifier performance. A variety of
+composite evaluation measures may be constructed from this raw
+data. Prominent composite measures are described in this section and
+their suitability in different domains analyzed with respect to the
+invariance properties described above.
 
 \subsection{Precision and Recall}
 In applications where the focus is on one particular class and the
 number of examples belonging to that class are substantially lower
-than the overall number of examples, the measures of
-choice, calculated on the positive class, are \textit{recall} and
-\textit{precision}.
+than the overall number of examples, appropriate measures, calculated
+on the positive class, are \textit{recall} and \textit{precision}.
 
 \begin{equation}
 \label{equ:precision}
@@ -231,14 +231,14 @@ precision = \frac{T_p}{T_p + F_p}
 recall = \frac{T_p}{T_p + F_n}
 \end{equation}
 
-\textit{F-score} is a derivative of \textit{precision} and
+\textit{F-score} is the harmonic mean of of \textit{precision} and
 \textit{recall}. It is evenly balanced between the two in the case
 where \(\beta = 1\). It favours \textit{precision} where \(\beta > 1\)
 and \textit{recall} otherwise.
 
 \begin{equation}
 \label{equ:fscore}
-Fscore = \frac{T_p}{T_p + F_n}
+Fscore = (1 + \beta^2)\frac{precision * recall}{(\beta^2 * precision) + recall}
 \end{equation}
 
 \textit{F-score}, \textit{precision}, and \textit{recall} are
@@ -259,7 +259,7 @@ sensitivity = \frac{T_p}{T_p + F_n}= recall
 \end{equation}
 
 \begin{equation}
-\label{equ:recall}
+\label{equ:specificity}
 specificity = \frac{T_n}{F_p + T_n}
 \end{equation}
 
@@ -312,7 +312,7 @@ visual data. Various derivatives of \textit{specificity} and
         \end{equation}
         
         DP evaluates how well an algorithm distinguishes between
-        positive and negative examples and mostly used for feature
+        positive and negative examples and is mostly used for feature
         selection in machine learning \cite{RefWorks:37}. The
         algorithm is a poor discriminant if \(DP < 1\), limited if
         \(DP < 2\), fair if \(DP < 3\), and good in other
@@ -330,7 +330,7 @@ properties described above. \textit{Sensitivity} is non invariant for
 %----------------------------------------
 \section{Non-Scalar Evaluation Methods}
 The measures of performance discussed so far are valid only for one
-particular \textit{operating point}, an operating point normally being
+particular \textit{operating point}, a point normally
 chosen so as to minimize the \textit{probability of error}. However,
 in general it is not misclassification rate we want to minimize, but
 rather \textit{misclassification cost}. \textit{Misclassification
@@ -338,14 +338,15 @@ rather \textit{misclassification cost}. \textit{Misclassification
 
 \begin{equation}
 \label{equ:misclasscost}
-Cost = F_p * {C_F}_p + F_n * {C_F}_n
+Cost = F_p {C_F}_p + F_n {C_F}_n
 \end{equation}
 
 where \(F_p\) and \(F_n\) are the false positive and false negative
 counts respectively, and \({C_F}_p\) and \({C_F}_n\) are the cost of a
-false positive and false negative classification respectively. Class
-imbalance and asymmetric misclassification costs are related. It has
-been suggested that training set imbalances may be addressed by
+false positive and false negative classification respectively. 
+
+Class imbalance and asymmetric misclassification costs are related. It
+has been suggested that training set imbalances may be addressed by 
 training a cost sensitive classifier with the misclassification cost
 of the minority class greater than that of the majority class, and one
 way to make an algorithm cost sensitive is to synthetically imbalance
@@ -382,32 +383,31 @@ techniques:
 \subsection{ROC Curves}
 The \textit{ROC} curve was first developed by electrical and radar
 engineers during World War II for detecting enemy objects in battle
-fields and more recently, it has been employed in the medical decision
+fields and, more recently, it has been employed in the medical decision
 making community. In addition to being a useful performance graphing
 method, \textit{ROC} curves exhibit useful properties that make them
 especially useful for domains with skewed class distributions and
 unequal classification cost errors \cite{RefWorks:39}. 
 
-The curve is a plot of the \textit{sensitivity}, or \textit{true
-  positive rate}, vs. \textit{false positive rate} (\(1 −
-specificity\) or \(1 - true negative rate\)), for a binary classifier
-system as its discrimination threshold is varied (each threshold
-defines a classifier).
+The curve is a plot of the \textit{sensitivity}  vs \((1-
+specificity)\), or \textit{true positive rate} vs \((1 -
+true\:negative\:rate)\), for a binary classifier system as its discrimination
+threshold is varied (each threshold defines a classifier).
 
 \begin{equation}
 \label{equ:truepositiverate}
-TP = \frac{T_p}{T_p + F_n}
+true\:positive\:rate\;\;\;TP = \frac{T_p}{T_p + F_n}
 \end{equation}
 
 \begin{equation}
 \label{equ:falsepositiverate}
-TN = \frac{F_p}{T_n + F_p}
+true\:negative\:rate\;\;\;TN = \frac{F_p}{T_n + F_p}
 \end{equation}
 
 The sample points obtained for various
 discrimination thresholds are treated as points on a continuous curve
 and normal curve fitting techniques applied. Together with the sample
-points obtained during testing, the points \((0,0)\) and \((1,1\) are
+points obtained during testing, the points \((0,0)\) and \((1,1)\) are
 included in the curve plot. The lower left point (\(0,0)\) represents
 the strategy of never issuing a positive classification. The opposite
 strategy of unconditional positive classification is represented by the
@@ -429,8 +429,7 @@ If the proportion of positive and negative instances changes in a test
 set, the \textit{ROC} curve remains the same. This is evident from the
 \textit{confusion matrix} shown in Figure
 \ref{tab:confusionmatrix}. \textit{ROC} curves are based on
-\textit{true positive rate} (\ref{equ:truepositiverate}) and
-\textit{false positive rate} (\ref{equ:falsepositiverate}) which are
+\textit{true positive rate} and \textit{false positive rate} which are
 ratios, normalized for class distribution. Given the relationship
 between class distribution and error cost, which we explore below, we
 can say that \textit{ROC} curves are invariant with respect to the
@@ -472,13 +471,13 @@ are. For this reason, classifier scores should not be compared across
 model classes and comparing model performance at a common threshold is
 meaningless \cite{RefWorks:39}. 
 
-Provost and Fawcett (\cite{RefWorks:61}) describe techniques for
-comparing the performance of a set of learned classifiers. These
+Provost and Fawcett \cite{RefWorks:61} describe techniques for
+comparing the performance of a set of classifiers. These
 techniques are based on the principles of separation of classifier
 performance from class and cost distribution and the use of a convex
 hull to identify potentially optimal classifier subsets. These
 techniques were examined further by Drummond and Holte
-(\cite{RefWorks:52}) who describe an alternate projection of the
+\cite{RefWorks:52} who describe an alternate projection of the
 \textit{ROC} plot in which the expected cost of a classifier is
 represented explicitly. These treatments are described in more detail
 below: 
@@ -490,12 +489,12 @@ The expected cost of applying the classifier represented by a point
 
 \begin{equation}
 \label{equ:expectedcost}
-p(+)(1-TP){C_F}_n + p(-)FP{C_F}_p
+p(+)(1-TP)\:{C_F}_n + p(-)\:FP\:{C_F}_p
 \end{equation}
 
 Where \(p(+)\) and \(p(-) = 1 - p(+)\), represent the classes' prior
-distribution. Therefore, two points \((FP_1, TP_1\) and \((FP_2,
-TP_2\), have the same performance if 
+distribution. Therefore, two points \((FP_1, TP_1)\) and \((FP_2,
+TP_2)\), have the same performance if 
 
 \begin{equation}
   \frac{TP_2 - TP_1}{FP_2 - FP_1} = \frac{{C_F}_p . p(+)}{{C_F}_n . p(-)}
@@ -517,7 +516,7 @@ family of \textit{iso-performance} lines.
 
 
 \subsubsection{\textit{ROC} Convex Hull (ROCCH)}
-Given that in the real world, the operating conditions within a
+Given that, in the real world, the operating conditions within a
 problem domain are seldom known precisely, it is useful to be able to
 identify those classifiers which are potentially optimal
 \cite{RefWorks:61}. If a collection \textit{ROC} curves are plotted
@@ -545,12 +544,12 @@ Figure \ref{fig:roc} this corresponds to classifier \(a\).
 \subsubsection{Area Under the \textit{ROC} Curve (AUC)}
 In order evaluate the \textit{ROC} curve as a whole i.e. extract a
 single distinguishable scalar metric, the area under the \textit{ROC}
-curve, \textit{AUC} seems to exhibit desirable
+curve(\textit{AUC}) seems to exhibit desirable
 properties. \textit{AUC} represents the probability that a randomly
 chosen positive example is correctly ranked with greater suspicion
-than a randomly chosen negative example. \cite{RefWorks:32} found good
-agreement between \textit{accuracy} and \textit{AUC} with respect to
-performance ranking as well as the following desirable properties:
+than a randomly chosen negative example. Bradley \cite{RefWorks:32} found good
+agreement between \textit{AUC} and \textit{accuracy} with respect to
+performance ranking as well as the following properties:
 
 \begin{itemize}
 \item Increased sensitivity in the Analysis of Variance (ANOVA) tests.
@@ -567,60 +566,59 @@ known as \textit{balanced accuracy}:
 
 Ling et al \cite{RefWorks:56} showed empirically and formally that
 \textit{AUC} is statistically consistent and a more discriminating measure
-than \textit{Accuracy}. Also, if we build classifiers that optimize
+than \textit{accuracy}. Also, if we build classifiers that optimize
 \textit{AUC} instead of \textit{accuracy}, it has been shown
 \cite{RefWorks:62} that such classifiers produce not only better
 \textit{AUC} but also better \textit{accuracy}, compared to
 classifiers which optimize \textit{accuracy}. Huang and Ling
 \cite{RefWorks:42} proposed a new composite scalar measure,
 \textit{AUC:acc} combining \textit{AUC} and \textit{accuracy}. They
-show formally that the new measure is consistent with and finer than
+show formally that the new measure is consistent with, and finer than
 the existing measures it combines.
 
 It is not possible with a single scalar metric to capture
 entirely the performance of a classification system over a range of
 operating conditions. It is possible for a high \textit{AUC}
 classification system to perform worse than a low
-\textit{AUC}. However, in practise the \textit{AUC} is a strong
+\textit{AUC}. However, in practise \textit{AUC} is a strong
 predictor of performance and is often used when a general measure of
 predictiveness is required \cite{RefWorks:39}.
 
 
 \subsubsection{Cost Curves}
-Drummond and Holte (\cite{RefWorks:52} describe a technique called
+Drummond and Holte \cite{RefWorks:52} describe a technique called
 \textit{cost curves} to facilitate quantifying the performance
 difference between two \textit{ROC} curves. In \textit{ROC} space, the
 performance difference between two classifiers is not the Euclidean
-distance normal to the lower curve but weighted linear function
+distance normal to the lower curve but a weighted linear function
 incorporating the operating conditions. They argue that while it
 is possible to obtain this information from \textit{ROC} curves
 directly, it is not trivial. A \textit{cost curve} is a transform of
-the \textit{ROC} space, plotting a probability cost function (Equation
-\ref{equ:probcostfunc}) on the \(x\)-axis, against the expected cost
-normalized with respect to the cost incurred when every example is
-incorrectly classified. 
+the \textit{ROC} space, plotting a probability cost function on the
+\(x\)-axis, against the expected cost normalized with respect to the
+cost incurred when every example is incorrectly classified:
 
 \begin{equation}
 \label{equ:probcostfunc}
 \frac{p(+){C_F}_n}{p(+){C_F}_n + p(-){C_F}_p}
 \end{equation}
 
-Each point in the \textit{cost curve} corresponds to an
-\textit{iso-performance line} in \textit{ROC} space. The probability
-cost function of the \textit{cost curve} governing the slope of the
-\textit{iso-performance line} and the normalized expected cost, the
+Each point in a \textit{cost curve} corresponds to an
+\textit{iso-performance line} in \textit{ROC} space. The
+\(x\) coordinate of the point on the \textit{cost curve} governs the slope of the
+\textit{iso-performance line}, and \(y\) coordinate governs the
 \(TP\) intercept. The distance between two cost curves directly
-indicates the performance between the two. 
+indicates the performance differential between the two.
 
 \textit{Cost curves} are no more powerful than \textit{ROC} curves,
-offering only an alternative representation of the results of
-performance testing that explicitly represents cost differences
-between classifiers. While this representation is useful, it is this
-authors opinion that its primary motivation is the explicit
-quantification of performance differentials. As discussed previously,
-performance evaluation is a statistical estimation exercise and should
-be used qualitatively to select one classifier as optimal over
-another, not to quantify said performance differential.
+offering only an alternative representation of that explicitly
+represents cost differences between classifiers. While this
+representation is useful, it is this authors opinion that its primary
+motivation is the explicit quantification of performance
+differentials. As discussed previously, performance evaluation is a
+statistical estimation exercise and should be used qualitatively to
+select one classifier as optimal over another, not to quantify the
+performance differential. 
 
 %----------------------------------------
 % Statistical Techniques
@@ -631,11 +629,10 @@ will be applied is not known in advance. However, to make informed decisions
 regarding selection of classifiers,
 performance must be estimated using the data available
 \cite{RefWorks:45}. Application of statistical techniques is
-becoming  widespread in the field of machine learning and serve to
-formalize the field of machine learning and bring it
- in line with more established fields of diagnostics and
-classification. Below we discuss some of the techniques employed in
-machine learning evaluation:
+becoming more widespread in the field of machine learning and serves to
+formalize the field and bring it in line with more established fields
+of diagnostics and classification. Below we discuss some of the
+statistical techniques employed in machine learning evaluation.
 
 \subsection{Sub-sampling}
 Ultimately all machine learning evaluation techniques use a finite set
@@ -650,17 +647,17 @@ used in machine learning evaluation.
 
 Scalar metrics obtained from sub-sampling are easily combined into
 means and standard deviations. Non-scalar metrics are not so easily
-combined and the best method depends on the metric itself as well as
-the specific goals of the study. During a
-study by Bradley (\cite{RefWorks:32}) using \textit{ROC} curves, it was found
+combined and the best aggregation method depends on the metric itself as well as
+the specific goals of the study. In a
+study by Bradley \cite{RefWorks:32} using \textit{ROC} curves, it was found
 that averaging raw data (frequencies of true and false positives) from
 \textit{cross-validation} to produce plots,
-depressed the combined index of \textit{accuracy} and \text{AUC}. In the same study,
-Bradley selected a technique known as \textit{pooling} to combine the
-results of cross-validation to generate ROC curves. Foster et al
-(\cite{RefWorks:45} used an alternative methodology, called
-\textit{averaging}, after considering Bradley's methods inappropriate
-for their requirements.
+depressed the combined index of \textit{accuracy} and \textit{AUC}. In
+the same study, Bradley selected a technique known as \textit{pooling}
+to combine the results of cross-validation to generate ROC
+curves. Foster et al \cite{RefWorks:45} used an alternative
+methodology, called \textit{averaging}, after considering Bradley's
+methods inappropriate for their requirements.
 
 
 \subsection{Analysis of Variance}
@@ -682,15 +679,15 @@ classifiers for each data set. It is safer than the \textit{t-test}
 since it does not assume a \textit{normal distribution}
 \cite{RefWorks:47}. 
 
-Studies conducted by \cite{RefWorks:38} examined
-the use of \textit{ANOVA} (Analysis of Variance) to determine the
+Studies conducted by Maloof \cite{RefWorks:38} examined
+the use of \textit{ANOVA} to determine the
 significance of means of \textit{AUC} in Monte Carlo experiments for a
 variety of machine learning algorithms. It was indicated that since ANOVA does not
 estimate case-sample variance, it tends to be 
-optimistic, especially for large samples. While study was based on
-\textit{normal distributions}, and therefore not generally applicable, it does
-suggest that problem domain specifics should be taken into account
-when using ANOVA.
+optimistic, especially for large samples. While the study was based on
+\textit{normal distributions}, and therefore not generally applicable,
+it does suggest that problem domain specifics should be taken into
+account when using ANOVA.
 
 Goutte and Gaussier \cite{RefWorks:40} examined the variance of
 \textit{precision}, \textit{recall}, and {F-score} and used the
@@ -735,7 +732,7 @@ evident even in the face rudimentary evaluation measures. It was not
 difficult to tell if a particular avenue of research would yield
 benefits or not. However, as the field matures and the low hanging
 fruit is plucked from the tree, it is becoming more difficult and
-important to be able measure and have confidence of the abilities of
+important to be able measure and have confidence in the abilities of
 machine learning systems relative to one another and prevailing system
 in use in the real world.
 
@@ -747,9 +744,9 @@ evaluation and/or training is as important as the machine learning
 algorithm itself. Also, use of classifier performance metrics must be
 complemented by statistical methods to build confidence in our
 estimates and convince those in other fields of diagnostics and
-decision making.
+decision making of our results.
 
-If one cannot discriminate between two classifier confidently, we
+If one cannot discriminate between two classifiers confidently, we
 cannot hope to improve our approximation of the target function or
 advance the state of the art.
 
