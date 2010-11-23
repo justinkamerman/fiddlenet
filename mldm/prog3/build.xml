@@ -1,0 +1,82 @@
+<project name="mldm" default="dist" basedir=".">
+
+    <!-- set global properties for this build -->
+    <property name="src" location="src"/>
+    <property name="build" location="build"/>
+    <property name="dist"  location="dist"/>
+    <property name="results"  location="results"/>
+    <property name="thirdparty"  location="thirdparty"/>
+    <property name="submit"  location="submit.tar.gz"/>
+
+	<path id="build.classpath">
+		<fileset dir="${thirdparty}">
+			<include name="commons-cli-1.2.jar" />
+		</fileset>
+	</path>
+
+    <target name="init">
+        <mkdir dir="${build}"/>
+    </target>
+
+    <target name="compile" depends="init">
+        <javac srcdir="${src}" destdir="${build}" debug="true">
+            <classpath refid="build.classpath" />
+        </javac>
+    </target>
+
+    <target name="dist" depends="compile">
+        <mkdir dir="${dist}"/>
+        <jar jarfile="${dist}/${ant.project.name}.jar" basedir="${build}"/>
+    </target>
+
+    <target name="submit" depends="dist">
+        <tar destfile="${submit}" compression="gzip">
+            <tarfileset dir=".">
+                <include name="build.xml"/>
+                <include name="run.sh"/>
+                <include name="logging.properties"/>
+                <include name="**/*.java"/>
+                <include name="**/*.jar"/>
+                <include name="**/*.data"/>
+            </tarfileset>
+        </tar>
+    </target>
+
+    <target name="clean">
+        <delete dir="${build}"/>
+        <delete dir="${dist}"/>
+        <delete file="texput.log"/>
+        <delete file="${submit}"/>
+        <delete file="${results}/report.log"/>
+        <delete file="${results}/report.aux"/>
+        <delete file="${results}/report.bbl"/>
+        <delete file="${results}/report.blg"/>
+    </target>
+
+    <macrodef name="pdflatex">
+        <attribute name="file"/>
+        <sequential>
+            <exec executable="pdflatex" dir="${results}">
+                <arg value="--interaction"/>
+                <arg value="nonstopmode"/>
+                <arg value="@{file}"/>
+            </exec>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="bibtex">
+        <attribute name="file"/>
+        <sequential>
+            <exec executable="bibtex" dir="${results}">
+                <arg value="@{file}"/>
+            </exec>
+        </sequential>
+    </macrodef>
+
+    <target name="report">
+        <pdflatex file="report.tex"/>
+        <bibtex file="report"/>
+        <pdflatex file="report.tex"/>
+        <pdflatex file="report.tex"/>
+    </target>
+</project>

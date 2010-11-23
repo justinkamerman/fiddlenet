@@ -1,0 +1,20 @@
+[5:44:54][INFO][Main]: Loaded data from file data/letter-recognition.data: [size=20000][entropy=4.699811][classificationSet=[[size=26][classifications=[[[D][occurence=805]][[E][occurence=768]][[F][occurence=775]][[G][occurence=773]][[A][occurence=789]][[B][occurence=766]][[C][occurence=736]][[L][occurence=761]][[M][occurence=792]][[N][occurence=783]][[O][occurence=753]][[H][occurence=734]][[I][occurence=755]][[J][occurence=747]][[K][occurence=739]][[U][occurence=813]][[T][occurence=796]][[W][occurence=752]][[V][occurence=764]][[Q][occurence=783]][[P][occurence=803]][[S][occurence=748]][[R][occurence=758]][[Y][occurence=786]][[X][occurence=787]][[Z][occurence=734]]]]]][attributes=[[y-ege][xy2br][x-bar][x-ege][x2bar][x2ybr][width][xegvy][onpix][x-box][y2bar][y-bar][y-box][high][yegvx][xybar]]] 
+[5:44:54][INFO][Main]: Starting iteration 1 of 10 
+[6:44:45][INFO][Main]: Processed fold 0: training set size = 16000; test set size = 4000; accuracy = 0.767750; pruned_accuracy = 0.097500 
+[7:39:17][INFO][Main]: Processed fold 1: training set size = 16000; test set size = 4000; accuracy = 0.758500; pruned_accuracy = 0.109250 
+[8:33:44][INFO][Main]: Processed fold 2: training set size = 16000; test set size = 4000; accuracy = 0.758500; pruned_accuracy = 0.110750 
+[9:28:25][INFO][Main]: Processed fold 3: training set size = 16000; test set size = 4000; accuracy = 0.762250; pruned_accuracy = 0.102750 
+[10:23:27][INFO][Main]: Processed fold 4: training set size = 16000; test set size = 4000; accuracy = 0.768500; pruned_accuracy = 0.102000 
+[10:23:27][INFO][Main]: Starting iteration 2 of 10 
+[11:20:02][INFO][Main]: Processed fold 0: training set size = 16000; test set size = 4000; accuracy = 0.760500; pruned_accuracy = 0.092750 
+[12:15:04][INFO][Main]: Processed fold 1: training set size = 16000; test set size = 4000; accuracy = 0.764250; pruned_accuracy = 0.095500 
+[1:09:44][INFO][Main]: Processed fold 2: training set size = 16000; test set size = 4000; accuracy = 0.761750; pruned_accuracy = 0.094000 
+[2:04:58][INFO][Main]: Processed fold 3: training set size = 16000; test set size = 4000; accuracy = 0.758750; pruned_accuracy = 0.099250 
+[2:58:56][INFO][Main]: Processed fold 4: training set size = 16000; test set size = 4000; accuracy = 0.748500; pruned_accuracy = 0.094500 
+[2:58:56][INFO][Main]: Starting iteration 3 of 10 
+[3:55:22][INFO][Main]: Processed fold 0: training set size = 16000; test set size = 4000; accuracy = 0.765250; pruned_accuracy = 0.106750 
+[4:49:17][INFO][Main]: Processed fold 1: training set size = 16000; test set size = 4000; accuracy = 0.754250; pruned_accuracy = 0.106250 
+[5:43:34][INFO][Main]: Processed fold 2: training set size = 16000; test set size = 4000; accuracy = 0.752500; pruned_accuracy = 0.110250 
+[6:38:24][INFO][Main]: Processed fold 3: training set size = 16000; test set size = 4000; accuracy = 0.766250; pruned_accuracy = 0.106000 
+[7:33:33][INFO][Main]: Processed fold 4: training set size = 16000; test set size = 4000; accuracy = 0.765500; pruned_accuracy = 0.090000 
+[7:33:33][INFO][Main]: Starting iteration 4 of 10 

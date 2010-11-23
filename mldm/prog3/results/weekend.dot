@@ -1,0 +1,21 @@
+digraph G {
+	24230857  [label="weather", shape=box];
+	31436753  [label="parents", shape=box];
+	24230857 -> 31436753 [label="Windy"];
+	9424533  [label="money", shape=box];
+	31436753 -> 9424533 [label="No"];
+	21219507  [label="Cinema", shape=ellipse];
+	9424533 -> 21219507 [label="Poor"];
+	19757584  [label="Shopping", shape=ellipse];
+	9424533 -> 19757584 [label="Rich"];
+	11060360  [label="Cinema", shape=ellipse];
+	31436753 -> 11060360 [label="Yes"];
+	33475172  [label="Tennis", shape=ellipse];
+	24230857 -> 33475172 [label="Sunny"];
+	10062600  [label="parents", shape=box];
+	24230857 -> 10062600 [label="Rainy"];
+	7785463  [label="Stay in", shape=ellipse];
+	10062600 -> 7785463 [label="No"];
+	21548172  [label="Cinema", shape=ellipse];
+	10062600 -> 21548172 [label="Yes"];
+}
