@@ -14,7 +14,7 @@ import java.util.Set;
 import java.util.logging.Logger;
 import instance.Attribute;
 import instance.Classification;
-import nbtree.NaiveBayesClassifier;
+import bayes.NaiveBayesClassifier;
 
 
 public class Node implements Iterable<Edge>
@@ -27,22 +27,21 @@ public class Node implements Iterable<Edge>
     private HashMap<Object, Node> __children = new HashMap<Object, Node>();
 
     private Node () {}
-    public Node (Object key)
+    public Node (NaiveBayesClassifier nbc)
     {
-        __key = key;
-    }
-
-
-    public Node (Object key, Object clas)
-    {
-        __key = key;
-        __defaultClassification = new Classification (clas);
+        __nbc = nbc;
     }
 
     
     public Object getKey ()
     {
         return __key;
+    }
+
+    
+    public void setKey (Object key)
+    {
+        __key = key;
     }
 
     
@@ -126,6 +125,6 @@ public class Node implements Iterable<Edge>
 
     public String toString ()
     {
-        return __key.toString();
+        return String.format ("[key=%s]", __key == null ? "null" : __key.toString());
     }
 }

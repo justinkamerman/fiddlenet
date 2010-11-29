@@ -64,7 +64,7 @@ public class ID3
             for ( Object weight : S.getValues (A.getKey()) )
             {
                 log.finest ("\tcreateDecisionTree(): processing value " + weight.toString());
-                InstanceSet Sv = S.subset (A.getKey(), weight);
+                InstanceSet Sv = S.subsetAndRemoveAttribute (A.getKey(), weight);
                 log.finest (String.format ("\tcreateDecisionTree(): S(%s, %s): %s",
                                            A.toString(), weight.toString(), Sv.toString()));
 

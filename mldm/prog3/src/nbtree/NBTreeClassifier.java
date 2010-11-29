@@ -81,33 +81,28 @@ public class NBTreeClassifier extends Classifier
 
         while ( ! node.isLeaf () )
         {            
-            Attribute attr = inst.getAttribute (node.getKey());            
+            log.finest ("classify(): visitng node " + node.toString());
+            Attribute attr = inst.getAttribute (node.getKey());    
+            log.finest ("classify(): examining attribute " + attr.toString());        
             Node child = node.getChild (attr.getValue());
-            log.finest ("classify(): examining attribute " + attr.toString());
 
             // No path defined for this instance, use default
             // classification for this subtree.
             if ( child == null )
             {
+                log.finest ("No path defined for this instance. Using intermediate Naive Bayes classifier.");
                 break;
             }
             else
             {
+                // Remove the attribute from the instance as we advance down the tree.
+                log.finest ("classify(): removing attribute from instance " + node.getKey());
+                inst.removeAttribute (node.getKey());
                 node = child;
             }
         }
         
-        Classification classification;
-        if (node.isLeaf())
-        {
-            classification = new Classification (node.getKey());
-        }
-        else
-        {
-            log.finest ("No path defined for this instance. Using default classification for this subtree.");
-            classification = node.getDefaultClassification();
-        }
-        
+        Classification classification = node.getNaiveBayesClassifier().classify (inst);
         log.fine (String.format ("classify(): classified instance %s as %s", 
                                  inst.toString(), classification.toString()));
         return classification;

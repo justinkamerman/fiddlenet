@@ -23,12 +23,18 @@ import instance.InstanceSet;
 public class NaiveBayes 
 {
     private static Logger log = Logger.getLogger (NaiveBayes.class.getName());
-
+    private static int __M = 10;
 
     public NaiveBayes () { };
   
 
-    public NaiveBayesClassifier createClassifier (InstanceSet trainSet, int m)
+    public static NaiveBayesClassifier createClassifier (InstanceSet trainSet)
+    {
+        return createClassifier (trainSet, __M);
+    }
+
+
+    public static NaiveBayesClassifier createClassifier (InstanceSet trainSet, int m)
     {
         log.fine ("creating classifier from training data: " + trainSet.toString());
         NaiveBayesClassifier classifier = new NaiveBayesClassifier ();

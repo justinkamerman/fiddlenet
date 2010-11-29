@@ -43,6 +43,15 @@ public class Instance implements Iterable<Attribute>
         return null;
     }
 
+
+    public void removeAttribute (Object key)
+    {
+        for (int i = 0; i < __attrs.size(); i++)
+        {
+            if ( __attrs.get(i).getKey().equals (key)) __attrs.remove(i);
+        }
+    }
+
     
     public int getAttributeCount ()
     {

@@ -7,8 +7,12 @@
  */
 package instance;
 
+import java.util.logging.Logger;
+
+
 public abstract class Classifier
 {
+    private static Logger log = Logger.getLogger (Classifier.class.getName());
 
     /**
      * Classify a single instance. Classification of instance not
@@ -23,15 +27,25 @@ public abstract class Classifier
      */
     public double evaluate ( InstanceSet instSet )
     {
-        double correct = 0;
-        for ( Instance inst : instSet )
+        if (instSet.size() == 0)
         {
-            Classification classification = classify (inst);
-            if ( classification != null && classification.equals (inst.getClassification()) )
-            {
-                correct++;
-            }
+            return 0;
         }
-        return (correct / (double) instSet.size());
+        else
+        {
+            double correct = 0;
+            for ( Instance inst : instSet )
+            {
+                Classification classification = classify (inst);
+                if ( classification != null && classification.equals (inst.getClassification()) )
+                {
+                    correct++;
+                }
+            }
+            
+            log.finest (String.format("evaluate(): correct = %f; instance set size = %d",
+                                      correct, instSet.size()));
+            return (correct / (double) instSet.size());
+        }
     }
 }

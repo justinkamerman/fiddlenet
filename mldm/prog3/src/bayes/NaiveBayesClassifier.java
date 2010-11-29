@@ -71,6 +71,15 @@ public class NaiveBayesClassifier extends Classifier
                 
                 double condP;
                 HashMap<Object, Double> value2prob = __attrProbs.get(clas).get(attr.getKey());
+
+                if (value2prob == null)
+                {
+                    log.info (">>> instance = " + inst.toString());
+                    log.info (">>> class = " + clas.toString());
+                    log.info (">>> attribute = " + attr.toString());
+                }
+                    
+                
                 if ( value2prob.containsKey (attr.getValue()) )
                 {
                     condP = __attrProbs.get(clas).get(attr.getKey()).get(attr.getValue());

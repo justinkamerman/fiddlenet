@@ -11,11 +11,13 @@ import java.util.Stack;
 import java.util.logging.Logger;
 import algorithm.NaiveBayes;
 import bayes.NaiveBayesClassifier;
+import instance.Fold;
+import instance.Attribute;
+import instance.InstanceSet;
 import nbtree.NBTreeClassifier;
 import nbtree.Edge;
 import nbtree.Node;
-import instance.Attribute;
-import instance.InstanceSet;
+import util.Evaluation;
 
 
 /**
@@ -25,13 +27,14 @@ public class NBTree
 {
     private static Logger log = Logger.getLogger (NBTree.class.getName());
     private static int __M = 10;
+    private static int __K = 5;
 
     public NBTree () { };
   
 
     public NBTreeClassifier createNBTree (InstanceSet trainingData)
     {
-        log.fine ("creating decision tree from training data: " + trainingData.toString());
+        log.fine ("createNBTree(): creating NB tree from training data: " + trainingData.toString());
         NBTreeClassifier tree = new NBTreeClassifier ();
         Stack<StackFrame> stack = new Stack<StackFrame> ();
 
@@ -40,95 +43,143 @@ public class NBTree
                                                null, 
                                                trainingData);
         stack.push (rootFrame);
-        log.finest ("createNBTreeClassifier(): pushing stack frame: " + rootFrame.toString());
+        log.fine ("createNBTreeClassifier(): pushing root stack frame: " + rootFrame.toString());
 
         // Main loop
         while ( ! stack.empty () )
         {
             StackFrame frame = stack.pop ();
-            log.finest ("createNBTreeClassifier(): popped stack frame: " + frame);
+            log.fine ("\tcreateNBTreeClassifier(): popped stack frame: " + frame);
             Node P = frame.getParent();
-            Node A = new Node ();
-            A.setNaiveBayesClassifier ((new NaiveBayes()).createClassifier (S, __M));
             Object W = frame.getWeight();
+            MaxSplitUtilityResult msur = new MaxSplitUtilityResult ();
             InstanceSet S = frame.getInstanceSet();
+            Node A = new Node (NaiveBayes.createClassifier (S));
 
-            // Add node to tree
+            // Will the new node be a leaf or a split ?
+            //
+            // 1. check size of training set to avoid splits of little value
+            if ( S.size() < 30 )
+            {
+                log.fine ("\t\tcreateNBTreeClassifier(): training set has less than 30 instances. Adding leaf node");
+            }
+            else
+            {
+                double Un = utility (S);
+                msur = maxSplitUtility (S);
+                log.fine (String.format("\t\tcreateNBTreeClassifier(): Un = %f; Us = %s", Un, msur));
+                
+                // 2. check that relative reduction in error >5% to avoid split of little value
+                if ( ((msur.getUtility() - Un) / Un) <= 0.05 )
+                {
+                    log.fine ("\t\tcreateNBTreeClassifier(): split utility gain <5%. Adding leaf node");
+                }
+                else // Do the split
+                {
+                    log.fine ("\tcreateNBTreeClassifier(): split utility gain >5%. Splitting on attribute " 
+                                + msur.getAttributeKey().toString());
+                    
+                    A.setKey (msur.getAttributeKey());
+                    for (Object val : S.getAttributeSet().getValues (msur.getAttributeKey()))
+                    {
+                        InstanceSet splitSet = S.subsetAndRemoveAttribute (msur.getAttributeKey(), val);
+                        //InstanceSet splitSet = S.subset (msur.getAttributeKey(), val);
+                        StackFrame sf = new StackFrame (A, val, splitSet);                                           
+                        log.fine ("\t\t\tcreateNBTreeClassifier(): pushing stack frame: " + sf.toString());
+                        stack.push (sf);
+                    }
+                }
+            }
+
+            // Add new node to tree
             if ( P != null )
             {
+                log.fine (String.format("\tcreateNBTreeClassifier(): adding node %s, with weight %s",
+                                          A.toString(),
+                                          W.toString()));
                 P.addChild (A, W);
             }
             else 
             {
+                log.fine (String.format("\tcreateNBTreeClassifier(): adding root node %s",
+                                          A.toString()));
+
                 tree.setRoot (A);
             }
-
-            // Avoid splits with little value
-            if ( S.size() < 30 )
-            {
-                log.finest ("\tcreateNBTreeClassifier(): training set has less than 30 instances. Creating leaf node");
-                break;
-            }
-
-            // Node Utility
-            long nodeUtility = nodeUtility (S);
-
-            // argmax( splitUtility )
-            MaxSplitUtilityResult maxSplitUtilityResult = maxSplitUtility (S);
-
-            
-
-            for ( Object weight : S.getValues (A.getKey()) )
-            {
-                log.finest ("\tcreateNBTreeClassifier(): processing value " + weight.toString());
-                InstanceSet Sv = S.subset (A.getKey(), weight);
-                log.finest (String.format ("\tcreateNBTreeClassifier(): S(%s, %s): %s",
-                                           A.toString(), weight.toString(), Sv.toString()));
-
-                // Sv is empty: no training instance to guide our
-                // decision, so settle on most probable classification.
-                if ( Sv.size() == 0 )
-                {
-                    // add leaf node
-                    log.finest ("\t\tcreateNBTreeClassifier(): Sv is empty; adding leaf."); 
-                    A.addChild (new Node(Sv.getDefaultClassification()), weight);
-                }
-                // Sv elements all have same classification
-                else if ( Sv.getClassificationSetSize() == 1 )
-                {
-                    // add leaf node
-                    log.finest ("\t\tcreateNBTreeClassifier(): Sv only has one classification; adding leaf."); 
-                    A.addChild (new Node(Sv.getDefaultClassification()), weight);
-                }
-                // No more attributes and previous cases don't apply:
-                // we must have contradictory training instances, so
-                // settle on most probable classification.
-                else if ( Sv.getAttributeSetSize() == 0 ) 
-                {
-                    // Add leaf with most probably classification
-                    log.finest ("\t\tcreateNBTreeClassifier(): Sv has no more attributes and no obvious classification; adding leaf with most probable classification.");
-                    A.addChild (new Node(Sv.getDefaultClassification()), weight);
-                }
-                else
-                {
-                    // Push a stack frame for the next attribute
-                    StackFrame sf = new StackFrame (A,
-                                                    weight,
-                                                    new Node (Sv.maxInformationGain(), 
-                                                              S.getDefaultClassification()),
-                                                    Sv.removeAttribute (A.getKey()));
-                    log.finest ("\t\tcreateNBTree(): pushing stack frame: " + sf.toString());
-                    stack.push (sf);
-                   
-                }
-            }
-
-            
         }
+            
+        log.fine ("\tcreateNBTreeClassifier(): done");
         return tree;
     }
     
-    
+
+    /**
+     * Node utility
+     */
+    private double utility (InstanceSet instSet)
+    {
+        Evaluation eval = new Evaluation ();
+        for (Fold fold : instSet.fold (__K))
+        {
+            NaiveBayesClassifier classifier= (new NaiveBayes()).createClassifier (fold.getTrainingSet());
+            double accuracy = classifier.evaluate (fold.getTestSet());
+            eval.addAccuracy (accuracy);
+        }
+        
+        double utility = eval.mean ();
+        log.finest ("utility(): utility = " + utility);
+        return eval.mean ();
+    }
+
+
+    /**
+     * Split utility
+     */
+    private double splitUtility (InstanceSet instSet, Object attrKey)
+    {
+        log.finest (String.format("splitUtility (%s)", attrKey.toString()));
+        double splitUtility = 0;
+        for (Object val : instSet.getAttributeSet().getValues (attrKey))
+        {
+            InstanceSet splitSet = instSet.subsetAndRemoveAttribute (attrKey, val);
+            //InstanceSet splitSet = instSet.subset (attrKey, val);
+            double utility = utility (splitSet);
+            log.finest (String.format("splitUtility (%s=%s): %f * (%d/%d = %f)", 
+                                      attrKey.toString(),
+                                      val.toString(), 
+                                      utility, splitSet.size(), 
+                                      instSet.size(), 
+                                      (double) splitSet.size() / (double) instSet.size()));
+            splitUtility += utility * (double) splitSet.size() / (double) instSet.size();
+        }
+        
+        return splitUtility;
+    }
+
+
+    /**
+     * Split utility
+     */
+    private MaxSplitUtilityResult maxSplitUtility (InstanceSet instSet)
+    {
+        log.finest ("maxSplitUtility ()");
+        MaxSplitUtilityResult msur = new MaxSplitUtilityResult();
+        for ( Object attrKey : instSet.getAttributeSet().getKeys () )
+        {
+            double splitUtility = splitUtility (instSet, attrKey);
+            log.finest (String.format("maxSplitUtility(): Us(%s) = %f", attrKey, splitUtility));
+
+            if  (splitUtility > msur.getUtility())
+            {
+                msur.setUtility (splitUtility);
+                msur.setAttributeKey (attrKey);
+            }
+        }
+
+        return msur;
+    }
+
+
     /**
      * Encapsulates an InstanceSet and the Attribute of that set
      * with the the highest information gain.
@@ -137,6 +188,7 @@ public class NBTree
     {
         public InstanceSet __instanceSet;
         public Node __parent;
+        public Node __node;
         public Object __weight;
 
 
@@ -153,10 +205,33 @@ public class NBTree
 
         public String toString ()
         {
-            return String.format ("[parent=%s][weight=%s][child=%s][instance_set=%s",
+            return String.format ("[parent=%s][weight=%s][instance_set=%s]",
                                   __parent == null ? "null" : __parent.toString(), 
                                   __weight == null ? "null" : __weight.toString(), 
                                   __instanceSet == null ? "null" : __instanceSet.toString());
+        }
+    }
+
+
+    /**
+     * Encapsulate a max split utility i.e. utility and split atribute
+     */
+    private class MaxSplitUtilityResult
+    {
+        private double __utility;
+        private Object __attributeKey;
+
+        
+        public double getUtility () { return __utility; }
+        public void setUtility (double utility) { __utility = utility; }
+        public Object getAttributeKey () { return __attributeKey; }
+        public void setAttributeKey (Object key) { __attributeKey = key; }
+            
+        public String toString ()
+        {
+            return String.format ("[utility=%f][attributeKey=%s]",
+                                  __utility,
+                                  __attributeKey.toString());
         }
     }
 }

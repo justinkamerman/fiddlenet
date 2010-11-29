@@ -111,7 +111,7 @@ public class InstanceSet implements Iterable<Instance>
         double infoGain = this.entropy ();
         for ( Object value : __attrSet.getValues (key) )
         {
-            InstanceSet subset = subset (key, value);
+            InstanceSet subset = subsetAndRemoveAttribute (key, value);
             infoGain -= ( (double) subset.size() / (double) this.size() ) * subset.entropy ();
          }
 
@@ -183,7 +183,7 @@ public class InstanceSet implements Iterable<Instance>
      * Create a subset of this instance set where all instances given value for given key.
      * The given attribute will be eliminated from all instances in the set.
      */
-    public InstanceSet subset ( Object key, Object val )
+    public InstanceSet subsetAndRemoveAttribute ( Object key, Object val )
     {
         InstanceSet subset = new InstanceSet ();
         for ( Instance inst : __instances )
@@ -191,6 +191,25 @@ public class InstanceSet implements Iterable<Instance>
             if ( inst.getAttribute(key).getValue().equals(val) )
             {
                 subset.addInstance (inst, key);
+            }
+        }
+
+        return subset;
+    }
+
+
+    /**
+     * Create a subset of this instance set where all instances have
+     * given value for given key.
+     */
+    public InstanceSet subset ( Object key, Object val )
+    {
+        InstanceSet subset = new InstanceSet ();
+        for ( Instance inst : __instances )
+        {
+            if ( inst.getAttribute(key).getValue().equals(val) )
+            {
+                subset.addInstance (inst);
             }
         }
 
@@ -228,6 +247,7 @@ public class InstanceSet implements Iterable<Instance>
 
     /**
      * Deep copy given instance and add to set, eliminating given attribute.
+     * No attribute will be removed if key is set to null.
      */
     public void addInstance (Instance inst, Object key)
     {

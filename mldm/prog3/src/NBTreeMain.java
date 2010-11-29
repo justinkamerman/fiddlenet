@@ -113,6 +113,10 @@ public class NBTreeMain
             for (Fold fold :__instanceSet.fold (__folds))
             {
                 NBTreeClassifier nbTree = (new NBTree()).createNBTree (fold.getTrainingSet());
+                
+                // Dump first decision tree DOT to stdout
+                if ( __cl.hasOption ('d') && i == 1 && fold.getIndex() == 0) System.out.println (nbTree.dot());
+
                 double accuracy = nbTree.evaluate (fold.getTestSet());
                 eval.addAccuracy (accuracy);
 
@@ -122,8 +126,7 @@ public class NBTreeMain
                                          fold.getTestSet().size(),
                                          accuracy));
 
-                // Dump first decision tree DOT to stdout
-                if ( __cl.hasOption ('d') && i == 1 && fold.getIndex() == 0) System.out.println (nbTree.dot());
+                break;
             }
         }
         
