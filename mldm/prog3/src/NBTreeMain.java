@@ -126,7 +126,6 @@ public class NBTreeMain
                                          fold.getTestSet().size(),
                                          accuracy));
 
-                break;
             }
         }
         
