@@ -1,0 +1,9 @@
+digraph G {
+	2226002  [label="[key=lip]", shape=box];
+	32788362  [label="[key=null]", shape=ellipse];
+	2226002 -> 32788362 [label="1.00"];
+	9573108  [label="[key=chg]", shape=box];
+	2226002 -> 9573108 [label="0.48"];
+	1733982  [label="[key=null]", shape=ellipse];
+	9573108 -> 1733982 [label="0.50"];
+}
