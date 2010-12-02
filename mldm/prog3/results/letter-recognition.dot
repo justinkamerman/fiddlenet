@@ -1,4 +1,7 @@
 digraph G {
+        size="8.5,11";
+        ranksep="40.0";
+        ratio="compress";
 	25834595  [label="[key=y-ege]", shape=box];
 	7688812  [label="[key=x-ege]", shape=box];
 	25834595 -> 7688812 [label="8"];

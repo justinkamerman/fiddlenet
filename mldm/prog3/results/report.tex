@@ -31,8 +31,8 @@ Decision-Tree Hybrid. KDD-96.}
 \\
 You can download it from: 
 http://robotics.stanford.edu/~ronnyk/ronnyk-bib.html
-\item Implement the naïve Bayes tree algorithm using Java. Evaluate
-your implementation on the datasets in data.zip using 10 times 5-fold
+\item Implement the Na\"{\i}ve Bayes tree algorithm using Java. Evaluate
+your implementation on the data sets in data.zip using 10 times 5-fold
 cross-validation, and report the average accuracy and standard
 deviation.  
 \item Compare it with ID3 and Na\"{\i}ve Bayes in terms of accuracy. 
@@ -51,7 +51,7 @@ http://archive.ics.uci.edu/ml/datasets/Letter+Recognition
 For mushroom data see: http://archive.ics.uci.edu/ml/datasets/Mushroom
 
 \item \textbf{Bonus question:} Change your implementation to output AUC, and
-  compare NBtree with ID3 and naïve Bayes in terms of AUC. 
+  compare NBtree with ID3 and Na\"{\i}ve Bayes in terms of AUC. 
 \end{enumerate}
 
 %----------------------------------------
@@ -70,7 +70,7 @@ In the NBTree implementation, a Na\"{\i}ve Bayes classifier is created
 at every tree node, not just leaf nodes. Non-leaf Na\"{\i}ve Bayes
 classifiers are used during classification when there is no edge
 leaving a node corresponding to the attribute value being
-examined. This is analagous to storing a default classification at
+examined. This is analogous to storing a default classification at
 each non-leaf node in the Decision Tree implementation of assignment 1
 to allow classification of instances for which no path was constructed
 to a leaf during training.
@@ -312,8 +312,8 @@ assignment, some had to be preprocessed to fit the expected format.
 The program then executes a number of iterations (default is 10) over
 the entire data set. During each iteration, the data set is folded
 (default is 5 times), the training set used to create an NBTree. The
-instances in the test set are then evaluated by the NBTree and
-the pruned rule set. The accuracy of the classifications is recorded
+instances in the test set are then evaluated by the NBTree. The
+accuracy of the classifications is recorded 
 for each test set evaluated. After the final iteration is complete,
 the mean accuracy and standard deviation are calculated and output by
 the program.
@@ -329,7 +329,7 @@ dot tool.
 
 \begin{figure}
   \begin{center}
-	\includegraphics[width=\textwidth,height=!]{uml}
+	\includegraphics[angle=90,width=\textwidth,height=!]{uml}
   \end{center}
   \caption{UML class diagram}
   \label{fig:uml}
@@ -421,19 +421,24 @@ description of each class:
 %----------------------------------------
 \section{Results}
 \label{sec:results}
-The results of processing each data file through ten iterations of
-5-fold cross-validation are summarized in Table \ref{tab:comparison}.
+The results of processing each data file using the NBTree
+implementation are summarized in Table 
+\ref{tab:comparison}. In general, learning time was significantly
+higher than both the ID3 and Na\"{i}ve Bayes learning
+algorithms. Intuitively, this was expected because of the large number
+of Na\"{i}ve Bayes classifiers that are created and evaluated during
+the utility calculation.
 
 \begin{table}[h]
   \centering
   \begin{tabular}{ |l|r|r|r|} 
     \hline
     \textbf{Data Set} & \textbf{Na\"{i}ve Bayes} & \textbf{ID3} & \textbf{NBTree} \\ \hline
-    car                      &  0.841449  &  0.938377  & 0.00 \\ \hline
-    ecoli                    &  0.684776  &  0.384776  & 0.00 \\ \hline
-    mushroom                 &  0.952007  &  1.000000  & 0.00 \\ \hline
-    letter-recognition       &  0.737670  &  0.760870  & 0.00 \\ \hline
-    breast-cancer-wisconsin  &  0.972662  &  0.945899  & 0.00 \\ \hline
+    car                      &  0.841449  &  0.938377  & 0.882783 \\ \hline
+    ecoli                    &  0.684776  &  0.384776  & 0.674328 \\ \hline
+    mushroom                 &  0.952007  &  1.000000  & 0.951850 \\ \hline
+    letter-recognition       &  0.737670  &  0.760870  & 0.819500 \\ \hline
+    breast-cancer-wisconsin  &  0.972662  &  0.945899  & 0.972806 \\ \hline
   \end{tabular}
   \caption{Comparison of Na\"{i}ve Bayes, ID3, and
     NBTree accuracy over benchmark data sets}
@@ -442,30 +447,75 @@ The results of processing each data file through ten iterations of
 
 
 \subsection*{car.data}
+The car evaluation ran 10 iterations of 5-fold cross
+validation. Calculated \textbf{mean accuracy} was 0.882783 and
+\textbf{standard deviation} 0.047129. The NBTree utility split
+threshold of 5\% relative improvement in accuracy, did not justify a
+split on any attribute. Essentially, this is a Na\"{i}ve Bayes
+classifier and evaluation results are within a single standard
+deviation of the results of the previous assignment.
 
 
 \subsection*{ecoli.data}
+The ecoli evaluation ran 10 iterations of 5-fold cross
+validation. Calculated \textbf{mean accuracy} was  and
+\textbf{standard deviation} 0.057782. Although the NBTree utility split
+threshold of 5\% relative improvement in accuracy, justified a split,
+the resulting tree did not perform significantly better than the
+Na\"{i}ve Bayes classifier in the previous assignment. The NBTree
+structure produced for one of cross-validation fold is shown in Figure
+\ref{fig:ecoli}. 
+
 \begin{figure}
   \begin{center}
-	\includegraphics[width=!,height=!]{ecoli}
+	\includegraphics[width=0.5\textwidth,height=!]{ecoli}
   \end{center}
   \caption{NBTree visualization generated for ecoli data set}
   \label{fig:ecoli}
 \end{figure} 
 
+
 \subsection*{mushroom.data}
+The mushroom evaluation ran a single iteration of 5-fold cross
+validation. The full 10 iterations required was not completed due to
+time constraints, a single fold taking in excess of three hours to
+complete. Calculated \textbf{mean accuracy} was 0.95185 and 
+\textbf{standard deviation} 0.00856. The NBTree utility split
+threshold of 5\% relative improvement in accuracy, did not justify a
+split on any attribute. Essentially, this is a Na\"{i}ve Bayes
+classifier and evaluation results are within a single standard
+deviation of the results of the previous assignment.
 
 
 \subsection*{letter-recognition.data}
+The letter-recognition evaluation ran a single fold of 5-fold cross
+validation. The full 10 iterations of 5-fold cross validation required
+was not completed due to time constraints, a single fold taking in
+excess of twelve hours to complete. \textbf{Accuracy} for the single
+fold was 0.819500. It is difficult to say so with conviction given
+the sparse evaluation results, but this data set seems to be the only one
+tested to show a possible improvement over ID3 or Na\"{i}ve
+Bayes. Perhaps it is not co-incidental that this data set resulted in
+the largest tree structure. The tree produced by the NBTree algorithm
+is shown in Figure \ref{fig:letter-recognition}. 
+
 \begin{figure}
   \begin{center}
-	\includegraphics[width=\textwidth,height=!]{letter-recognition}
+	\includegraphics[angle=90,width=!,height=\textheight]{letter-recognition}
   \end{center}
   \caption{NBTree visualization generated for letter-recognition data set}
   \label{fig:letter-recognition}
 \end{figure} 
 
+
 \subsection*{breast-cancer.data}
+The breast-cancer evaluation ran 10 iterations of 5-fold cross
+validation. Calculated \textbf{mean accuracy} was 0.972806 and
+\textbf{standard deviation} 0.012568. The NBTree utility split
+threshold of 5\% relative improvement in accuracy, did not justify a
+split on any attribute. Essentially, this is a Na\"{i}ve Bayes
+classifier and evaluation results are within a single standard
+deviation of the results of the previous assignment.
 
 
 %----------------------------------------
