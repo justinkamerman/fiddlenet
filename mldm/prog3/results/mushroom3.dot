@@ -1,0 +1,27 @@
+digraph G {
+	1257877  [label="[key=habitat]", shape=box];
+	1856305  [label="[key=null]", shape=ellipse];
+	1257877 -> 1856305 [label="m"];
+	26857386  [label="[key=gill-color]", shape=box];
+	1257877 -> 26857386 [label="l"];
+	17880053  [label="[key=null]", shape=ellipse];
+	26857386 -> 17880053 [label="y"];
+	30119703  [label="[key=null]", shape=ellipse];
+	26857386 -> 30119703 [label="o"];
+	19703949  [label="[key=null]", shape=ellipse];
+	26857386 -> 19703949 [label="n"];
+	15583427  [label="[key=null]", shape=ellipse];
+	26857386 -> 15583427 [label="b"];
+	18323829  [label="[key=null]", shape=ellipse];
+	26857386 -> 18323829 [label="w"];
+	6021189  [label="[key=null]", shape=ellipse];
+	1257877 -> 6021189 [label="p"];
+	31520281  [label="[key=null]", shape=ellipse];
+	1257877 -> 31520281 [label="d"];
+	3997950  [label="[key=null]", shape=ellipse];
+	1257877 -> 3997950 [label="u"];
+	17585422  [label="[key=null]", shape=ellipse];
+	1257877 -> 17585422 [label="g"];
+	10759564  [label="[key=null]", shape=ellipse];
+	1257877 -> 10759564 [label="w"];
+}

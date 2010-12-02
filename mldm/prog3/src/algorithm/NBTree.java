@@ -70,7 +70,7 @@ public class NBTree
                 log.fine (String.format("\t\tcreateNBTreeClassifier(): Un = %f; Us = %s", Un, msur));
                 
                 // 2. check that relative reduction in error >5% to avoid split of little value
-                if ( ((msur.getUtility() - Un) / Un) <= 0.05 )
+                if ( ((msur.getUtility() - Un) / Un) <= 0.01 )
                 {
                     log.fine ("\t\tcreateNBTreeClassifier(): split utility gain <5%. Adding leaf node");
                 }

@@ -429,81 +429,127 @@ algorithms. Intuitively, this was expected because of the large number
 of Na\"{i}ve Bayes classifiers that are created and evaluated during
 the utility calculation.
 
+All tests were run on a personal computer with an AMD Athlon 64 2GHz
+Processor, 1GB RAM, running a 32 bit Linux 2.6.31 kernel. The Java
+Virtual Machine used was version 1.6.0-18.
+\\
 \begin{table}[h]
   \centering
-  \begin{tabular}{ |l|r|r|r|} 
+  \begin{tabular}{ |l|r|r|r|r|} 
     \hline
-    \textbf{Data Set} & \textbf{Na\"{i}ve Bayes} & \textbf{ID3} & \textbf{NBTree} \\ \hline
-    car                      &  0.841449  &  0.938377  & 0.882783 \\ \hline
-    ecoli                    &  0.684776  &  0.384776  & 0.674328 \\ \hline
-    mushroom                 &  0.952007  &  1.000000  & 0.951850 \\ \hline
-    letter-recognition       &  0.737670  &  0.760870  & 0.819500 \\ \hline
-    breast-cancer-wisconsin  &  0.972662  &  0.945899  & 0.972806 \\ \hline
+    \textbf{Data Set} & \textbf{Na\"{i}ve Bayes} & \textbf{ID3} & \textbf{NBTree 5\%} & \textbf{NBTree 3\%} \\ \hline
+    car                      &  0.841449  &  0.938377  & 0.882783  & 0.925797 \\ \hline
+    ecoli                    &  0.684776  &  0.384776  & 0.674328  & 0.668657 \\ \hline
+    mushroom                 &  0.952007  &  1.000000  & 0.951850  & 0.996921 \\ \hline
+    letter-recognition       &  0.737670  &  0.760870  & 0.819500  &          \\ \hline
+    breast-cancer-wisconsin  &  0.972662  &  0.945899  & 0.972806  & 0.971223 \\ \hline
   \end{tabular}
   \caption{Comparison of Na\"{i}ve Bayes, ID3, and
-    NBTree accuracy over benchmark data sets}
+    NBTree accuracy over benchmark data sets. NBTree results for both
+    3\% and 5\% split utility thresholds are shown}
   \label{tab:comparison}
 \end{table}
 
 
 \subsection*{car.data}
-The car evaluation ran 10 iterations of 5-fold cross
-validation. Calculated \textbf{mean accuracy} was 0.882783 and
-\textbf{standard deviation} 0.047129. The NBTree utility split
+Using a split utility threshold of 5\%, the car evaluation was run
+through 10 iterations of 5-fold cross-validation. Calculated
+\textbf{mean accuracy} was 0.882783 and 
+\textbf{standard deviation} 0.047129. The NBTree split utility
 threshold of 5\% relative improvement in accuracy, did not justify a
 split on any attribute. Essentially, this is a Na\"{i}ve Bayes
 classifier and evaluation results are within a single standard
 deviation of the results of the previous assignment.
 
+The data set was re-evaluated using a split utility threshold of 3\%,
+resulting in improved \textbf{mean accuracy} of 0.925797 and 
+\textbf{standard deviation} 0.01811. The lower split threshold drove
+the formation of the NBTree structure shown in Figure \ref{fig:car}.
+
+\begin{figure}
+  \begin{center}
+	\includegraphics[width=\textwidth,height=!]{car}
+  \end{center}
+  \caption{NBTree visualization generated for car data set with 3\%
+    split utility threshold}
+  \label{fig:car}
+\end{figure} 
 
 \subsection*{ecoli.data}
-The ecoli evaluation ran 10 iterations of 5-fold cross
-validation. Calculated \textbf{mean accuracy} was  and
-\textbf{standard deviation} 0.057782. Although the NBTree utility split
+Using a split utility threshold of 5\%, the ecoli evaluation was run
+through 10 iterations of 5-fold 
+cross-validation. Calculated \textbf{mean accuracy} was 0.674328 and 
+\textbf{standard deviation} 0.057782. Although the NBTree split utility
 threshold of 5\% relative improvement in accuracy, justified a split,
 the resulting tree did not perform significantly better than the
 Na\"{i}ve Bayes classifier in the previous assignment. The NBTree
-structure produced for one of cross-validation fold is shown in Figure
+structure produced for one of cross-validation folds is shown in Figure
 \ref{fig:ecoli}. 
+
+The data set was re-evaluated using a split utility threshold of 3\%. The
+adjusted threshold did not see a significant change in accuracy,
+yielding \textbf{mean accuracy} of 0.668657 and \textbf{standard
+  deviation} 0.061466.
 
 \begin{figure}
   \begin{center}
 	\includegraphics[width=0.5\textwidth,height=!]{ecoli}
   \end{center}
-  \caption{NBTree visualization generated for ecoli data set}
+  \caption{NBTree visualization generated for ecoli data set with 5\%
+    utility }
   \label{fig:ecoli}
 \end{figure} 
 
 
 \subsection*{mushroom.data}
-The mushroom evaluation ran a single iteration of 5-fold cross
-validation. The full 10 iterations required was not completed due to
-time constraints, a single fold taking in excess of three hours to
-complete. Calculated \textbf{mean accuracy} was 0.95185 and 
-\textbf{standard deviation} 0.00856. The NBTree utility split
+Using a split utility threshold of 5\%, the mushroom evaluation was
+run through a single iteration of 5-fold
+cross-validation. The full 10 iterations required was not completed
+due to time constraints, a single fold taking in excess of three hours
+to complete. Calculated \textbf{mean accuracy} was 0.95185 and
+\textbf{standard deviation} 0.00856. The NBTree split utility
 threshold of 5\% relative improvement in accuracy, did not justify a
 split on any attribute. Essentially, this is a Na\"{i}ve Bayes
 classifier and evaluation results are within a single standard
 deviation of the results of the previous assignment.
 
+The data set was re-evaluated using a split utility threshold of 3\%,
+yielding an \textbf{accuracy} of 0.996921. Time
+constraints only permitted evaluation of a single fold so it it is
+impossible to assess the accuracy variance. The lower split threshold drove
+the formation of the NBTree structure shown in Figure \ref{fig:mushroom}.
+
+\begin{figure}
+  \begin{center}
+	\includegraphics[width=\textwidth,height=!]{mushroom}
+  \end{center}
+  \caption{NBTree visualization generated for mushroom data set with 3\%
+    utility }
+  \label{fig:mushroom}
+\end{figure} 
 
 \subsection*{letter-recognition.data}
-The letter-recognition evaluation ran a single fold of 5-fold cross
-validation. The full 10 iterations of 5-fold cross validation required
-was not completed due to time constraints, a single fold taking in
-excess of twelve hours to complete. \textbf{Accuracy} for the single
-fold was 0.819500. It is difficult to say so with conviction given
-the sparse evaluation results, but this data set seems to be the only one
-tested to show a possible improvement over ID3 or Na\"{i}ve
-Bayes. Perhaps it is not co-incidental that this data set resulted in
-the largest tree structure. The tree produced by the NBTree algorithm
-is shown in Figure \ref{fig:letter-recognition}. 
+The letter-recognition evaluation ran a single fold of 5-fold
+cross-validation. The full 10 iterations of 5-fold cross validation
+required was not completed due to time constraints, a single fold
+taking in excess of twelve hours to complete. \textbf{Accuracy} for
+the single fold was 0.819500. It is difficult to say so with
+conviction given the sparse evaluation results, but this data set
+seems to be the only one tested to show a possible improvement over
+ID3 or Na\"{i}ve Bayes. Perhaps it is not co-incidental that this data
+set resulted in the largest tree structure. The tree produced for one
+of the cross-validation folds is shown in Figure
+\ref{fig:letter-recognition}. 
+
+Due to time constraints no attempt was made to investigate the effects
+of adjusting the split utility threshold.
 
 \begin{figure}
   \begin{center}
 	\includegraphics[angle=90,width=!,height=\textheight]{letter-recognition}
   \end{center}
-  \caption{NBTree visualization generated for letter-recognition data set}
+  \caption{NBTree visualization generated for letter-recognition data
+    set with 5\% split utility threshold}
   \label{fig:letter-recognition}
 \end{figure} 
 
@@ -511,11 +557,14 @@ is shown in Figure \ref{fig:letter-recognition}.
 \subsection*{breast-cancer.data}
 The breast-cancer evaluation ran 10 iterations of 5-fold cross
 validation. Calculated \textbf{mean accuracy} was 0.972806 and
-\textbf{standard deviation} 0.012568. The NBTree utility split
+\textbf{standard deviation} 0.012568. The NBTree split utility
 threshold of 5\% relative improvement in accuracy, did not justify a
 split on any attribute. Essentially, this is a Na\"{i}ve Bayes
 classifier and evaluation results are within a single standard
 deviation of the results of the previous assignment.
+
+The data set was re-evaluated using split utility thresholds of 3\%,
+2\%, and 1\%.
 
 
 %----------------------------------------
