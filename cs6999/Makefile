@@ -10,13 +10,13 @@ PDFLATEX = /usr/bin/pdflatex
 PDFLATEXFLAGS = --interaction nonstopmode
 BIBTEX = /usr/bin/bibtex
 GNUPLOT = /usr/bin/gnuplot
-IMAGES = roc.png
+IMAGES = 
 
 .PHONY: all clean
 
-all: report.pdf
+all: annotated_bibliography.pdf
 
-report.pdf: report.tex bibliography.bib $(IMAGES)
+annotated_bibliography.pdf: annotated_bibliography.tex bibliography.bib
 
 
 clean:
@@ -29,9 +29,6 @@ clean:
 	$(PDFLATEX) $(PDFLATEXFLAGS) $<
 	$(PDFLATEX) $(PDFLATEXFLAGS) $<
 
-
-%.png: %.gnuplot %.data
-	$(GNUPLOT) $<
 
 
 
