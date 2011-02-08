@@ -25,6 +25,18 @@
 	url={http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.11.3835}
 }
 
+@inbook{RefWorks:74,
+	author={Ali Ghorbani and Iosif-Viorel Onut},
+	editor={Graña Romay,Manuel and Corchado,Emilio and Garcia Sebastian,M.},
+	year={2010},
+	title={Y-Means: An Autonomous Clustering Algorithm},
+	series={Hybrid Artificial Intelligence Systems},
+	publisher={Springer Berlin / Heidelberg},
+	volume={6076},
+	pages={1-13},
+	abstract={This paper proposes an unsupervised clustering technique for data classification based on the K-means algorithm. The K-means algorithm is well known for its simplicity and low time complexity. However, the algorithm has three main drawbacks: dependency on the initial centroids, dependency on the number of clusters, and degeneracy. Our solution accommodates these three issues, by proposing an approach to automatically detect a semi-optimal number of clusters according to the statistical nature of the data. As a side effect, the method also makes choices of the initial centroid-seeds not critical to the clustering results. The experimental results show the robustness of the Y-means algorithm as well as its good performance against a set of other well known unsupervised clustering techniques. Furthermore, we study the performance of our proposed solution against different distance and outlier-detection functions and recommend the best combinations.}
+}
+
 @article{RefWorks:70,
 	author={A. K. Jain and M. N. Murty and P. J. Flynn},
 	year={1999},
@@ -61,20 +73,119 @@
 	language={English}
 }
 
+@book{RefWorks:75,
+	author={Tom M. Mitchell},
+	year={1997},
+	title={Machine Learning},
+	publisher={McGraw-Hill},
+	address={New York},
+	note={ID: 36417892},
+	isbn={0070428077 9780070428072 0071154671 9780071154673},
+	language={English}
+}
+
+@article{RefWorks:61,
+	author={Foster Provost and Tom Fawcett},
+	year={2001},
+	title={Robust Classification for Imprecise Environments},
+	journal={Machine Learning},
+	volume={42},
+	number={3},
+	pages={203-231},
+	abstract={In real-world environments it usually is difficult to specify target operating conditions precisely, for example, target misclassification costs. This uncertainty makes building robust classification systems problematic. We show that it is possible to build a hybrid classifier that will perform at least as well as the best available classifier for any target conditions. In some cases, the performance of the hybrid actually can surpass that of the best known classifier. This robust performance extends across a wide variety of comparison frameworks, including the optimization of metrics such as accuracy, expected cost, lift, precision, recall, and workforce utilization. The hybrid also is efficient to build, to store, and to update. The hybrid is based on a method for the comparison of classifier performance that is robust to imprecise class distributions and misclassification costs. The ROC convex hull (ROCCH) method combines techniques from ROC analysis, decision analysis and computational geometry, and adapts them to the particulars of analyzing learned classifiers. The method is efficient and incremental, minimizes the management of classifier performance data, and allows for clear visual comparisons and sensitivity analyses. Finally, we point to empirical evidence that a robust hybrid classifier indeed is needed for many real-world problems.},
+	isbn={0885-6125}
+}
+
 @misc{RefWorks:72,
   author = 	 {Magnus Rosell},
   year = 	 {2006},
   title = 	 {{Introduction to Information Retrieval and Text Clustering}},
   note = 	 {I think Magnus' work is absolutely brilliant.},
-  abstract = 	 {Information Retrieval (IR) is a large and growing field within Natural Language
-Processing (NLP). The search engine is the most well-known (and perhaps still
-the only really useful) application. Search engines like Google1 and AltaVista2
-are used by many people on a daily basis.
-There are several other applications within IR. Among them this text considers
-text clustering in particluar. A text clustering algorithm partitions a set
-of texts so that texts within the same group are as similar in content as possible.
-It is done without using any predifined catagories.
-Text clustering can for instance be applied to the documents retrieved by a
-search engine, so that they can be presented in groups according to content.}
+  abstract = 	 {Information Retrieval (IR) is a large and growing field within Natural Language Processing (NLP). The search engine is the most well-known (and perhaps still the only really useful) application. Search engines like Google and AltaVista are used by many people on a daily basis. There are several other applications within IR. Among them this text considers text clustering in particluar. A text clustering algorithm partitions a set of texts so that texts within the same group are as similar in content as possible. It is done without using any predefined catagories. Text clustering can for instance be applied to the documents retrieved by a search engine, so that they can be presented in groups according to content.}
+}
+
+@article{RefWorks:73,
+	author={G. P. Zhang},
+	year={2000},
+	title={Neural networks for classification: a survey},
+	journal={Systems, Man, and Cybernetics, Part C: Applications and Reviews, IEEE Transactions on},
+	volume={30},
+	number={4},
+	pages={451-462},
+	note={{This paper is a review of the use of Artificial Neural
+                  Networks (ANN) for classification tasks. It compares
+                  ANNs to statistically based classification
+                  procedures and explains advantages and disadvantages
+                  of ANN relative to these more traditional
+                  approaches. The paper shows how ANNs are able to
+                  estimate posterior classification probabilities by
+                  virtue of the fact that ANNs are typically trained
+                  by attempting to minimize mean squared errors. This
+                  provides a direct link between ANN classifications
+                  and statistical methods, particularly Bayesian.\\\\
+                  Direct comparison of ANN and statistical classifiers
+                  may not be possible because ANNs are non-linear and
+                  model-free, while statistical methods are linear and
+                  model-based. However, by appropriately encoding ANN
+                  outputs, we can use ANNs to directly model some high
+                  order discriminant functions. Analysis along these
+                  lines has shown that the hidden layers of an MLP
+                  project the data onto different clusters in a way
+                  that these clusters can be further aggregated into
+                  different classes. However, the added flexibility of
+                  ANNs due to hidden layers does not automatically
+                  guarantee their superiority over logistical
+                  regression due to possible overfitting and other
+                  inherent problems.\\\\
+                  Due to the variables associated with constructing
+                  ANN classifiers and the local minima problem
+                  associated with training ANNs, there is an inherent
+                  error between true posterior probabilities and the
+                  least square estimates provided by ANN. This prediction error
+                  is composed of two components, the
+                  \textit{approximation error} and the
+                  \textit{estimation error}. The \textit{approximation
+                  error} reflects a inherent irreducible consequence
+                  of the randomness of the training data. The
+                  \textit{estimation error} is a reflection of the
+                  effectiveness of the ANN to approximate the target
+                  function.\\\\
+                  The paper describes how a bias-plus-variance
+                  decomposition of the ANN prediction error provides
+                  useful information on how the estimate differs from
+                  the target function. The model bias quantifies how
+                  the average estimates over all possible data sets of
+                  the same size differ from the target function. Bias
+                  is an indication of the limitations of the model
+                  itself. Model variance is an indication of the
+                  sensitivity of the estimation function to the
+                  training data set. Bias and variance are generally
+                  conflicting goals. ANNs are flexible and tend to
+                  have low bias but high variance.\\\\
+                  Ensemble methods are described where classifiers are
+                  combined by averaging or voting prediction results
+                  from multiple ANNs. Improvements in prediction
+                  results are attributed to reduction of variance. The
+                  technique seems to work best when the voting models
+                  disagree with one another strongly i.e. are
+                  biased. Averaging seems to offset this bias and
+                  reduce sensitivity to the data. Methods of
+                  constructing biased models include statistical
+                  resampling techniques and using different feature
+                  variables.\\\\
+                  Feature selection methods for ANNs are mostly
+                  heuristic in nature and and lack statistical
+                  justification.\\\\
+                  Taking misclassification costs into account seems to
+                  improve the performance of ANNs in terms of
+                  classification and feature selection. Various
+                  techniques are described for incorporating
+                  misclassification cost information and prior
+                  knowledge of relative class importance, however,
+                  little research has been done in the this area.
+                  }},
+	abstract={Classification is one of the most active research and application areas of neural networks. The literature is vast and growing. This paper summarizes some of the most important developments in neural network classification research. Specifically, the issues of posterior probability estimation, the link between neural and conventional classifiers, learning and generalization tradeoff in classification, the feature variable selection, as well as the effect of misclassification costs are examined. Our purpose is to provide a synthesis of the published research in this area and stimulate further research interests and efforts in the identified topics},
+	keywords={generalisation (artificial intelligence); learning (artificial intelligence); neural nets; pattern classification; classification; conventional classifiers; feature variable selection; generalization; learning; misclassification costs; neural classifiers; neural networks; posterior probability estimation},
+	isbn={1094-6977}
 }
 
