@@ -142,7 +142,11 @@
                   in main memory, techniques like
                   \textit{divide-and-conquer}, incremental clustering,
                   and parallel algorithm implementations have been
-                  used.
+                  used.\\\\
+
+                  The paper review several application domains in
+                  which clustering has been successfully employed:
+                  image recognition, data mining,
         }
 }
 
@@ -157,7 +161,109 @@
 	pages={651-666},
 	abstract={Organizing data into sensible groupings is one of the most fundamental modes of understanding and learning. As an example, a common scheme of scientific classification puts organisms into a system of ranked taxa: domain, kingdom, phylum, class, etc. Cluster analysis is the formal study of methods and algorithms for grouping, or clustering, objects according to measured or perceived intrinsic characteristics or similarity. Cluster analysis does not use category labels that tag objects with prior identifiers, i.e., class labels. The absence of category information distinguishes data clustering (unsupervised learning) from classification or discriminant analysis (supervised learning). The aim of clustering is to find structure in data and is therefore exploratory in nature. Clustering has a long and rich history in a variety of scientific fields. One of the most popular and simple clustering algorithms, K-means, was first published in 1955. In spite of the fact that K-means was proposed over 50 years ago and thousands of clustering algorithms have been published since then, K-means is still widely used. This speaks to the difficulty in designing a general purpose clustering algorithm and the ill-posed problem of clustering. We provide a brief overview of clustering, summarize well known clustering methods, discuss the major challenges and key issues in designing clustering algorithms, and point out some of the emerging and useful research directions, including semi-supervised clustering, ensemble clustering, simultaneous feature selection during data clustering, and large scale data clustering.},
 	keywords={Data clustering; User’s dilemma; Historical developments; Perspectives on clustering; King-Sun Fu prize},
-	isbn={0167-8655}
+	isbn={0167-8655},
+    note={{Although \textit{K-Means} was devised in 1955, it is still
+                  widely used because of its simplicity, efficiency,
+                  and empirical success. The paper looks at the
+                  difficulties of developing better
+                  algorithms. Clustering algorithms can be broadly
+                  divided into \textit{hierarchical} and
+                  \textit{partitional}. Hierarchical algorithms
+                  recursively find nested clusters in either
+                  \textit{agglomerative} (bottom up) or
+                  \textit{divisive} (top down) mode, taking an ${n *
+                  n}$ similarity matrix as input. Partitional
+                  algorithms take as input an ${n * d}$ pattern matrix
+                  or a similarity matrix.\\\\
+
+                  The \textit{K-Means} algorithm finds a partition
+                  such that the squared error between the empirical
+                  mean of a cluster and the points in the cluster is
+                  minimized. The goal is to minimize the squared error
+                  over all clusters however this problem is NP-hard
+                  so, out of necessity, \textit{K-Means} is a greedy
+                  algorithm which converges to a local
+                  minima. Research does show however that if the
+                  clusters are well separated, the algorithm will
+                  converge with high probability to the global
+                  optimum. The main steps of \textit{K-Means} are
+\begin{enumerate}
+\item Select an initial partition and repeat steps 2 and 3 until cluster membership stablizes.
+\item Generate a new partition by assigning each pattern to its nearest cluster center.
+\item Compute new cluster centers.\\\\
+\end{enumerate} 
+
+                  \textit{K-Means} requires three user-specified
+                  parameters: number of clusters, cluster
+                  initialization, and distance metric. Selection of
+                  number of clusters is difficult and usually based on
+                  heuristics and/or repeated execution with different
+                  number of clusters, adjudicated by a domian
+                  expert. \textit{K-Means} typically uses the
+                  Euclidean distance metric and as a result, finds
+                  hypershperical shaped clusters.\\\\
+
+                  Clustering algorithms have been developed that model
+                  pattern density by a probabilistic mixture model
+                  viz. EM algorithm and several Bayesian
+                  approaches. These methods are attractive because of
+                  their ability to deal with arbitrary shaped clusters
+                  but have difficulty dealing with high dimensional
+                  data the feature space is characterisitically
+                  sparse, making it difficult to distinguish high
+                  density regions from low. Graph theoretic clustering
+                  is another class of clustering algorithms. These
+                  algorithms represents data points as nodes in a
+                  graph with connecting edges weighted by their
+                  pair-wise similarity. The central idea is to
+                  partition the nodes into two groups such that the
+                  weights of the edges between the two groups is
+                  minimised.
+
+                   All the variables involved in a clustering project
+                  make it inherently difficult. One of the most
+                  important decisions is that of data
+                  representation. A good data representation will
+                  result in compact, well separated clusters however
+                  there is no universally good representation and the
+                  process must be guided by domain knowledge. Another
+                  variable is the number of clusters. Automatic
+                  determination of this variable has been one of the
+                  most difficult problems in
+                  clustering. Alternatively, the optimal number of
+                  clusters must be determined through trial and error.
+
+                  Since clustering algorithms tend to find clusters
+                  irrespective of whether they exist, it is important
+                  to objectively evaluate whether the data has a
+                  natural tendency to cluster. \textit{Cluster
+                  validation} is the formal evaluation of clustering
+                  results in a quantitative and objective
+                  manner. Cluster validity measures can be
+                  \textit{internal}, \textit{external}, or
+                  \textit{relative}. Internal measures asses the fit
+                  between the structure imposed by the algorithm and
+                  the data itself. Relative measures compare the
+                  structure imposed by different algorithms on the
+                  same data. External measures compare cluster
+                  structure to some a priori information, namely
+                  "true" class labels.\\\\
+
+                  Stability of a clustering solution is a measure of
+                  how much variation occurs in the structure imposed
+                  over differnt subsamples drawn from the input
+                  data. Different measures of variation can be used to
+                  obtain different stability measures. Since many
+                  algorithms are asymptotically stable, it may be
+                  important to consider the rate at which stability is
+                  reached.
+
+                  Some recent clustering trends include:
+\begin{itemize}
+\item \textbf{Clustering Ensembles}: combine the resulting partitions resulting from application of differing clustering methods on the same data.
+\item \textbf{Semi-Supervised Clustering}:  a subset of the data is labelled and these are used to impose pairwise contraints (\textit{must-link} and \textit{cannot-link}) on the cluster algorithm.
+\item \textbf{Large-Scale Clustering}: algorithms developd to handel large data sets can be classified as: efficient nearest neighbour (NN), data summarization, distributed computing, incremental clustering, or sampling-based methods.
+
 }
 
 @misc{RefWorks:67,
