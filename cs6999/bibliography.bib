@@ -49,9 +49,100 @@
 	keywords={cluster analysis; clustering applications; exploratory data analysis; incremental clustering; similarity indices; unsupervised learning},
 	isbn={0360-0300},
 	url={http://doi.acm.org.proxy.hil.unb.ca/10.1145/331499.331504},
-        note={Paper is an overview of data clustering concepts and techniques. Clustering is an exploratory undertaking (unsupervised), as opposed to classification (supervised). During clustering, a collection of patterns are organised based on a notion of their similarity to one another. Patterns are typically represented as feature vectors and their organisation occurs within this feature space. Pattern selection involves feature selection as well as feature extraction, transforming input features to produce new salient features. All clustering algorithms will produce clusters regardless of the underlying data so how do we evaluate a cluster algorithm ? Cluster validation studies can be \textit{external}, comparing the recovered structure to an \textit{a priori} structure; \textit{internal}, which examines whether the structure is intrinsically appropriate for the data; or \textit{relative}, which compares two structures and measures their relative merit.\\\\
+        note={Paper is an overview of data clustering concepts and
+                  techniques. Clustering is an exploratory undertaking
+                  (unsupervised), as opposed to classification
+                  (supervised). During clustering, a collection of
+                  patterns are organised based on a notion of their
+                  similarity to one another. Patterns are typically
+                  represented as feature vectors and their
+                  organisation occurs within this feature
+                  space. Pattern selection involves feature selection
+                  as well as feature extraction, transforming input
+                  features to produce new salient features. All
+                  clustering algorithms will produce clusters
+                  regardless of the underlying data so how do we
+                  evaluate a cluster algorithm ? Cluster validation
+                  studies can be \textit{external}, comparing the
+                  recovered structure to an \textit{a priori}
+                  structure; \textit{internal}, which examines whether
+                  the structure is intrinsically appropriate for the
+                  data; or \textit{relative}, which compares two
+                  structures and measures their relative merit.\\\\
 
-A measure of the similarity between two patterns is essential to most clustering procedures. The most common measure is the Euclidean distance. It works well when a data set has compact, isolated clusters but large scale features tend to dominate unless weighted or normalized. Salient cluster algorithm properties include: agglomerative vs divisive; monothetic vs polythetic; hard vs fuzzy; deterministic vs stochastic; incremental vs non-incremental; and hierarchical vs discriminative. 
+                  A measure of the similarity between two patterns is
+                  essential to most clustering procedures. The most
+                  common measure is the Euclidean distance. It works
+                  well when a data set has compact, isolated clusters
+                  but large scale features tend to dominate unless
+                  weighted or normalized. Salient cluster algorithm
+                  properties include: agglomerative vs divisive;
+                  monothetic vs polythetic; hard vs fuzzy;
+                  deterministic vs stochastic; incremental vs
+                  non-incremental; and hierarchical vs
+                  partitioning.\\\\
+
+                  Hierarchical algorithms produce a
+                  \textit{dendrogram} representing nexted groupings of
+                  patterns and the similarity thresholds at which they
+                  change. Most hierarchical cluster algorithms are
+                  variants of the single-link, \textit{single-link}
+                  (distance between clusters is the minimum between
+                  any two patterns drawn from different clusters);
+                  \textit{complete-link} (distance between clusters is
+                  the maximum between any two patterns from different
+                  clusters); and \textit{minimum-variance} algorithms.
+
+                  Partitioning algorithms are less demanding
+                  computationally compared to hierarchical
+                  algorithms. A problem of these algorithms is the
+                  choice of the number of desired output clusters. The
+                  most common and intuitive criterion function used in
+                  partitional clustering is the \textit{squared-error}
+                  criterion of which \textit{K-Means} is the simplest
+                  and most commony used. \textit{K-Means} is one of
+                  the most efficient in terms of execution time and
+                  one of the few methods appropriate for use on large
+                  data sets. \textit{K-Means} requires one to specify
+                  the number of clusters to create which is difficult
+                  to do optimally. Variants of \textit{K-Means} have
+                  been proposed which dynamically merge and/or spilt
+                  clusters based on a variance threshold.\\\\
+
+                  Clusters are typically represented by their
+                  centroid, a simple scheme if clusters are compact
+                  and iso-tropic. If clusters are elongated or
+                  non-isotropic, then this representation weak, better
+                  replaced by a collection of points.\\\\
+
+                  Search based cluster techniques can be either
+                  deterministic or stochastic. Deterministic
+                  techniques guarentee an optimal partition by
+                  performing exhaustive enumeration. Stochastic serach
+                  techniques generate near optimal partitions
+                  reasonaly quickly and guarentee asymptotic
+                  convergence to optimal partition.\\\\
+
+                  Clustering is subjective by nature. Subjectivity is
+                  usually incorporated into some phase of clustering,
+                  whether it be in selection of a pattern
+                  representation, choosing a similarity measure, or
+                  cluster prepresentation. The incorporation of domain
+                  knowledge consists of ad-hoc approaches with little
+                  in common.\\\\
+
+                  Clustering of large data sets is computationaly
+                  demanding and many clustering algorithms do not
+                  scale adequately. The emerging discipline of data
+                  mining has spurred developments and optimizations in
+                  this area. Clustering is used in the data mining
+                  process for segmentation of databases into
+                  homogeneous groups, predictive modelling, and
+                  visualization. If the data set is too large to fit
+                  in main memory, techniques like
+                  \textit{divide-and-conquer}, incremental clustering,
+                  and parallel algorithm implementations have been
+                  used.
         }
 }
 
