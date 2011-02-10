@@ -83,7 +83,7 @@
                   partitioning.\\\\
 
                   Hierarchical algorithms produce a
-                  \textit{dendrogram} representing nexted groupings of
+                  \textit{dendrogram} representing nested groupings of
                   patterns and the similarity thresholds at which they
                   change. Most hierarchical cluster algorithms are
                   variants of the single-link, \textit{single-link}
@@ -100,7 +100,7 @@
                   most common and intuitive criterion function used in
                   partitional clustering is the \textit{squared-error}
                   criterion of which \textit{K-Means} is the simplest
-                  and most commony used. \textit{K-Means} is one of
+                  and most commonly used. \textit{K-Means} is one of
                   the most efficient in terms of execution time and
                   one of the few methods appropriate for use on large
                   data sets. \textit{K-Means} requires one to specify
@@ -117,21 +117,21 @@
 
                   Search based cluster techniques can be either
                   deterministic or stochastic. Deterministic
-                  techniques guarentee an optimal partition by
-                  performing exhaustive enumeration. Stochastic serach
+                  techniques guarantee an optimal partition by
+                  performing exhaustive enumeration. Stochastic search
                   techniques generate near optimal partitions
-                  reasonaly quickly and guarentee asymptotic
+                  reasonably quickly and guarantee asymptotic
                   convergence to optimal partition.\\\\
 
                   Clustering is subjective by nature. Subjectivity is
                   usually incorporated into some phase of clustering,
                   whether it be in selection of a pattern
                   representation, choosing a similarity measure, or
-                  cluster prepresentation. The incorporation of domain
+                  cluster representation. The incorporation of domain
                   knowledge consists of ad-hoc approaches with little
                   in common.\\\\
 
-                  Clustering of large data sets is computationaly
+                  Clustering of large data sets is computationally
                   demanding and many clustering algorithms do not
                   scale adequately. The emerging discipline of data
                   mining has spurred developments and optimizations in
@@ -146,7 +146,8 @@
 
                   The paper review several application domains in
                   which clustering has been successfully employed:
-                  image recognition, data mining,
+                  image segmentation, object and character
+                  recognition, information retrieval, and data mining.
         }
 }
 
@@ -162,7 +163,7 @@
 	abstract={Organizing data into sensible groupings is one of the most fundamental modes of understanding and learning. As an example, a common scheme of scientific classification puts organisms into a system of ranked taxa: domain, kingdom, phylum, class, etc. Cluster analysis is the formal study of methods and algorithms for grouping, or clustering, objects according to measured or perceived intrinsic characteristics or similarity. Cluster analysis does not use category labels that tag objects with prior identifiers, i.e., class labels. The absence of category information distinguishes data clustering (unsupervised learning) from classification or discriminant analysis (supervised learning). The aim of clustering is to find structure in data and is therefore exploratory in nature. Clustering has a long and rich history in a variety of scientific fields. One of the most popular and simple clustering algorithms, K-means, was first published in 1955. In spite of the fact that K-means was proposed over 50 years ago and thousands of clustering algorithms have been published since then, K-means is still widely used. This speaks to the difficulty in designing a general purpose clustering algorithm and the ill-posed problem of clustering. We provide a brief overview of clustering, summarize well known clustering methods, discuss the major challenges and key issues in designing clustering algorithms, and point out some of the emerging and useful research directions, including semi-supervised clustering, ensemble clustering, simultaneous feature selection during data clustering, and large scale data clustering.},
 	keywords={Data clustering; User’s dilemma; Historical developments; Perspectives on clustering; King-Sun Fu prize},
 	isbn={0167-8655},
-    note={{Although \textit{K-Means} was devised in 1955, it is still
+        note={{Although \textit{K-Means} was devised in 1955, it is still
                   widely used because of its simplicity, efficiency,
                   and empirical success. The paper looks at the
                   difficulties of developing better
@@ -188,9 +189,9 @@
                   converge with high probability to the global
                   optimum. The main steps of \textit{K-Means} are
 \begin{enumerate}
-\item Select an initial partition and repeat steps 2 and 3 until cluster membership stablizes.
-\item Generate a new partition by assigning each pattern to its nearest cluster center.
-\item Compute new cluster centers.\\\\
+\item Select an initial partition and repeat steps 2 and 3 until cluster membership stabilizes.
+\item Generate a new partition by assigning each pattern to its nearest cluster centre.
+\item Compute new cluster centres.\\\\
 \end{enumerate} 
 
                   \textit{K-Means} requires three user-specified
@@ -198,10 +199,10 @@
                   initialization, and distance metric. Selection of
                   number of clusters is difficult and usually based on
                   heuristics and/or repeated execution with different
-                  number of clusters, adjudicated by a domian
+                  number of clusters, adjudicated by a domain
                   expert. \textit{K-Means} typically uses the
                   Euclidean distance metric and as a result, finds
-                  hypershperical shaped clusters.\\\\
+                  hyperspherical shaped clusters.\\\\
 
                   Clustering algorithms have been developed that model
                   pattern density by a probabilistic mixture model
@@ -209,7 +210,7 @@
                   approaches. These methods are attractive because of
                   their ability to deal with arbitrary shaped clusters
                   but have difficulty dealing with high dimensional
-                  data the feature space is characterisitically
+                  data the feature space is characteristically
                   sparse, making it difficult to distinguish high
                   density regions from low. Graph theoretic clustering
                   is another class of clustering algorithms. These
@@ -218,7 +219,7 @@
                   pair-wise similarity. The central idea is to
                   partition the nodes into two groups such that the
                   weights of the edges between the two groups is
-                  minimised.
+                  minimized.
 
                    All the variables involved in a clustering project
                   make it inherently difficult. One of the most
@@ -251,7 +252,7 @@
 
                   Stability of a clustering solution is a measure of
                   how much variation occurs in the structure imposed
-                  over differnt subsamples drawn from the input
+                  over different sub-samples drawn from the input
                   data. Different measures of variation can be used to
                   obtain different stability measures. Since many
                   algorithms are asymptotically stable, it may be
@@ -261,8 +262,10 @@
                   Some recent clustering trends include:
 \begin{itemize}
 \item \textbf{Clustering Ensembles}: combine the resulting partitions resulting from application of differing clustering methods on the same data.
-\item \textbf{Semi-Supervised Clustering}:  a subset of the data is labelled and these are used to impose pairwise contraints (\textit{must-link} and \textit{cannot-link}) on the cluster algorithm.
-\item \textbf{Large-Scale Clustering}: algorithms developd to handel large data sets can be classified as: efficient nearest neighbour (NN), data summarization, distributed computing, incremental clustering, or sampling-based methods.
+\item \textbf{Semi-Supervised Clustering}:  a subset of the data is labelled and these are used to impose pairwise constraints (\textit{must-link} and \textit{cannot-link}) on the cluster algorithm.
+\item \textbf{Large-Scale Clustering}: algorithms developed to handle large data sets can be classified as: efficient nearest neighbour (NN), data summarization, distributed computing, incremental clustering, or sampling-based methods.
+\end{itemize}
+                  }}
 
 }
 
@@ -285,25 +288,93 @@
 	language={English}
 }
 
-@article{RefWorks:61,
-	author={Foster Provost and Tom Fawcett},
-	year={2001},
-	title={Robust Classification for Imprecise Environments},
-	journal={Machine Learning},
-	volume={42},
-	number={3},
-	pages={203-231},
-	abstract={In real-world environments it usually is difficult to specify target operating conditions precisely, for example, target misclassification costs. This uncertainty makes building robust classification systems problematic. We show that it is possible to build a hybrid classifier that will perform at least as well as the best available classifier for any target conditions. In some cases, the performance of the hybrid actually can surpass that of the best known classifier. This robust performance extends across a wide variety of comparison frameworks, including the optimization of metrics such as accuracy, expected cost, lift, precision, recall, and workforce utilization. The hybrid also is efficient to build, to store, and to update. The hybrid is based on a method for the comparison of classifier performance that is robust to imprecise class distributions and misclassification costs. The ROC convex hull (ROCCH) method combines techniques from ROC analysis, decision analysis and computational geometry, and adapts them to the particulars of analyzing learned classifiers. The method is efficient and incremental, minimizes the management of classifier performance data, and allows for clear visual comparisons and sensitivity analyses. Finally, we point to empirical evidence that a robust hybrid classifier indeed is needed for many real-world problems.},
-	isbn={0885-6125}
-}
 
 @misc{RefWorks:72,
-  author = 	 {Magnus Rosell},
-  year = 	 {2006},
-  title = 	 {{Introduction to Information Retrieval and Text Clustering}},
-  note = 	 {I think Magnus' work is absolutely brilliant.},
-  abstract = 	 {Information Retrieval (IR) is a large and growing field within Natural Language Processing (NLP). The search engine is the most well-known (and perhaps still the only really useful) application. Search engines like Google and AltaVista are used by many people on a daily basis. There are several other applications within IR. Among them this text considers text clustering in particluar. A text clustering algorithm partitions a set of texts so that texts within the same group are as similar in content as possible. It is done without using any predefined catagories. Text clustering can for instance be applied to the documents retrieved by a search engine, so that they can be presented in groups according to content.}
+        author = 	 {Magnus Rosell},
+        year = 	 {2006},
+        title = 	 {{Introduction to Information Retrieval and Text Clustering}},
+        abstract = 	 {Information Retrieval (IR) is a large and growing field within Natural Language Processing (NLP). The search engine is the most well-known (and perhaps still the only really useful) application. Search engines like Google and AltaVista are used by many people on a daily basis. There are several other applications within IR. Among them this text considers text clustering in particluar. A text clustering algorithm partitions a set of texts so that texts within the same group are as similar in content as possible. It is done without using any predefined catagories. Text clustering can for instance be applied to the documents retrieved by a search engine, so that they can be presented in groups according to content.},
+        note = {{This is a collection of chapters adopted from the
+                  authors licentiate theses \textit{Clustering in
+                  Swedish}. The first chapter introduces the field of
+                  Information Retrieval (IR), as a large and growing
+                  field within Natural Language Processing (NLP). IR
+                  is the theoretical foundation of text search
+                  engines. Texts are represented as vectors, each
+                  dimension corresponding to a distinct word in the
+                  set of words appearing in all texts. The vector
+                  fields are weights which model how important the
+                  corresponding word is deemed to be in the context of
+                  the text. There are many weighting schemes but in
+                  the most common the weights are the product the
+                  \textit{term-frequency} (tf) and \textit{inverse
+                  document frequency} (idf). The term frequency is a
+                  function of the number of occurrences of a particular
+                  word in a document divided by the number of words in
+                  the entire document. The inverse document frequency
+                  models the distinguishing power of the word in the
+                  text set; the fewer documents that contain the word,
+                  the more information about the text int he text set
+                  it gives.\\\\
+
+                  In a text query, a search is conducted for texts
+                  similar to the search vector which is represented in
+                  the same way as the texts. The most common measure
+                  of similarity is the \textit{cosine measure}, the
+                  cosine of the angle between the query and texts. The
+                  texts are returned are ranked by similarity. It is
+                  difficult to evaluate search results. In a
+                  controlled text set, query results can be compared
+                  against results of human opinion. By comparing these
+                  perspectives, we may define performance measures for
+                  the search engine. \textit{Precision} and
+                  \textit{recall} are common measures. To further
+                  characterize search engine performance over a range
+                  of operating conditions, the precision at different
+                  levels of recall can be plotted in a graph.\\\\
+
+                  Modifications can be made to the vector space model
+                  described to improve search performance:
+\begin{itemize}
+\item \textbf{Stoplist and Word Classes}: stoplist words are excluded from the model, usually very common words whose occurrence do not separate one text significantly from another.
+\item \textbf{Phases}: treat phrases as separate dimensions for phrase based searches.
+\item \textbf{Lemmatizing and Stemming}:
+\item \textbf{Related Words}: the vector model does not account for the fact that words may be related (synonyms, homonyms etc). Many attempts have been made to attempt to address this phenomenon viz. word sense disambiguation, query expansion.
+\item \textbf{Statistically Related Words}: statistical examination of the word-by-document matrix gives information regarding words that appear together often. This information can be used by search engines to improve performance. \textit{Latent Semantic Analysis} (LSA) is such a technique but is computationally heavy. \textit{Random Indexing} (RI) is a much faster, less memory intensive alternative but does not use the entire word-by-document matrix.
+\item \textbf{Meta-data}: meta-data found in web pages provides additional information that can be used when indexing.
+\end{itemize}
+
+                  Text clustering can be used to discover structures
+                  within a text set that were not previously
+                  known. This is as opposed to text categorization
+                  where texts are assigned to predefined
+                  categories. IR and text clustering are related in
+                  that they both employ the same pattern
+                  representation and search function. Researchers
+                  believe that credible text clustering could make
+                  search times shorter by retrieving clusters of texts
+                  instead of individual documents. Similar (clustered)
+                  documents are probably relevant to the same queries
+                  but that does not mean that pre-clustering of the
+                  entire text set can take all future queries into
+                  account ( I think this means that clustering is
+                  coarse grained relative to search queries). The
+                  authors argue for text clustering after ordinary
+                  search engine retrieval and have shown through
+                  experimentation that this can improve search result
+                  quality.////
+
+                  It is hard to objectively evaluate clustering
+                  results since the value thereof is subjective. It is
+                  common to distinguish between intrinsic and external
+                  measures. Intrinsic measure use no external
+                  knowledge other than what was available to the
+                  cluster algorithm. External measures use external
+                  knowledge.
+ 
+}}}
 }
+
 
 @article{RefWorks:73,
 	author={G. P. Zhang},
