@@ -34,7 +34,70 @@
 	publisher={Springer Berlin / Heidelberg},
 	volume={6076},
 	pages={1-13},
-	abstract={This paper proposes an unsupervised clustering technique for data classification based on the K-means algorithm. The K-means algorithm is well known for its simplicity and low time complexity. However, the algorithm has three main drawbacks: dependency on the initial centroids, dependency on the number of clusters, and degeneracy. Our solution accommodates these three issues, by proposing an approach to automatically detect a semi-optimal number of clusters according to the statistical nature of the data. As a side effect, the method also makes choices of the initial centroid-seeds not critical to the clustering results. The experimental results show the robustness of the Y-means algorithm as well as its good performance against a set of other well known unsupervised clustering techniques. Furthermore, we study the performance of our proposed solution against different distance and outlier-detection functions and recommend the best combinations.}
+	abstract={This paper proposes an unsupervised clustering technique for data classification based on the K-means algorithm. The K-means algorithm is well known for its simplicity and low time complexity. However, the algorithm has three main drawbacks: dependency on the initial centroids, dependency on the number of clusters, and degeneracy. Our solution accommodates these three issues, by proposing an approach to automatically detect a semi-optimal number of clusters according to the statistical nature of the data. As a side effect, the method also makes choices of the initial centroid-seeds not critical to the clustering results. The experimental results show the robustness of the Y-means algorithm as well as its good performance against a set of other well known unsupervised clustering techniques. Furthermore, we study the performance of our proposed solution against different distance and outlier-detection functions and recommend the best combinations.},
+    note={{The paper describes a new clustering technique,
+                  \textit{Y-Means}, based on the seminal \textit{K-Means}
+                  algorithm. \textit{Y-Means} addresses three main
+                  limitations of the \textit{K-Means} method:\\
+
+\begin{itemize}
+\item \textbf{Dependence on choice of initial centroids}: \textit{K-Means} is based on the mean squared error and converges to a local minima. In \textit{Y-Means} the final result is independent of the choice of initial centroids. \textbf{WHY ?}
+
+\item \textbf{Dependence number of centroids}: finding the optimal number of centroid is NP-hard. \textit{Y-Means} aims to find a semi-optimal approximation by exploiting statisticsl properties of the data. \textit{Y-Means} starts with an arbitrary number of clusters and iteratively splits clusters based on an outlier detection function. Once cluster structure has stabilized, clusters may be merged based on a merging threshold.
+
+\item \textbf{Degeneracy}: there is no mechanism in \textbf{K-Means} to eliminate empty clusters at the end of the clustering process. \textit{H-Means+} and \textit{X-Means} are \textit{K-Means} variants which attempt to deal with the degeneracy issue.\\\\
+\end{itemize}
+
+                  \textit{Y-Means} begins by normalizing the data set
+                  to remove the dominating effect of large-scale
+                  features. Then, an arbitrary number of cluster
+                  centroids are randomly chosen and the algorithm
+                  enters an iterative loop until the cluster
+                  stabilizes. At the start of each iteration
+                  \textit{K-Means} is executed and empty clusters are
+                  eliminated from the resulting structure. Then an
+                  outlier detection function is applied to each
+                  cluster and outliers are removed to form new cluster
+                  centres. This process repeats until the cluster
+                  structure stabilizes. Finally, similar clusters are
+                  merged based on a merging threshold and the
+                  resulting clusters are labelled. Labelling is domain
+                  dependent and only used when it applies to the data
+                  set. During experimentation, the authors used
+                  \textit{size-based} and \textit{distance-based}
+                  labelling which are specific to the intrusion
+                  detection domain.\\\\
+
+                  Various outlier identification functions were used,
+                  based on Mahalanobis, Tukey, and Radusu Based
+                  metrics. The authors experimented with two popular
+                  statistical rules for outlier threshold definition:
+                  the textit{Empirical Rule} (assumes a normal
+                  distribution) and the \textit{Chebyshev's
+                  Inequality} (applies to any kind of
+                  distribution). Six different point-to-point distance
+                  metrics were used in \textit{Y-Means} experiments:
+                  Euclidian, Manhattan, Minkowski of order 3,
+                  Chebyshev, Canberra, and Pearson's Coefficient of
+                  Correlation.
+
+                  Merging of two clusters occurs if the distance
+                  between their centroids is not greater than a
+                  threshold. As with cluster splitting, this threshold
+                  is based on the statisitcal distribution of each
+                  cluster. The threshold is calculated as a weighted
+                  sum of the ${\sigma}$ of two clusters being
+                  considered for merging. \textit{Y-Means} uses the
+                  \textit{linking} technique to merge clusters,
+                  creating multi-centoid clusters which better model
+                  the data as opposed to \textit{fusing} which
+                  combines centriods to form a new one.
+
+                  In experiments using the KDD Cup 1999 data set,
+                  \textit{Y-Means} exhibited good performance compared
+                  with four well known unsupervised algorithms: EM,
+                  K-Means, SOM, and ICLN.
+    }}                  
 }
 
 @article{RefWorks:70,
@@ -187,12 +250,12 @@
                   minima. Research does show however that if the
                   clusters are well separated, the algorithm will
                   converge with high probability to the global
-                  optimum. The main steps of \textit{K-Means} are
+                  optimum. The main steps of \textit{K-Means} are\\
 \begin{enumerate}
 \item Select an initial partition and repeat steps 2 and 3 until cluster membership stabilizes.
 \item Generate a new partition by assigning each pattern to its nearest cluster centre.
-\item Compute new cluster centres.\\\\
-\end{enumerate} 
+\item Compute new cluster centres.\\
+\end{enumerate}
 
                   \textit{K-Means} requires three user-specified
                   parameters: number of clusters, cluster
@@ -259,14 +322,13 @@
                   important to consider the rate at which stability is
                   reached.
 
-                  Some recent clustering trends include:
+                  Some recent clustering trends include:\\
 \begin{itemize}
 \item \textbf{Clustering Ensembles}: combine the resulting partitions resulting from application of differing clustering methods on the same data.
 \item \textbf{Semi-Supervised Clustering}:  a subset of the data is labelled and these are used to impose pairwise constraints (\textit{must-link} and \textit{cannot-link}) on the cluster algorithm.
 \item \textbf{Large-Scale Clustering}: algorithms developed to handle large data sets can be classified as: efficient nearest neighbour (NN), data summarization, distributed computing, incremental clustering, or sampling-based methods.
 \end{itemize}
                   }}
-
 }
 
 @misc{RefWorks:67,
@@ -334,14 +396,14 @@
                   levels of recall can be plotted in a graph.\\\\
 
                   Modifications can be made to the vector space model
-                  described to improve search performance:
+                  described to improve search performance:\\
 \begin{itemize}
 \item \textbf{Stoplist and Word Classes}: stoplist words are excluded from the model, usually very common words whose occurrence do not separate one text significantly from another.
 \item \textbf{Phases}: treat phrases as separate dimensions for phrase based searches.
-\item \textbf{Lemmatizing and Stemming}:
+\item \textbf{Lemmatizing and Stemming}: extracting word fragments that appear frequently in documents.
 \item \textbf{Related Words}: the vector model does not account for the fact that words may be related (synonyms, homonyms etc). Many attempts have been made to attempt to address this phenomenon viz. word sense disambiguation, query expansion.
 \item \textbf{Statistically Related Words}: statistical examination of the word-by-document matrix gives information regarding words that appear together often. This information can be used by search engines to improve performance. \textit{Latent Semantic Analysis} (LSA) is such a technique but is computationally heavy. \textit{Random Indexing} (RI) is a much faster, less memory intensive alternative but does not use the entire word-by-document matrix.
-\item \textbf{Meta-data}: meta-data found in web pages provides additional information that can be used when indexing.
+\item \textbf{Meta-data}: meta-data found in web pages provides additional information that can be used when indexing.\\
 \end{itemize}
 
                   Text clustering can be used to discover structures
@@ -362,7 +424,7 @@
                   authors argue for text clustering after ordinary
                   search engine retrieval and have shown through
                   experimentation that this can improve search result
-                  quality.////
+                  quality.\\\\
 
                   It is hard to objectively evaluate clustering
                   results since the value thereof is subjective. It is
@@ -460,4 +522,29 @@
 	keywords={generalisation (artificial intelligence); learning (artificial intelligence); neural nets; pattern classification; classification; conventional classifiers; feature variable selection; generalization; learning; misclassification costs; neural classifiers; neural networks; posterior probability estimation},
 	isbn={1094-6977}
 }
+
+@inproceedings{RefWorks:76,
+	author={Lijuan Zhou and Linshuang Wang and Xuebin Ge and Qian Shi},
+	year={2010},
+	title={A clustering-Based KNN improved algorithm CLKNN for text classification},
+	booktitle={Informatics in Control, Automation and Robotics (CAR), 2010 2nd International Asia Conference on},
+	volume={3},
+	pages={212-215},
+	note={ID: 1},
+	abstract={As a simple, effective and nonparametric classification method, k Nearest Neighbor (KNN) is widely used in document classification for dealing with the much more difficult problem such as large-scale or many of categories. But KNN classifier may have a problem when training samples are uneven. The problem is that KNN classifier may decrease the precision of classification because of the uneven density of training data. To solve the problem, a new clustering-based KNN method is presented in this paper. It preprocesses training data by using clustering, then classify with a new KNN algorithm, which adopts a dynamic adjustment in each iteration for the neighborhood number K. This method would avoid the uneven classification phenomenon and reduce the misjudgment of the boundary testing samples. We have an experiment in text classification and the result shows that it has good performance.},
+	isbn={1948-3414}
+}
+
+
+@inproceedings{RefWorks:77,
+	author={Sheng Sun and YuanZhen Wang},
+	year={2010},
+	title={K-Nearest Neighbor Clustering Algorithm Based on Kernel Methods},
+	booktitle={Intelligent Systems (GCIS), 2010 Second WRI Global Congress on},
+	volume={3},
+	pages={335-338},
+	note={ID: 1},
+	abstract={KNN algorithm is the most usable classification algorithm, it is simple, straight and effective. But KNN can not identify the effect of attributes in dataset. For non-Gaussian distribution or non-Elliptic distribution, KNN can not solve these two kinds of problem effectively. A major approach to tackle this problem is to give each of the rest of attributes a weight value according to the relationship between these attributes. The bigger the attribute weight is, it has more importance extent in figuring out the distance of samples in kernel space. In this paper, we proposed a kernel-based KNN clustering algorithm which improved accuracy of KNN clustering algorithm. We tested the accuracy rate of the suggested algorithm KKNNC using the six UCI data sets, and compared it with KNNC algorithm in the experiments. The experimental results show that KKNNC algorithm outperform KNNC algorithm in accuracy significantly.}
+}
+
 
