@@ -20,7 +20,7 @@
 	journal={KNOWLEDGE AND INFORMATION SYSTEMS},
 	volume={1},
 	pages={5-32},
-	abstract={The World Wide Web (WWW) continues to grow at an astounding rate in both the sheer volume of tra\#c and the size and complexity of Web sites. The complexity of tasks such as Web site design, Web server design, and of simply navigating through a Web site have increased along with this growth. An important input to these design tasks is the analysis of how a Web site is being used. Usage analysis includes straightforward statistics, such as page access frequency, as well as more sophisticated forms of analysis, such as finding the common traversal paths through a Web site. Web Usage Mining is the application of data mining techniques to usage logs of large Web data repositories in order to produce results that can be used in the design tasks mentioned above. However, there are several preprocessing tasks that must be performed prior to applying data mining algorithms to the data collected from server logs. This paper presents several data preparation techniques in order to identify unique users and user sessions. Also, a method to divide user sessions into semantically meaningful transactions is defined and successfully tested against two other methods. Transactions identified by the proposed methods are used to discover association rules from real world data using the WEBMINER system [15].}},
+	abstract={The World Wide Web (WWW) continues to grow at an astounding rate in both the sheer volume of traffic and the size and complexity of Web sites. The complexity of tasks such as Web site design, Web server design, and of simply navigating through a Web site have increased along with this growth. An important input to these design tasks is the analysis of how a Web site is being used. Usage analysis includes straightforward statistics, such as page access frequency, as well as more sophisticated forms of analysis, such as finding the common traversal paths through a Web site. Web Usage Mining is the application of data mining techniques to usage logs of large Web data repositories in order to produce results that can be used in the design tasks mentioned above. However, there are several preprocessing tasks that must be performed prior to applying data mining algorithms to the data collected from server logs. This paper presents several data preparation techniques in order to identify unique users and user sessions. Also, a method to divide user sessions into semantically meaningful transactions is defined and successfully tested against two other methods. Transactions identified by the proposed methods are used to discover association rules from real world data using the WEBMINER system [15].}},
 	keywords={web; web\_mining},
 	url={http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.11.3835}
 }
@@ -43,7 +43,7 @@
 \begin{itemize}
 \item \textbf{Dependence on choice of initial centroids}: \textit{K-Means} is based on the mean squared error and converges to a local minima. In \textit{Y-Means} the final result is independent of the choice of initial centroids. \textbf{WHY ?}
 
-\item \textbf{Dependence number of centroids}: finding the optimal number of centroid is NP-hard. \textit{Y-Means} aims to find a semi-optimal approximation by exploiting statisticsl properties of the data. \textit{Y-Means} starts with an arbitrary number of clusters and iteratively splits clusters based on an outlier detection function. Once cluster structure has stabilized, clusters may be merged based on a merging threshold.
+\item \textbf{Dependence number of centroids}: finding the optimal number of centroid is NP-hard. \textit{Y-Means} aims to find a semi-optimal approximation by exploiting statistical properties of the data. \textit{Y-Means} starts with an arbitrary number of clusters and iteratively splits clusters based on an outlier detection function. Once cluster structure has stabilized, clusters may be merged based on a merging threshold.
 
 \item \textbf{Degeneracy}: there is no mechanism in \textbf{K-Means} to eliminate empty clusters at the end of the clustering process. \textit{H-Means+} and \textit{X-Means} are \textit{K-Means} variants which attempt to deal with the degeneracy issue.\\\\
 \end{itemize}
@@ -72,26 +72,26 @@
                   based on Mahalanobis, Tukey, and Radusu Based
                   metrics. The authors experimented with two popular
                   statistical rules for outlier threshold definition:
-                  the textit{Empirical Rule} (assumes a normal
+                  the \textit{Empirical Rule} (assumes a normal
                   distribution) and the \textit{Chebyshev's
                   Inequality} (applies to any kind of
                   distribution). Six different point-to-point distance
                   metrics were used in \textit{Y-Means} experiments:
-                  Euclidian, Manhattan, Minkowski of order 3,
+                  Euclidean, Manhattan, Minkowski of order 3,
                   Chebyshev, Canberra, and Pearson's Coefficient of
                   Correlation.
 
                   Merging of two clusters occurs if the distance
                   between their centroids is not greater than a
                   threshold. As with cluster splitting, this threshold
-                  is based on the statisitcal distribution of each
+                  is based on the statistical distribution of each
                   cluster. The threshold is calculated as a weighted
                   sum of the ${\sigma}$ of two clusters being
                   considered for merging. \textit{Y-Means} uses the
                   \textit{linking} technique to merge clusters,
-                  creating multi-centoid clusters which better model
+                  creating multi-centroid clusters which better model
                   the data as opposed to \textit{fusing} which
-                  combines centriods to form a new one.
+                  combines centroids to form a new one.
 
                   In experiments using the KDD Cup 1999 data set,
                   \textit{Y-Means} exhibited good performance compared
@@ -332,7 +332,8 @@
 }
 
 @misc{RefWorks:67,
-	author={Bing Liu and SpringerLink (Online service)},
+	author={Bing Liu}
+        publisher={SpringerLink},
 	year={2007},
 	title={Web data mining exploring hyperlinks, contents, and usage data},
 	isbn={9783540378822 3540378820},
@@ -518,7 +519,7 @@
                   knowledge of relative class importance, however,
                   little research has been done in the this area.
                   }},
-	abstract={Classification is one of the most active research and application areas of neural networks. The literature is vast and growing. This paper summarizes some of the most important developments in neural network classification research. Specifically, the issues of posterior probability estimation, the link between neural and conventional classifiers, learning and generalization tradeoff in classification, the feature variable selection, as well as the effect of misclassification costs are examined. Our purpose is to provide a synthesis of the published research in this area and stimulate further research interests and efforts in the identified topics},
+	abstract={Classification is one of the most active research and application areas of neural networks. The literature is vast and growing. This paper summarizes some of the most important developments in neural network classification research. Specifically, the issues of posterior probability estimation, the link between neural and conventional classifiers, learning and generalization trade off in classification, the feature variable selection, as well as the effect of misclassification costs are examined. Our purpose is to provide a synthesis of the published research in this area and stimulate further research interests and efforts in the identified topics},
 	keywords={generalisation (artificial intelligence); learning (artificial intelligence); neural nets; pattern classification; classification; conventional classifiers; feature variable selection; generalization; learning; misclassification costs; neural classifiers; neural networks; posterior probability estimation},
 	isbn={1094-6977}
 }
@@ -531,7 +532,7 @@
 	volume={3},
 	pages={212-215},
 	note={ID: 1},
-	abstract={As a simple, effective and nonparametric classification method, k Nearest Neighbor (KNN) is widely used in document classification for dealing with the much more difficult problem such as large-scale or many of categories. But KNN classifier may have a problem when training samples are uneven. The problem is that KNN classifier may decrease the precision of classification because of the uneven density of training data. To solve the problem, a new clustering-based KNN method is presented in this paper. It preprocesses training data by using clustering, then classify with a new KNN algorithm, which adopts a dynamic adjustment in each iteration for the neighborhood number K. This method would avoid the uneven classification phenomenon and reduce the misjudgment of the boundary testing samples. We have an experiment in text classification and the result shows that it has good performance.},
+	abstract={As a simple, effective and nonparametric classification method, k Nearest Neighbour (KNN) is widely used in document classification for dealing with the much more difficult problem such as large-scale or many of categories. But KNN classifier may have a problem when training samples are uneven. The problem is that KNN classifier may decrease the precision of classification because of the uneven density of training data. To solve the problem, a new clustering-based KNN method is presented in this paper. It preprocesses training data by using clustering, then classify with a new KNN algorithm, which adopts a dynamic adjustment in each iteration for the neighbourhood number K. This method would avoid the uneven classification phenomenon and reduce the misjudgement of the boundary testing samples. We have an experiment in text classification and the result shows that it has good performance.},
 	isbn={1948-3414}
 }
 
@@ -539,7 +540,7 @@
 @inproceedings{RefWorks:77,
 	author={Sheng Sun and YuanZhen Wang},
 	year={2010},
-	title={K-Nearest Neighbor Clustering Algorithm Based on Kernel Methods},
+	title={K-Nearest Neighbour Clustering Algorithm Based on Kernel Methods},
 	booktitle={Intelligent Systems (GCIS), 2010 Second WRI Global Congress on},
 	volume={3},
 	pages={335-338},
