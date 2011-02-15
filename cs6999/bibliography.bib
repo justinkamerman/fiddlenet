@@ -114,12 +114,63 @@
         author={Mohamed Medhat Gaber and Arkady Zaslavsky and Shonali Krishnaswamy},
         year={2005},
         month={June},
-        title={Mining data streams: a review},
+        title={{Mining Data Streams: A Review},
         journal={SIGMOD Rec.},
         volume={34},
         number={2},
         pages={18-26},
         isbn={0163-5808},
+        note={{This paper reviews the theoretical foundations of data
+                  stream analysis. Mining of data streams uses techniques based on well
+                  established statistical and computational
+                  approaches. These techniques can be categorized into
+                  \textit{data-based} and
+                  \textit{task-based}. \textbf{Data-based} techniques
+                  involve summarizing the whole data set or choosing a
+                  subset thereof to analyze:\\
+
+\begin{itemize}
+\item \textbf{Sampling}: an old statistical technique involving the
+                  probabilistic choice of whether to process a data
+                  item or not. Boundaries of the error rate of the
+                  computation are given as a function of time. In
+                  stream analysis the unknown data set size requires
+                  special analysis to derive this error bound
+                  function. Sampling does not address the problem of
+                  fluctuating data rates.
+\item \textbf{Load Shedding}: involves dropping a sequence of data
+                  streams. This makes the technique difficult to use
+                  with mining techniques as the dropped portions may
+                  contain patterns of interest in time series
+                  analysis. Load shedding has been used successfully
+                  in querying data streams but suffers from teh same
+                  problems as sampling.
+\item \textbf{Sketching}: random projection of a subset of features
+                  through vertical sampling of the input
+                  stream. Sketching has been applied in comparing
+                  different data streams and in aggregate queries but
+                  it is hard to use in the context of data stream
+                  mining; the major drawback is that of poor accuracy.
+\item \textbf{Synopsis Data Structures}: applying summarization
+                  techniques to creatre a synopsis of incoming data
+                  suitable for further analysis. Wavelet analysis,
+                  histograms, quantiles, and frequency moments have
+                  been proposed as synopsis data structures. Since not
+                  all aspects of the data set are retained during
+                  summarization, approximate answers are produced.
+\item \textbf{Aggregation}: computing statistical measures that
+                  characterize the data stream and using these
+                  measures with mining algorithms. Aggregation does
+                  not perform well with highly fluctuating data
+                  distributions.
+\end{itemize}
+
+                  \textbf{Task-based} techniques are methods which
+                  modify existing or invent new techniques to
+                  specifically address the computational challenges of
+                  data stream processing:
+
+        }}
 }
 
 @inbook{RefWorks:74,
@@ -679,7 +730,45 @@
         volume={3},
         pages={212-215},
         abstract={As a simple, effective and nonparametric classification method, k Nearest Neighbour (KNN) is widely used in document classification for dealing with the much more difficult problem such as large-scale or many of categories. But KNN classifier may have a problem when training samples are uneven. The problem is that KNN classifier may decrease the precision of classification because of the uneven density of training data. To solve the problem, a new clustering-based KNN method is presented in this paper. It preprocesses training data by using clustering, then classify with a new KNN algorithm, which adopts a dynamic adjustment in each iteration for the neighbourhood number K. This method would avoid the uneven classification phenomenon and reduce the misjudgement of the boundary testing samples. We have an experiment in text classification and the result shows that it has good performance.},
-        isbn={1948-3414}
+        isbn={1948-3414},
+        note={{The KNN classification algorithm is widely used in
+                  large scale text classification
+                  applications. Although many other classification
+                  algorithms have been devised over the years, KNN
+                  scales better than most. KNN does not, however,
+                  perform well where training samples are unevenly
+                  distributed within the feature space. This paper
+                  proposes a new algorithm, \textit{CLKNN}, that
+                  performs pre-processing of training data sets using
+                  unsupervised clustering to even out training data
+                  distribution before applying KNN classification.\\\\
+
+                  Previously, in dealing with the problem of unevenly distributed
+                  training samples, a denisity reduction technique has
+                  been shown to improve the speed and accuracy of
+                  KNN. However, this technique does not address the
+                  issue of low density regions. In \textit{CLKNN}, a
+                  clustering algorithm is applied (which clustering
+                  algorithm exactly is not mentioned in the paper) to
+                  the training data set to partition it into a number
+                  of small mutually exclusive neighbourhoods. If the
+                  number of samples in a cluster exceeds a certain
+                  threshold and they all belong to the same class, the
+                  cluster centriod is substituted in the training data
+                  to represent all samples in the cluster. This
+                  process evens out the training data which is then
+                  processed by modified KNN algorithm.\\\\
+
+                  Experimental results show that \textit{CLKNN}
+                  exhibits an improvement over regular KNN
+                  classification accuracy and execution
+                  time. Experiments however only used two types of
+                  data sets and more work needs to be donw to validate
+                  the effect of this technique.\\\\
+
+                  The language in this paper is poor and the logic
+                  difficult to follow.
+        }}
 }
 
 @article{RefWorks:81,
