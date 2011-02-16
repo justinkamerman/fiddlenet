@@ -114,18 +114,20 @@
         author={Mohamed Medhat Gaber and Arkady Zaslavsky and Shonali Krishnaswamy},
         year={2005},
         month={June},
-        title={{Mining Data Streams: A Review},
+        title={{Mining Data Streams: A Review}},
         journal={SIGMOD Rec.},
         volume={34},
         number={2},
         pages={18-26},
         isbn={0163-5808},
         note={{This paper reviews the theoretical foundations of data
-                  stream analysis. Mining of data streams uses techniques based on well
-                  established statistical and computational
-                  approaches. These techniques can be categorized into
-                  \textit{data-based} and
-                  \textit{task-based}. \textbf{Data-based} techniques
+                  stream analysis. Mining of data streams uses
+                  techniques based on well established statistical and
+                  computational approaches. These techniques can be
+                  categorized into \textit{data-based} and
+                  \textit{task-based}.\\\\
+
+                  \textbf{Data-based} techniques
                   involve summarizing the whole data set or choosing a
                   subset thereof to analyze:\\
 
@@ -165,10 +167,203 @@
                   distributions.
 \end{itemize}
 
+                  \medskip
                   \textbf{Task-based} techniques are methods which
                   modify existing or invent new techniques to
                   specifically address the computational challenges of
-                  data stream processing:
+                  data stream processing:\\
+
+\begin{itemize}
+\item \textbf{Approximation Algorithms}: designing algorithms for
+                  computationally hard problems which create
+                  approximate solutions with error
+                  bounds. Approximation algorithms have attracted
+                  reserachers as a direct solution to data stream
+                  mining problems however, the technique does not
+                  solve the problem of data rates with regard to
+                  resource availability.
+\item \textbf{Sliding Window}: detailed analysis is done over the most
+                  recent data window and summarized versions of old
+                  data. 
+\item \textbf{Algorithm Output Granularity (AOG)}: the first
+                  resource-aware data analysis approach that can cope
+                  with fluctuating very high data rates. Data mining
+                  followed by adaptation to resources and data stream
+                  rates represents the first two stages of
+                  AOG. Lastly, generated knowledge structures are
+                  merged when running out of memory. (This looks like
+                  a promising technique) 
+\end{itemize}
+
+                  \medskip
+                  A number of algorithms have been propsed for mining
+                  of streaming data:\\\\ 
+
+\textbf{Clustering}\\
+
+                  Guha et al [27,28] have applied K-median in a divide
+                  and conquor fashion. Fixed-size data samples are
+                  individually clustered and the resulting cluster
+                  centers are clustered. This process is repeated to a
+                  fixed number of levels.\\\\
+
+                  Babcock et al [7] have used exponential histogram
+                  (EH) data structures to improve (27) by addressing
+                  the problem of merging clusters when the two sets of
+                  cluster centers are far apart. Other k-median based
+                  techniques have been proposed which overcome the
+                  problem of increasing approximation factors with the
+                  increase in the number of cluster aggregation
+                  levels.\\\\
+
+                  Domingos et al [15,16,35] proposed Very Fast Machine
+                  Learning (VFML), a general method for scaling up
+                  machine learning algorithms. The method depends on
+                  determining an upper bound on the the learning loss
+                  as a function of the number of data items to be
+                  examined in each step of the algorithm. VFML has
+                  been applied to k-means clustering (VFKM) and
+                  decision tree classification (VFDT).\\\\
+                  
+                  Ordonez [46] proposed improvements to k-means to
+                  cluster binary data streams. Also, an incremental
+                  one-pass k-means variant has been developed and
+                  demonstrated to outperform scalable k-means in the
+                  majority of cases.\\\\
+                  
+                  O'Callaghan et al [45] proposed STREAM and
+                  LOCALSEARCH algorithms for high quality data stream
+                  clustering.\\\\
+                  
+                  Aggarwal et al [1] have proposed a data stream
+                  clustering framework called CluStream which divides
+                  the clustering process into an online component,
+                  which summarizes datastream statistics, and an
+                  offline component which clusters the summarized
+                  data.\\\\
+                  
+                  Keogh et al [39] have proved empirically that most
+                  time series data clustering algorithms propsed so
+                  far produce meaningless results in subsequence
+                  clustering (what is this ?). They propose a solution
+                  using k-motif to choose subsequences that would
+                  provide meaningful results.\\\\
+                  
+                  Gaber et al [21] have developed LIghtweight
+                  Clustering (LWC), an AOG based algorithm which is
+                  sensitive to resource availability.\\\\
+
+
+\textbf{Classification}\\
+
+                  Wang et al [53] propsed an agorithm to account for
+                  mining concept drifting data streams (what are this
+                  ?) usiing weighted classifier ensembles.\\\\
+                  
+                  Ganti et al [18] developed analytically an algorithm
+                  for model maintenance under insertion and deletion
+                  of data records. The algorithm can be applied to any
+                  incremental data mining model (promising). Also,
+                  they have described a general framework for change
+                  detection between two data sets in terms of the data
+                  mining results they induce (does it apply to data
+                  streams ?). These two techniques are called GEM and
+                  FOCUS.\\\\
+                  
+                  Papdimitiou et al [48] have proposed a single-pass
+                  incremental algorithm for pattern discovery from
+                  sensor data. The algorithm uses wavelet coefficients
+                  as compact information representation and
+                  correlation data structure detection, and then apply
+                  a linear regression model in the wavelet
+                  domain. (Ghorbani used wavelet analysis for anomaly
+                  detection in IDS. Related ?)\\\\
+                  
+                  Aggarwal et al [3] have adapted the idea of
+                  micro-clusters introduced in CluStream to use
+                  clustering results to classify data using the
+                  statisitical class distibution in each cluster.\\\\
+                  
+                  Gaber et al [21] have developed LIghtweight
+                  Classification (LWClass), a variation of LWC.\\\\
+                  
+                  
+\textbf{Frequency Counting}\\
+                  
+                  Gianella et al [20] have developed a frequent item
+                  sets mining algorithm over data streams. They
+                  proposed the use of a tilted window to calculate the
+                  frequent patterns for the most recent transactions.
+                  
+                  Manku and Motwani [43] have propsed and implemented
+                  a frequency counting algorithm which uses group
+                  testing to find the most frequent items. The
+                  algorithm is used with the turnstile data stream
+                  model which allows additions and deletion of data
+                  items.
+                  
+                  Gaber et al [21] have developed Light Weight
+                  Frequency Counting (LWF), an AOG based
+                  algorithm.\\\\
+
+
+\textbf{Time Series Analysis}\\
+                  
+                  Indyk et al [36] have propsed approximate solutions
+                  with probabilistic error bounding to the probems of
+                  relaxed periods and queuing trends. The algorithms
+                  use dimasionality reduction sketching techniques and
+                  have been shown experimentally to be efficient in
+                  running time and accuracy.\\\\
+                  
+                  Perlman and Java [49] have propsed an approach to
+                  mine astonomical time series streams. Sliding window
+                  patterns are clustered and an association rule
+                  technique used to create affinity analysis results
+                  among the created clusters.\\\\
+                  
+                  Zhu and Sasha [54] have proposed techniques to
+                  compute statisitical measures using discrete Fourier
+                  Transforms.\\\\
+                  
+                  Lin et al [42] proposed using symbolic
+                  representation to reduce dimensionality and
+                  numerosity.\\\\
+                  
+                  Chen et al [12] proposed the application of
+                  multidimensional regression analysis to create
+                  compact cubes that can be used for answering
+                  aggregate queries over the incoming streams.\\\\
+                  
+                  
+\textbf{Research Issues}\\
+                  
+                  Handling the continuous flow of data is not a
+                  capability native to most database management
+                  systems. Novel indexing, storage and querying
+                  techniques are required to handle this non-stop
+                  fluctuated flow of data. Processing of data streams
+                  has an unbounded memory requirement. This places
+                  limits on the machine learning techniques that can
+                  be applied since most methods require data to be
+                  resident in memory while the algorithm runs. It is
+                  importatnt to design space efficient techniques that
+                  can have only one look or less over an incoming
+                  stream.\\\\
+                  
+                  How do we model the change of mining results over
+                  time ? Dynamics of data structures using changes in
+                  the knowledge structures generated would benefit
+                  many temporal-based analysis applications. Also,
+                  traditional mining algorithms do not produce results
+                  that show the change of the results over time. We
+                  need to develop algorithms for mining such changes.\\\\
+                  
+                  Data stream preprocessing is a way of reducing the
+                  amount of memory required and the amount of effort
+                  to process a data stream. Light-weight preprocessing
+                  algorithms that can guarantee the quality of the
+                  mining results woud be of great benefit.
 
         }}
 }
@@ -252,11 +447,78 @@
         author={Isabelle Guyon and Andr\'e Elisseeff},
         year={2003},
         month={March},
-        title={An introduction to variable and feature selection},
+        title={{An Introduction to Variable and Feature Selection}},
         journal={J.Mach.Learn.Res.},
         volume={3},
         pages={1157-1182},
         isbn={1532-4435},
+        note={{Variable and ferature selection are meant to improve
+                  the accuracy and speed of predictors and to provide
+                  a better understanding of the underlying process
+                  that produced the data. The paper describes various
+                  techniques and methods used in the process of
+                  variable and feature selection:\\\\
+
+\textbf{Variable Ranking}\\
+
+                  Variable ranking is a \textit{filter} method applied
+                  during preprocessing and independent of the choice
+                  of predictor. It is simple, scalable, and exhibits
+                  good empirical success. Statistically it is robust
+                  against overfitting because it introduces bias.\\\\
+
+                  A scoring or correlation function is computed based
+                  on the features and used to sort variables. To use
+                  variable ranking to build predictors, nested subsets
+                  incorpororating progressively more variables of
+                  decreasing relevance are defined.\\\\
+
+                  Using a correlation criteria like \textit{Pearson's
+                  Coefficient}, one can only detect linear
+                  dependencies between variable and target
+                  (supervised). This restriction may be lifted by
+                  making a non-linear fit of the target with single
+                  variables and rank according to the goodness of
+                  fit. Overfitting can be avoided by using non-linear
+                  preprocessing and then using a simple correlation
+                  coefficient. \\\\
+
+                  As opposed to using a correlation function for
+                  variable ranking, variables can be selected
+                  according to their individual predictive power,
+                  using as criterion the performance of a classifier
+                  built with that variable alone.\\\\
+
+                  Several approaches to variable selection using
+                  information theoretic criteria have been
+                  propsed. Many rely on mutual information between
+                  each variable the the target (supervised).\\\\
+               
+                  The paper presents some informative examples that
+                  illustrate the following important points:\\
+\begin{itemize}
+\item \textbf{Can presumably redundant variables help each other
+                  out?}: noise reduction and consequently better class
+                  separation may be obtained by adding variables that
+                  are presumably redundant.
+\item \textbf{How does variable correlation impact variable
+                  redundancy?}: perfectly correlated variables are
+                  truley redundant in the sense that no additional
+                  information is gained by adding them. Very high
+                  variable correlation (or anti-correlation) does not
+                  mean that said variables cannot complement one
+                  another. 
+\item \textbf{Can a variable that is useless by itself be useful with
+                  others?}: yes it can; also, two variables that are
+                  useless by themselves can be useful together.
+\end{itemize}
+
+\bigskip
+\textbf{Variable Subset Selection}\\
+
+
+
+        }}
 }
 
 @article{RefWorks:70,
