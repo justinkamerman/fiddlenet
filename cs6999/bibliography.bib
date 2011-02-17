@@ -95,7 +95,7 @@
 
                   In practice, completely automated solutions are not
                   imminent however it is possible to devise effective
-                  semi-automated systems. 
+                  semi-automated systems. \\\\
                   }}
 }
 
@@ -363,7 +363,7 @@
                   amount of memory required and the amount of effort
                   to process a data stream. Light-weight preprocessing
                   algorithms that can guarantee the quality of the
-                  mining results woud be of great benefit.
+                  mining results woud be of great benefit.\\\\
 
         }}
 }
@@ -439,7 +439,7 @@
                   In experiments using the KDD Cup 1999 data set,
                   \textit{Y-Means} exhibited good performance compared
                   with four well known unsupervised algorithms: EM,
-                  K-Means, SOM, and ICLN.
+                  K-Means, SOM, and ICLN.\\\\
     }}                  
 }
 
@@ -495,7 +495,9 @@
                   each variable the the target (supervised).\\\\
                
                   The paper presents some informative examples that
-                  illustrate the following important points:\\
+                  highlight the shortcoming of variable ranking
+                  techniques which evaluate variables predictive power
+                  individually:\\
 \begin{itemize}
 \item \textbf{Can presumably redundant variables help each other
                   out?}: noise reduction and consequently better class
@@ -516,7 +518,99 @@
 \bigskip
 \textbf{Variable Subset Selection}\\
 
+                  Variable subset selection considers the predicitve
+                  power of groups of variables as opposed to
+                  individually. Such techniqies are divied into
+                  \textit{wrappers}, \textit{filters}, and
+                  \textit{embedded methods}.\\
 
+\begin{itemize}
+\item \textbf{Filters}: fileters select subsets of variables as a
+                  pre-processor step, independently of the chosen
+                  predictor. Filters are faster than wrappers but not
+                  tuned to a specific learning machine. Filters can be
+                  used to reduce space dimensionality and overcome
+                  overfitting. 
+
+\item \textbf{Wrappers}: use the learning machine of interest to
+                  score variable subsets according to their predictive
+                  power. An exhaustive search through the variable
+                  subset space is conceivable but NP-hard. A wide
+                  range of search stategies can be used to prevent the
+                  search becoming comutationally intractable. These
+                  methods are universal and simple.
+
+\item \textbf{Embedded Methods}: perform variable selection in the
+                  process of training and usually specific to the
+                  learning machine. They make better use of available
+                  data and reach a solution faster by avoiding
+                  retraining the predictor from scratch for every
+                  variable subset investigated.
+\end{itemize}
+
+\bigskip
+\textbf{Feature Construction and Space Dimensionality Reduction}\\
+
+                  Feature construction is concerned with improving
+                  predictor performance and building more compact
+                  feature subsets. Two distinct goals may be pursued
+                  for feature construction: achieving best
+                  reconstruction of the data (unsupervised) or being
+                  most efficient for making predictions
+                  (supervised). Feature construction is an opportunity
+                  to incorporate domain knowledge into the model and
+                  and can be very application specific, however there
+                  are a number of generic techniques, some of which
+                  are described:\\
+
+\begin{itemize}
+\item \textbf{Clustering}: a group of similar variables by a cluster
+                  centroid, which becomes a feature. Some supervised
+                  may be introduced to obtainmore discriminant
+                  features. Clustering is commonly used for feature
+                  selection in text processing. Here the supervision
+                  comes from a priori document categories. 
+
+\item \textbf{Matrix Factorization}: \textit{singular value
+                  decomposition} (SVD) forms sets of features that are
+                  linear combinations of the original variables and
+                  which provide the best possible reconstruction
+                  thereof in the least square sense. The method is
+                  unsupervised. 
+
+\item \textbf{Supervised Feature Selection}: the paper reviews three
+                  approaches for selecting features in cases where
+                  features should be distinguished from variables
+                  because both appear simultaneously in the system
+                  (\textbf{WHAT DOES THIS MEAN ?})
+\end{itemize}
+
+\bigskip
+\textbf{Validation Methods}
+                  It is important to distinguish between the problem
+                  of model selection and final evaluation of the
+                  predictor. For predictor evaluation an independent
+                  test should be kept aside. For model selection, the
+                  remaining data should be further split between fixed
+                  training and validation , or cross validation can be
+                  used. Statisitcal tests can be used to estimate the
+                  significance of differences in validation errors.\\\\
+
+\textbf{Unsupervised Variable Selection}
+                  In unsupervised variable selection, there are a
+                  number of variable ranking criterion, a number of
+                  which are useful across applications, including:
+                  \textit{saliency}, \textit{entropy},
+                  \textit{smoothness}, \textit{density}, and
+                  \textit{reliability}.\\\\
+
+\textbf{Forward vs Backward Selection}
+                  Forward selection (add variables) is computationally
+                  more efficient than backward selection (eliminate
+                  variables). However, it is argued that forward finds
+                  weaker subsets because the importance of variables
+                  is not assessed within the context of other
+                  variables not yet included.\\\\
 
         }}
 }
@@ -630,7 +724,8 @@
                   The paper review several application domains in
                   which clustering has been successfully employed:
                   image segmentation, object and character
-                  recognition, information retrieval, and data mining.
+                  recognition, information retrieval, and data
+                  mining.\\\\ 
         }
 }
 
@@ -754,8 +849,104 @@
 @misc{RefWorks:86,
   author =       {John Lei and Ali Ghorbani},
   title =        {Improved Competitive Learning Neural Networks for Network Intrusion and Fraud Detection},
-  abstract =     {In this research, we develop two new clustering algorithms, the Improved Competitive Learning Network (ICLN) and the Supervised Improved Competitive Learning Network (SICLN), for the applications in the area of fraud detection and network intrusion detection. The ICLN is an unsupervised clustering algorithm applying new rules to the the Standard Competitive Learning Neural Network(SCLN). In the ICLN, network neurons are trained to represent the center of the data by a new reward-punishment update rule. The new update rule overcomes the instability of the SCLN. The SICLN is a supervised clustering algorithm further developed from the ICLN by introducing supervised mechanism. In the SICLN, the new supervised update rule utilizes the data labels to guide the training process to achieve a better clustering result. The SICLN can be applied to both labeled and unlabeled data and is highly tolerant to missing or delay labels. Furthermore, the SICLN is completely independent from the initial number of clusters because it is able to reconstruct itself according to the labels of the cluster members. Experimental comparisons on both academic research data and practical real-world data for fraud detection and network intrusion detection demonstrated that the SICLN achieved high performance and outperformed traditional unsupervised clustering algorithms.}
+  abstract =     {In this research, we develop two new clustering algorithms, the Improved Competitive Learning Network (ICLN) and the Supervised Improved Competitive Learning Network (SICLN), for the applications in the area of fraud detection and network intrusion detection. The ICLN is an unsupervised clustering algorithm applying new rules to the the Standard Competitive Learning Neural Network(SCLN). In the ICLN, network neurons are trained to represent the center of the data by a new reward-punishment update rule. The new update rule overcomes the instability of the SCLN. The SICLN is a supervised clustering algorithm further developed from the ICLN by introducing supervised mechanism. In the SICLN, the new supervised update rule utilizes the data labels to guide the training process to achieve a better clustering result. The SICLN can be applied to both labeled and unlabeled data and is highly tolerant to missing or delay labels. Furthermore, the SICLN is completely independent from the initial number of clusters because it is able to reconstruct itself according to the labels of the cluster members. Experimental comparisons on both academic research data and practical real-world data for fraud detection and network intrusion detection demonstrated that the SICLN achieved high performance and outperformed traditional unsupervised clustering algorithms.},
+  note = {{The authors have developed two new clustering algorithms,
+                  the \textit{Improved Competitive Learning Network}
+                  (ICLN) and the \textit{Supervised Improved
+                  Competitive Learning Network} (SICLN), specifically
+                  for use in the intrusion and fraud detection
+                  domains. Data mining-based intrusion and fraud
+                  detection is categorized into \textit{misuse
+                  detection} and \textit{anomaly detection}. Misuse
+                  detection is a classification exercise based on the
+                  supervised learning from labelled data. Anomaly
+                  detection establishes patterns of normal behaviour
+                  and thereby identifies deviations. Both algorithms
+                  are derived from the \textit{Standard Competitive
+                  Learning Network} (SCLN).\\\\
+
+\textbf{Standard Competitive Learning Network}\\
+                  SCLN is a two layer neural network: distance measure
+                  layer and competitive layer. During training, the
+                  distance measure layer calculates the distance
+                  between the weight vectors and the training
+                  example. Of these distances, the competitive layer
+                  finds the shortest and the winning weight vector is
+                  adjusted (rewarded) towards the training
+                  example. Eventually each of the weight vectors
+                  converges towards the centroid of one
+                  cluster. Clustering centers are the output of the
+                  network. SCLN performance depends heavily on the
+                  number of initial neurons and the initialization of
+                  their weight vectors.\\\\
+
+\textbf{Improved Competitive Learning Network}\\
+                  ICLN changes the SCLN's reward only rule to include
+                  a punishment for losing weight vectors. These
+                  vectors are moved away from the training example
+                  based on a kernel function and learning rate. This
+                  change accelerates the learning process without
+                  additional iterations.\\\\
+
+                  ICLN initializes weight vectors to random training
+                  examples or all to the mean of the training
+                  data. ICLN can exclude redundant neurons via the
+                  punishment rule, but not add to, the number of
+                  clusters so the number of initial clusters is
+                  usually set higher than expected.\\\\
+
+                  During training, the ICLN iterates until the maximum
+                  update to a weight vector falls below a minimum
+                  update threshold or until a preset number of
+                  iterations.\\\\
+
+\textbf{Supervised Improved Competitive Learning Network}\\
+                  SICLN modifies the ICLN learning rule to train on
+                  both labelled and unlabelled data. It uses an
+                  objective function to measure the quality of the
+                  clustering result w.r.t the produced cluster centers
+                  and the data set. The purpose of the objective
+                  function is to optimize the purity and number of the
+                  clusters.\\\\
+
+                  SICLN is initialized in the same way as ICLN but
+                  before learning begins, the initial weight vectors
+                  of the network neurons are labelled with their
+                  member data points. A weight vector is labelled to a
+                  class if this class is the biggest population of the
+                  members of this neuron of this weight vector. In the
+                  case where only a portion of the data are labelled,
+                  neurons may be labelled as "unknown" if no other
+                  members of the same neuron are labelled.\\\\
+
+                  During learning, SICLN uses labelled data, if
+                  available, to update cluster centers. For labelled
+                  traiing examples, only output
+                  neurons that are the same class as the training
+                  example or "unknown" class can compete. For
+                  unlabelled training examples, SICLN functions
+                  updates as per ICLN.\\\\
+
+                  After the learning step, SICLN constructs a new
+                  network. A neuron will be split in two if it
+                  contains many members of other classes. Neurons are
+                  merged if they belong to the same class. The
+                  training step is repeated in this new
+                  network. Training stops when then the objective
+                  function or the number of iterations reaches
+                  satisfies a certain threshold.\\\\
+
+\textbf{Results}\\
+                 ICLN and SICLN were compared with k-means and SOM
+                  over three different data sets. ICLN exhibited
+                  similar accuracy to the traditional
+                  algorithms. SICLN outperformed all other algorithms
+                  over all three data sets (\textbf{DOES SICLN QUALIFY
+                  AS SEMI-SUPERVISED ?}\\\\
+
+}}
 }
+
 
 @misc{RefWorks:87,
   author =       {Majid Makki and Ali Ghorbani},
@@ -857,7 +1048,7 @@
                   measures. Intrinsic measure use no external
                   knowledge other than what was available to the
                   cluster algorithm. External measures use external
-                  knowledge.
+                  knowledge.\\\\
  
 }}}
 }
@@ -977,7 +1168,7 @@
                   techniques are described for incorporating
                   misclassification cost information and prior
                   knowledge of relative class importance, however,
-                  little research has been done in the this area.
+                  little research has been done in the this area.\\\\
                   }},
         abstract={Classification is one of the most active research and application areas of neural networks. The literature is vast and growing. This paper summarizes some of the most important developments in neural network classification research. Specifically, the issues of posterior probability estimation, the link between neural and conventional classifiers, learning and generalization trade off in classification, the feature variable selection, as well as the effect of misclassification costs are examined. Our purpose is to provide a synthesis of the published research in this area and stimulate further research interests and efforts in the identified topics},
         keywords={generalisation (artificial intelligence); learning (artificial intelligence); neural nets; pattern classification; classification; conventional classifiers; feature variable selection; generalization; learning; misclassification costs; neural classifiers; neural networks; posterior probability estimation},
@@ -1029,7 +1220,7 @@
                   the effect of this technique.\\\\
 
                   The language in this paper is poor and the logic
-                  difficult to follow.
+                  difficult to follow.\\\\
         }}
 }
 
