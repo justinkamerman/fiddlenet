@@ -1073,6 +1073,101 @@
         address={San Francisco, CA, USA},
         pages={412-420},
         isbn={1-55860-486-3},
+        note={{The paper is a comparitive study of five different
+                  feature selection techniques as applied to the
+                  problem of text categorization: \textit{document
+                  frequency} (DF), \textit{information gain} (IG),
+                  \textit{mutual information} (MI), \(\chi^2\)-test
+                  (CHI), and \textit{term strength} (TS). All of these
+                  techniques use a term-goodness criterion threshold
+                  to achieve the desired degree of term elimination
+                  from the full vocabulary of a document corpus. These
+                  methods all fall into the wrapper class of feature
+                  selection techniques, as opposed to filters or
+                  embedded methods. To evaluate the effectiveness of
+                  the feature selection in each case, two well known,
+                  highly scalable, classification algorithms are used:
+                  \textit{k-nearest neighbour} (KNN) and a regression method
+                  named \textit{Linear Least Squares Fit} (LLSF). The choice of
+                  classifiers is based on the fact that they differ
+                  statistically and therefore should reduce classifier
+                  bias in the results. Feature sets were evaluated by
+                  measuring precision and recall over the Reuter-22173
+                  collection and OHSUMED.\\\\
+
+\begin{itemize}
+\item \textbf{Document Frequency Thresholding:} document frequency of
+                  a term is the number of documents in which a term
+                  appears. The DF for each unique term in the training
+                  corpus was calculated and those whose DF was below a
+                  certain threshold were eliminated from the feature
+                  space. The assumption here is that rare terms are
+                  either non-informative for classification, or not
+                  influential in global performance. Improvement in
+                  accuracy is also possible if rare terms happen to be
+                  noise terms.  DF is considered an ad-hoc approach
+                  but scales well by virtue of its simplicity and
+                  performs relatively well in this case. I think that
+                  simple techniques, like this one especially, that
+                  are purely lexical do not have much scope for
+                  improvement. Although semantic analysis is
+                  complicated and not well developed, it offers much
+                  more scope for improving text processing in
+                  general.
+
+\item \textbf{Information Gain:} measures the amount of information
+                  gained for classification with knowledge of the
+                  presence or absence of a term in a document. Feature
+                  terms whose information gain falls below a certain
+                  threshold, are removed from the feature space.
+
+\item \textbf{Mutual Information:} criterion commonly used in
+                  statistical language modelling of word
+                  associations. It is based on joint and marginal
+                  probablities of terms and categories in the training
+                  copus. It is strongly influenced by marginal term
+                  probabilities, favouring rare terms.
+
+\item \textbf{\(\chi^2\) Statistic:} measures the lack of independence
+                  between term and document co-occurence. For each
+                  category, CHI is calculated between each unique term
+                  in the training corpus and that category, and then
+                  the category specific scores are combined into two
+                  scores for each term. Like MI, CHI has a strong
+                  statistical basis however CHI is a normalized value
+                  and can be compared across terms for the same
+                  category. CHI is known not to be reliable for
+                  low-frequency terms.
+
+\item \textbf{Term Strength:} estimates term relevance based on how
+                  likely term is to appear in closely related (by
+                  \textit{cosine rule} thresholding) documents. This method is
+                  radically different from the others. It is based on
+                  document clustering, assuming that documents with
+                  many shared words are similar.
+\end{itemize}
+
+                  \bigskip \textbf{Results} DF, IG and CHI perform
+                  well and are strongly correlated. DF's basis on
+                  common terms would indicate that, contrary to popuar
+                  belief, common terms are often informative (perhaps
+                  this is particular to text classification). Given
+                  that removing stop words seems generally to improve
+                  classification performance, I think there must be
+                  some kind of occurence frequency threshold above which terms
+                  no longer give usefull information for
+                  classification puposes. MI exhibited inferior
+                  performance compared to other methods due to its
+                  bias for rare terms and/or a strong sensitivity to
+                  probability estimation errors.\\
+
+                  Interestingly, MI is \textit{task- sensitive} (uses category
+                  information) but underperforms TS and DF which are
+                  \textit{task-free}. It would seem that using category
+                  information for feature selection is not crucial for
+                  good performance.\\\\
+
+        }}
 }
 
 @misc{RefWorks:88,
