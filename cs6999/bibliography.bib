@@ -1338,9 +1338,54 @@
 	year={2008},
 	title={Measures of Clustering Quality: A Working Set of Axioms for Clustering},
 	booktitle={Proceedings of the 22nd Annual Conference on Neural Information Systems Processing},
-	abstract={Aiming towards the development of a general clustering theory, we discuss abstract axiomatization for clustering. In this respect, we follow up on the work of Kleinberg, ([1]) that showed an impossibility result for such axiomatization. We argue that an impossibility result is not an inherent feature of clustering, but rather, to a large extent, it is an artifact of the speciﬁc formalism used in [1]. As opposed to previous work focusing on clustering functions, we propose to address clustering quality measures as the object to be axiomatized. We show that principles like those formulated in Kleinberg's axioms can be readily expressed in the latter framework without leading to inconsistency. A clustering-quality measure (CQM) is a function that, given a data set and its partition into clusters, returns a non-negative real number representing how strong or conclusive the clustering is. We analyze what clustering-quality measures should look like and introduce a set of requirements (axioms) for such measures. Our axioms capture the principles expressed by Kleinberg's axioms while retaining consistency. We propose several natural clustering quality measures, all satisfying the proposed axioms. In addition, we analyze the computational complexity of evaluating the quality of a given clustering and show that, for the proposed CQMs, it can be computed in polynomial time.}},
+	abstract={{Aiming towards the development of a general clustering theory, we discuss abstract axiomatization for clustering. In this respect, we follow up on the work of Kleinberg, ([1]) that showed an impossibility result for such axiomatization. We argue that an impossibility result is not an inherent feature of clustering, but rather, to a large extent, it is an artifact of the speciﬁc formalism used in [1]. As opposed to previous work focusing on clustering functions, we propose to address clustering quality measures as the object to be axiomatized. We show that principles like those formulated in Kleinberg's axioms can be readily expressed in the latter framework without leading to inconsistency. A clustering-quality measure (CQM) is a function that, given a data set and its partition into clusters, returns a non-negative real number representing how strong or conclusive the clustering is. We analyze what clustering-quality measures should look like and introduce a set of requirements (axioms) for such measures. Our axioms capture the principles expressed by Kleinberg's axioms while retaining consistency. We propose several natural clustering quality measures, all satisfying the proposed axioms. In addition, we analyze the computational complexity of evaluating the quality of a given clustering and show that, for the proposed CQMs, it can be computed in polynomial time.}},
 	keywords={clustering},
-	url={http://books.nips.cc/papers/files/nips21/NIPS2008\_0383.pdf}
+        note={{The paper analyses cluster quality measures in general
+                  and proposes a set of requirements that well behaved
+                  quality measures should exhibit. The paper is an
+                  extension of \cite{RefWorks:93} in which Kleinberg
+                  advocates the development of a cluster theory
+                  independent of algorithm, objective function, or
+                  generative model. The paper shows how Kleinberg's
+                  \textit{cluster function} axioms, which he found to
+                  be mutually inconsistent, can be transformed into
+                  axioms about a \textit{clustering-quality
+                  measure}. These transformed axioms are relaxed to
+                  such a point that they are no longer
+                  inconsistent.\\\\ 
+
+                  The axioms proposed are as follows:\\
+\begin{itemize}
+\item \textbf{Scale Invariance}: the quality measure is not effected
+                  by uniform scaling of the distance function output.
+
+\item \textbf{Isomorphism Invariance}: the quality measure is not
+                  effected by the by the individual indentity of the
+                  clustered elements i.e. a permutation on point
+                  labels should not effect the output of a clustering
+                  function. 
+
+\item \textbf{Weak Local Consistency}: the quality measure does not
+                  change value if the distances between pairs of
+                  points within each cluster shrink , and distances
+                  between pairs of points in different clusters
+                  expands. This shrinkage and expansion need not occur
+                  uniformly. 
+
+\item \textbf{Co-Final Richness}: requires that the quality of any
+                  clustering can be improved arbitrarily via
+                  consistent changes of the distance function.
+\end{itemize}
+
+                  \bigskip
+                  In order for any clustering-quality measure to be
+                  considered good, it must satisfy all proposed
+                  axioms. Clustering-quality measures for various
+                  common cluster paradigms are propsed and analysed in
+                  the context of these axioms: \textit{loss-based},
+                  \textit{center-based}, and
+                  \textit{linkage-based}.\\\\ 
+        }}
 }
 
 @inproceedings{RefWorks:90,
@@ -1369,6 +1414,15 @@
 	pages={188-196},
 	isbn={0-89791-159-8},
 	url={http://doi.acm.org.proxy.hil.unb.ca/10.1145/253495.253524}
+}
+
+@misc{RefWorks:93,
+  author = 	 {J. Kleinberg},
+  year = 	 {2002},
+  title = 	 {An impossibility theorem for clustering},
+  abstract = 	 {Although the study of clustering is centered around an intuitively compelling goal, it has been very di\#cult to develop a unified framework for reasoning about it at a technical level, and profoundly diverse approaches to clustering abound in the research community. Here we suggest a formal perspective on the di\#culty in finding such a unification, in the form of an impossibility theorem: for a set of three simple properties, we show that there is no clustering function satisfying all...}},
+  keywords = 	 {clustering; impossibility},
+  url = 	 {http://citeseer.ist.psu.edu/kleinberg02impossibility.html}
 }
 
 
