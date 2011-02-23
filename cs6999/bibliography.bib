@@ -1413,7 +1413,67 @@
 	location={Montreal, Quebec, Canada},
 	pages={188-196},
 	isbn={0-89791-159-8},
-	url={http://doi.acm.org.proxy.hil.unb.ca/10.1145/253495.253524}
+	url={http://doi.acm.org.proxy.hil.unb.ca/10.1145/253495.253524},
+        note={{The paper revisits the notion
+                  proposed by \cite{RefWorks:93} that not only can
+                  clustering be used to reduce the number of documents
+                  which have to be compared to the query, but that the
+                  clusters themselves embody useful information which
+                  can be exploited to improve the effectiveness as
+                  well as the efficiency of a retrieval
+                  search. Specifically, \cite{RefWorks:93} stated the
+                  \textit{cluster hypothesis}: documents that are
+                  similar to one another (by some clustering distance
+                  function) are relevant to the same queries, and
+                  proposed \textit{cluster-based retrieval} to exploit
+                  this relationship. Cluster-based retrieval retrieves
+                  one or more clusters in their entirety in response
+                  to a query, as opposed to most other cluster methods
+                  which identify clusters which are are likely to
+                  contain good documents and then compute the
+                  similarity between the query and each of the
+                  documents in the identified clusters.\\\\
+
+                  Research involving relevance feedback by
+                  \cite{RefWorks:94}, brings the cluster hypothesis
+                  into question and thereby the effectiveness of
+                  cluster-based retrieval. This paper proposes a new test as to
+                  whether the cluster hypothesis holds for a given
+                  document collection and conducts cluster-based and
+                  non-cluster-based searches on these document
+                  collections to empirically examine the validity of
+                  the hypothesis.\\\\
+
+                  The original cluster hypothesis test plots and
+                  compares frequency distributions of pairwise
+                  similarity between documents relevant to a
+                  particular query vs between documents which are not
+                  relevant to the same query. The paper regards this
+                  test as not sufficiently granular and proposes a new
+                  test based on relevance of a fixed number of nearest
+                  neighbours.\\\\
+
+                  By comparing the assesment of the new cluster
+                  hypothesis test to the relative performance of
+                  hierarchical cluster-based searches with sequential
+                  searches, the paper concludes the the relative
+                  performance seems to be
+                  independent of how well the cluster hypothesis
+                  characterizes the collection. Also, the paper
+                  concludes that cluster searches that retrieve
+                  individual documents almost always performed better
+                  than a cluster-based search (returns entire
+                  cluster).\\\\
+
+                  I think, given the conclusions above, the paper's claims that its
+                  cluster-hypothesis test is an improvement over
+                  \cite{RefWorks:93} are weak. The results of the
+                  research brings into question whether the cluster
+                  hypothesis holds universally at all or whether it is
+                  largely dependent on the choice of our notion of
+                  similarity (document compared to document) vs
+                  relevance (document compared to query).\\\\
+        }}
 }
 
 @misc{RefWorks:93,
@@ -1424,6 +1484,25 @@
   keywords = 	 {clustering; impossibility},
   url = 	 {http://citeseer.ist.psu.edu/kleinberg02impossibility.html}
 }
+
+
+@article{RefWorks:94,
+	author={N. Jardine and C. J. van Rijnsbergen},
+	year={1971},
+	title={The Use of Hierarchical Clustering in Information Retrieval},
+	journal={Inform. Stor. \& Retr},
+	number={7},
+	pages={217-240}
+}
+
+
+@misc{RefWorks:95,
+	author={Eleanor Rose Cook Ide},
+	year={1969},
+	title={Relevance feedback in an automatic document retrieval system},
+	journal={Report ISR-I5 to the National Science Foundation}
+}
+
 
 
 
