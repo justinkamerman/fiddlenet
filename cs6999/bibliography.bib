@@ -1399,7 +1399,59 @@
 	location={Seattle, Washington, United States},
 	pages={159-168},
 	isbn={0-89791-996-3},
-	url={http://doi.acm.org.proxy.hil.unb.ca/10.1145/275487.275505}
+	url={http://doi.acm.org.proxy.hil.unb.ca/10.1145/275487.275505},
+        note={{The paper makes a formal analysis of
+                  \textit{latent-semantic indexing} (LSI) in an
+                  attempt to understand the apparent strengths of this
+                  information retrieval technique. It has been
+                  previously held that LSI captures the underlying
+                  semantics of a corpus and is thereby able to
+                  outperform more conventional vector-based methods
+                  with reduced storage requirements and reduced query
+                  times. These claims have thus far only been supported
+                  by empirical evidence are proved formally, under
+                  certian consitions, in the paper. Also, a
+                  \textit{random projection} technique is proposed to
+                  speed up LSI, which involves considerable
+                  pre-processing. \\\\
+
+                  Capturing the underlying (latent) semantics of
+                  documents and queries during information retrieval
+                  addresses the problems of \textit{synonymy} and
+                  \textit{polysemy}. LSI attempts to capture this
+                  hidden structure using linear algebra
+                  techniques. The \textit{term-document} matrix is
+                  reduced by \textit{single value decomposition}
+                  (SVD). A portion of the largest singular values
+                  are retained, forming a reduced matrix which allows
+                  faster retrienval while still adequately capturing the
+                  structure of the corpus. Therefore, LSI preserves
+                  (to the extent possible) the relative distances (and
+                  hence the retrieval capabilities) of the
+                  term-document matix while projecting it onto a lower
+                  dimensional space.\\\\
+
+                  During its formal analysis, the paper concludes that
+                  the LSI transformation of the term-document matrix
+                  aligns the vectors of documents on the same topic
+                  and orthogonalizes vectors of documents on different
+                  topics. This notion is confirmed during empirical
+                  evaluations which measure the angle between intra-topic
+                  and inter-topic documents. NOTE: from a clustring
+                  perspective, would this not create tighter, better
+                  separated structures ? Also, the paper descibes how
+                  synonymous terms would have very similar
+                  representations in the term-document matrix and
+                  would be "projected out" by the LSI transform, as
+                  would be expected from a method that claims to
+                  capture the semnatics of the corpus.
+
+                  The paper proposes a method for combininig \textit{random
+                  projection} with LSI. LSI is computationally
+                  demanding and, in that respect, would benefit from
+                  the reduction in dimension of the document space
+                  provided by random projection.\\\\
+        }}
 }
 
 @inproceedings{RefWorks:92,
