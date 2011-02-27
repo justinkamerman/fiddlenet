@@ -1556,6 +1556,102 @@
 }
 
 
+@article{RefWorks:96,
+	author={Todd A. Letsche and Michael W. Berry},
+	year={1997},
+	month={8},
+	title={Large-scale information retrieval with latent semantic indexing},
+	journal={Information Sciences},
+	volume={100},
+	number={1-4},
+	pages={105-137},
+	isbn={0020-0255},
+        note={{The paper describes the implementation of a \textit{latent
+                  semantic indexing} (LSI) search function library
+                  called LSI++. The library is implemented in C++ and
+                  designed with a modular API to facilitate easy
+                  integration into other applications. A test
+                  application incorporating LSI++ and exposing a WWW
+                  interface was built by the authors and is used to
+                  benchmark the implementation against a previous
+                  implementation at Bellcore \cite{RefWorks:102}. In serial mode, the
+                  new system was found to be six times faster than the
+                  Bellcore system. These improvements can be accounted
+                  for by more efficient programming. The authors also
+                  implemented a parallel version of the LSI search
+                  function and managed to achieve nearly 180 times
+                  improvement over the previous implementation over
+                  some document collections.
+
+                  During the search phase of LSI, each vector of the
+                  term-document space must be loaded into memory and
+                  compared to the query \textit{pseudo-document}
+                  vector. Because of finite memory capacity, it is not
+                  always possible to load the entire collection of
+                  document vectors into primary storage and vectors
+                  must be loaded and unloaded to and from main memory
+                  as the search progresses. It is this transfer to and
+                  from primary storage that the authors direct their
+                  optimizations. The collection of document vectors
+                  are partitioned between a number of workstations,
+                  each loading the entire partition into main
+                  memory. A root node receives the search request,
+                  creates the query pseudo document and broadcasts it
+                  to the other members. Each workstation then
+                  computes, in parallel, the similarity measure
+                  between the pseudo document and each local vector
+                  and returns the results to the root node which
+                  performs a global sort and returns a ranked list to
+                  the user. An interesting result of benchmark testing
+                  is that adding more processors to the smaller
+                  document collections generally did not have a great
+                  effect but larger collections benefited
+                  significantly from increased parallelism. This is
+                  probably because smaller collections are able to fit
+                  a larger portion of the document representation
+                  collection in primary storage and do not suffer the
+                  paging effect to the same extent as the larger
+                  collections. Also, the overhead imposed by
+                  distributing and reconstituting the search across
+                  the workstations is relatively insignificant for
+                  large collections but not so for small collections.
+
+                  Although LSI is capable of achieving significant
+                  retrieval performance gains over standard lexical
+                  techniques, it's execution efficiency lags behind
+                  these simpler methods and can become prohibitively
+                  slow on very large data sets. However, most of the
+                  processing effort can be attributed to the
+                  pre-processing phase which the the paper does not
+                  address. The system described in the paper assumes
+                  that this pre-processing is a one-time cost and that
+                  software to perform this step already exists. This
+                  point of view holds for static evaluation corpora,
+                  however, by the authors own admission, a functional
+                  real-world system would require some method of
+                  updating and downdating the document set without
+                  having to pre-process the entire document collection
+                  from scratch. Also, speeding up the search process
+                  through concurrent execution obviously yields
+                  improvements however, this method can be applied to
+                  any retrieval algorithm which performs an exhaustive
+                  search on a document collection, decomposed or
+                  not.}}
+}
+
+
+@article{RefWorks:102,
+	author={Scott Deerwester and Susan T. Dumais and George W. Furnas and Thomas K. Landauer and Richard Harshman},
+	year={1990},
+	title={Indexing by latent semantic analysis},
+	journal={Journal of the American Society for Information Science},
+	volume={41},
+	number={6},
+	pages={391-407},
+	abstract={Abstract A new method for automatic indexing and retrieval is described. The approach is to take advantage of implicit higher-order structure in the association of terms with documents (“semantic structure”) in order to improve the detection of relevant documents on the basis of terms found in queries. The particular technique used is singular-value decomposition, in which a large term by document matrix is decomposed into a set of ca. 100 orthogonal factors from which the original matrix can be approximated by linear combination. Documents are represented by ca. 100 item vectors of factor weights. Queries are represented as pseudo-document vectors formed from weighted combinations of terms, and documents with supra-threshold cosine values are returned. Initial tests find this completely automatic method for retrieval to be promising. © 1990 John Wiley & Sons, Inc.},
+	isbn={1097-4571}
+}
+
 
 
 
