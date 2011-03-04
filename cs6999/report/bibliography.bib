@@ -378,10 +378,11 @@
         volume={6076},
         pages={1-13},
         abstract={This paper proposes an unsupervised clustering technique for data classification based on the K-means algorithm. The K-means algorithm is well known for its simplicity and low time complexity. However, the algorithm has three main drawbacks: dependency on the initial centroids, dependency on the number of clusters, and degeneracy. Our solution accommodates these three issues, by proposing an approach to automatically detect a semi-optimal number of clusters according to the statistical nature of the data. As a side effect, the method also makes choices of the initial centroid-seeds not critical to the clustering results. The experimental results show the robustness of the Y-means algorithm as well as its good performance against a set of other well known unsupervised clustering techniques. Furthermore, we study the performance of our proposed solution against different distance and outlier-detection functions and recommend the best combinations.},
-    note={{The paper describes a new clustering technique,
-                  \textit{Y-Means}, based on the seminal \textit{K-Means}
-                  algorithm. \textit{Y-Means} addresses three main
-                  limitations of the \textit{K-Means} method:\\
+        note={{The paper describes a new clustering
+                  technique, \textit{Y-Means}, based on the
+                  seminal \textit{K-Means} algorithm. \textit{Y-Means}
+                  addresses three main limitations of
+                  the \textit{K-Means} method:\\
 
 \begin{itemize}
 \item \textbf{Dependence on choice of initial centroids}: \textit{K-Means} is based on the mean squared error and converges to a local minima. In \textit{Y-Means} the final result is independent of the choice of initial centroids. \textbf{WHY ?}
@@ -1399,7 +1400,6 @@
 	location={Seattle, Washington, United States},
 	pages={159-168},
 	isbn={0-89791-996-3},
-	url={http://doi.acm.org.proxy.hil.unb.ca/10.1145/275487.275505},
         note={{The paper makes a formal analysis of
                   \textit{latent-semantic indexing} (LSI) in an
                   attempt to understand the apparent strengths of this
@@ -1465,7 +1465,6 @@
 	location={Montreal, Quebec, Canada},
 	pages={188-196},
 	isbn={0-89791-159-8},
-	url={http://doi.acm.org.proxy.hil.unb.ca/10.1145/253495.253524},
         note={{The paper revisits the notion
                   proposed by \cite{RefWorks:94} that not only can
                   clustering be used to reduce the number of documents
@@ -1581,7 +1580,7 @@
                   implemented a parallel version of the LSI search
                   function and managed to achieve nearly 180 times
                   improvement over the previous implementation over
-                  some document collections.
+                  some document collections.\\\\
 
                   During the search phase of LSI, each vector of the
                   term-document space must be loaded into memory and
@@ -1614,7 +1613,7 @@
                   collections. Also, the overhead imposed by
                   distributing and reconstituting the search across
                   the workstations is relatively insignificant for
-                  large collections but not so for small collections.
+                  large collections but not so for small collections.\\\\
 
                   Although LSI is capable of achieving significant
                   retrieval performance gains over standard lexical
@@ -1636,14 +1635,164 @@
                   improvements however, this method can be applied to
                   any retrieval algorithm which performs an exhaustive
                   search on a document collection, decomposed or
-                  not.}}
+                  not.\\\\}}
 }
 
 
 @misc{RefWorks:97,
   author = 	 {Kirk Baker},
   year = 	 {2008},
-  title = 	 {Singular Value Decomposition Tutorial}
+  title = 	 {Singular Value Decomposition Tutorial},
+  note={{This is tutorial covering vector and matrix methods in
+                  support of explaining the mechanics
+                  of \textit{singular value decomposition} and its use
+                  in \textit{information retrieval}. It describes
+                  vectors in terms of points in a three dimensional
+                  space and then extends the definition to an
+                  arbitrary number of dimensions. This n dimensional
+                  space is called textit{hyperspace}
+                  or \textit{n-space}. The hyperspace document
+                  representation is described as a method of
+                  representing a document as a vector whose components
+                  correspond in some way to the words occurring in the
+                  document. The tutorial details the primary vector
+                  operations: \textit{addition}, \textit{scalar
+                  multiplication}, and \textit{inner product} (also
+                  called the \textit{dot product} or \textit{scalar
+                  product}). Vectors are \textit{orthogonal} to one
+                  another if their inner product is zero. In
+                  two-dimensional space, this is equivalent to saying
+                  that the angle between them is 90 degrees. The
+                  implications of this to document retrieval is that
+                  the \textit{cosine distance} between two such
+                  vectors is zero. The \textit{Gram-Schmidt} process
+                  for converting a set of vectors
+                  into \textit{orthonormal vectors} (orthogonal unit
+                  vectors) is described.\\\\
+
+                  Matrices are introduced as collections of vectors
+                  and the general notation thereof is covered in
+                  detail. The basic operations of multiplication and
+                  transposing matrices are described. A matrix is
+                  orthogonal if multiplying it by its transpose
+                  produces the identity matrix. Intuitively, if the
+                  vectors are all orthogonal unit vectors, the
+                  diagonal elements, produced by the inner product of
+                  each vector with itself, will be one, and all other
+                  entries will be zero. Calculation of the
+                  matrix \textit{determinant} is described but its
+                  significance is not
+                  explained. Also, \textit{eigenvalues}
+                  and \textit{eigenvectors} are covered briefly and a
+                  sample calculation thereof shown. Intuitively,
+                  eigenvectors of a rotational matrix are those
+                  vectors which will be scaled but not rotated by the
+                  transform. The amount of scaling that occurs is the
+                  eigenvalue.\\\\
+
+                  The paper concludes with a description of singular
+                  value decomposition (SVD) and gives some useful
+                  illustrations to convey how the process may
+                  interpreted. In the context of document retrieval,
+                  SVD breaks down the term-document matrix into
+                  linearly independent (orthogonal) components along
+                  which most variation occurs and reduces noisy
+                  correlations between documents
+                  (In \cite{RefWorks:101}, this process is interpreted
+                  as introducing noise, not removing it. I am inclined
+                  to go with the published
+                  paper \cite{RefWorks:101}). If the components
+                  exhibiting the smallest variation in this new
+                  representation are eliminated, we end up with a
+                  reduced dimension approximation which best captures
+                  the original data. This feature reduction makes
+                  documents which share common substructure (topic)
+                  more similar and those which do not, more
+                  dissimilar. In practical terms, this means that
+                  documents about a particular topic become more
+                  similar in the new representation, even if the exact
+                  same words don't appear in all of them.\\\\
+       }}
+}
+
+
+@article{RefWorks:101,
+	author={Hongyuan Zha and Horst D. Simon},
+	year={1999},
+	title={On Updating Problems in Latent Semantic Indexing},
+	journal={SIAM Journal on Scientific Computing},
+	volume={21},
+	number={2},
+	pages={782-791},
+	keywords={singular value decomposition; updating problems; latent semantic indexing; information retrieval},
+        note={{The paper describes a new \textit{singular value
+                 decomposition} (SVD) updating algorithm to support
+                 the use of \textitP{latent semantic indexing} (LSI)
+                 on evolving document collections. LSI is a type of
+                 vector space information retrieval method that uses
+                 a \texit{reduced dimension representation} (RDR)
+                 computed by the SVD of the \textit{term-document}
+                 matrix. For each of the dimensions reduced,
+                 a \textit{pseudoconcept} is introduced which may not
+                 have any explicit semantic content but which helps to
+                 discriminate documents.\\\\
+
+                  Three types of updating problems exist in LSI:\\
+\begin{itemize}
+\item \textbf{Updating documents}: documents are added to the collection.
+\item \textbf{Updating terms}: new terms are added to the model.
+\item \textbf{Term weight corrections}: term weights in the original term-document matrix need to be adjusted.
+\end{itemize}
+
+                A method for updating the LSI-generated RDR,
+                called \textit{folding}, is described
+                in \cite{RefWorks:102}. However, this method is based
+                on the original RDR and does not adjust the
+                representation of existing terms and documents,
+                causing retrieval accuracy to suffer. This paper
+                focuses on the three SVD updating methods derived
+                in \cite{RefWorks:105,RefWorks:107} and proposes
+                enhancements thereto. The enhanced methods are proven
+                formally to be more accuracy approximations of the
+                original term-document matrix, albeit at additional
+                computation cost. The paper also makes a formal
+                justification for using the RDR as the basis for
+                updating, as opposed to the original term-document
+                matrix. The proof shows that the information lost in
+                the RDR would also be lost in decomposing an updated
+                term-document matrix. This result has important
+                practical consequences as, in many cases, the original
+                term-document matrix is not maintained on disk or in
+                memory.\\\\
+
+                The new update methods are tested on three document
+                collections and compared against the methods
+                from \cite{RefWorks:105,RefWorks:107} as well as an
+                update method based on the entire term-document
+                matrix. In the tests, the document collection is
+                broken into partitions and the collection updated
+                incrementally and the accuracy of queries against the
+                updated RDRs are compared. For one document
+                collection, the new method shows significant
+                improvement over \cite{RefWorks:105,RefWorks:107} and
+                marginally exceeds the performance of the update
+                method based on the entire term-document matrix. For
+                the other document collections, the new method shows
+                marginal improvement
+                over \cite{RefWorks:105,RefWorks:107} and is
+                comparable to the update method based on the entire
+                term-document matrix. In all cases, the computation
+                cost for the new method is higher than that
+                of \cite{RefWorks:105,RefWorks:107}.\\\\
+
+                As is the case with many LSI-based studies, the test
+                collections are small and do not qualify the results
+                for large-scale practical use. However the formal
+                proofs in this paper provide some confidence in the
+                basis of the decompositions used and how accurately we
+                can expect them to approximate the original
+                corpus.\\\\
+        }}
 }
 
 
@@ -1670,14 +1819,28 @@
 	number={6},
 	pages={333-340},
 	keywords={bibliographic search; computational complexity; finite state machines; information retrieval; keywords and phrases; string pattern matching; text-editing},
-	isbn={0001-0782},
-	url={http://doi.acm.org.proxy.hil.unb.ca/10.1145/360825.360855}
+	isbn={0001-0782}
 }
 
 
+@article{RefWorks:105,
+	author={Michael W. Berry and Susan T. Dumais and Gavin W. O'Brien},
+	year={1995},
+	title={Using Linear Algebra for Intelligent Information Retrieval},
+	journal={SIAM Review},
+	volume={37},
+	number={4},
+	pages={573-595},
+	keywords={indexing; information; latent; matrices; retrieval; semantic; singular value decomposition; sparse; updating},
+}
 
 
-
-
+@mastersthesis{RefWorks:107,
+	author={G. W. O'Brien},
+	year={1994},
+        school={Department of Computer Science, University of Tennessee},
+        address={Knoxville, TN}
+	title={{Information Management Tools for Updating an SVD-Encoded Indexing Scheme}}
+}
 
 
