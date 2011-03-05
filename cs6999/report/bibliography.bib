@@ -56,6 +56,7 @@
                   or comparative.
 \end{itemize}
 
+                  \bigskip
                   These aspects combine to form the \textit{feature
                   based sentiment analysis model}. In this model,
                   opinionated documents are analysed to extract the
@@ -68,6 +69,7 @@
 \item \textbf{synonyms} of each object feature.
 \end{itemize}
 
+                  \bigskip
                   For opinion extraction, existing approaches are
                   based on different supervised and unsupervised
                   methods using opinion words and phases and grammar
@@ -167,7 +169,7 @@
                   distributions.
 \end{itemize}
 
-                  \medskip
+                  \bigskip
                   \textbf{Task-based} techniques are methods which
                   modify existing or invent new techniques to
                   specifically address the computational challenges of
@@ -195,7 +197,7 @@
                   a promising technique) 
 \end{itemize}
 
-                  \medskip
+                  \bigskip
                   A number of algorithms have been propsed for mining
                   of streaming data:\\\\ 
 
@@ -392,6 +394,7 @@
 \item \textbf{Degeneracy}: there is no mechanism in \textbf{K-Means} to eliminate empty clusters at the end of the clustering process. \textit{H-Means+} and \textit{X-Means} are \textit{K-Means} variants which attempt to deal with the degeneracy issue.\\\\
 \end{itemize}
 
+                  \bigskip
                   \textit{Y-Means} begins by normalizing the data set
                   to remove the dominating effect of large-scale
                   features. Then, an arbitrary number of cluster
@@ -1022,7 +1025,7 @@
 \item \textbf{Statistically Related Words}: statistical examination of the word-by-document matrix gives information regarding words that appear together often. This information can be used by search engines to improve performance. \textit{Latent Semantic Analysis} (LSA) is such a technique but is computationally heavy. \textit{Random Indexing} (RI) is a much faster, less memory intensive alternative but does not use the entire word-by-document matrix.
 \item \textbf{Meta-data}: meta-data found in web pages provides additional information that can be used when indexing.\\
 \end{itemize}
-
+                  \bigskip
                   Text clustering can be used to discover structures
                   within a text set that were not previously
                   known. This is as opposed to text categorization
@@ -1716,6 +1719,113 @@
 }
 
 
+@article{RefWorks:99,
+	author={Tamara G. Kolda and Dianne P. O'Leary},
+	year={1998},
+	month={October},
+	title={A semidiscrete matrix decomposition for latent semantic indexing information retrieval},
+	journal={ACM Trans.Inf.Syst.},
+	volume={16},
+	number={4},
+	pages={322-346},
+	keywords={data mining; latent semantic indexing; semidiscrete decomposition; singular-value decomposition; text retrieval},
+	isbn={1046-8188},
+        note={{The paper proposes a \textit{semi-discrete
+                  decomposition} (SDD) to replace \textit{singular
+                  value decomposition} (SVD) as used in \textit{latent
+                  semantic indexing} (LSI) for approximating a
+                  document matrix. LSI has been shown to overcome many
+                  difficulties associated with literal term matching
+                  and the method proposed in the paper claims to
+                  exceed the performance thereof in certain aspects.\\\\
+
+                  As background, the paper describes the
+                  \textit{vector space method} for document retrieval,
+                  of which LSI (both SVD- and SDD-based methods) is an
+                  extension. The creation of the \textit{term-document
+                  matrix} is described and extensive coverage is given
+                  to the different methods of weighting terms in the
+                  document matrix. A term weight has three components:\\
+
+\begin{itemize}
+\item \textbf{local weight}: based on the occurrence of the term
+                  within a specific document.
+\item \textbf{global weight}: based on the the occurrence of the term
+                  within the document collection as a whole.
+\item \textbf{normalization}: specifies whether or not the columns
+                  (documents) are normalized.
+\end{itemize}
+\bigskip
+
+                  When executing queries, weightings are also applied
+                  to the \textit{pseudo document} vector, though these
+                  need not be the same as the term
+                  weightings. Normalizing the query vector has no
+                  effect on document ranking so it is never done.\\\\
+
+                  The paper gives a good illustration as to how
+                  queries based on both SVD and SDD approximations of
+                  the term-document matrix can actually improve
+                  document retrieval. The decomposition introduces
+                  'noise' as the rank of the original matrix is
+                  reduced. This noise makes similar documents appear
+                  more similar while remaining close to the original
+                  data. The amount of noise introduced depends on the
+                  extent to which the rank of the original matrix is
+                  compressed.\\\\
+
+                  The SDD method proposed was originally introduced by
+                  \cite{RefWorks:108} and is used here in a bid to
+                  save storage space and query time. The method does
+                  not reproduce the original matrix exactly, even with
+                  no rank compression, but for equal reduction of
+                  rank, the SVD method requires nearly 32 times more
+                  storage than SDD. SDD is calculated iteratively,
+                  terminating when the improvement in a residual
+                  stagnates. Queries using the SDD decomposition use
+                  fewer floating point operations than queries on an
+                  SVD decomposition.\\\\
+                  
+                  An empirical comparison of the vector space method,
+                  SVD-based LSI, and SDD-based LSI, was conducted over
+                  three different corpora. The results indicate that
+                  SDD-based LSI retrieves documents as well as
+                  SVD-based LSI but requires only about half the query
+                  time. The disadvantage of the SDD method is that it
+                  takes five times as long as computing the SVD
+                  approximation.\\\\
+                  
+                  The paper proposes some techniques for updating the
+                  SDD approximation when the document collection
+                  changes as well as methods to improve the
+                  decomposition if it is found to be inadequate (in
+                  terms of retrieval accuracy). The SDD update methods
+                  are easier than updating SVD. SVD update methods can
+                  take as long as the original decomposition, but
+                  require less memory.\\\\
+                  
+                  The corpora used in the evaluation are relatively
+                  small (<2000 documents) and it remains to be seen
+                  how SDD-based LSI performs on large
+                  collections. Given the large initial approximation
+                  computation time, SDD may not scale adequately to be
+                  of practical use in such situations.\\\\
+        }}
+}
+
+@article{RefWorks:100,
+	author={Tao Li and Qi Li and Shenghuo Zhu and Mitsunori Ogihara},
+	year={2002},
+	month={December},
+	title={A survey on wavelet applications in data mining},
+	journal={SIGKDD Explor.Newsl.},
+	volume={4},
+	number={2},
+	pages={49-68},
+	isbn={1931-0145}
+}
+
+
 @article{RefWorks:101,
 	author={Hongyuan Zha and Horst D. Simon},
 	year={1999},
@@ -1727,10 +1837,10 @@
 	keywords={singular value decomposition; updating problems; latent semantic indexing; information retrieval},
         note={{The paper describes a new \textit{singular value
                  decomposition} (SVD) updating algorithm to support
-                 the use of \textitP{latent semantic indexing} (LSI)
+                 the use of \textit{latent semantic indexing} (LSI)
                  on evolving document collections. LSI is a type of
                  vector space information retrieval method that uses
-                 a \texit{reduced dimension representation} (RDR)
+                 a \textit{reduced dimension representation} (RDR)
                  computed by the SVD of the \textit{term-document}
                  matrix. For each of the dimensions reduced,
                  a \textit{pseudoconcept} is introduced which may not
@@ -1743,7 +1853,8 @@
 \item \textbf{Updating terms}: new terms are added to the model.
 \item \textbf{Term weight corrections}: term weights in the original term-document matrix need to be adjusted.
 \end{itemize}
-
+                
+                \bigskip
                 A method for updating the LSI-generated RDR,
                 called \textit{folding}, is described
                 in \cite{RefWorks:102}. However, this method is based
@@ -1844,3 +1955,15 @@
 }
 
 
+@article{RefWorks:108,
+	author={Tamara G. Kolda and Dianne P. O'Leary},
+	year={1998},
+	month={October},
+	title={A semidiscrete matrix decomposition for latent semantic indexing information retrieval},
+	journal={ACM Trans.Inf.Syst.},
+	volume={16},
+	number={4},
+	pages={322-346},
+	keywords={data mining; latent semantic indexing; semidiscrete decomposition; singular-value decomposition; text retrieval},
+	isbn={1046-8188}
+}
