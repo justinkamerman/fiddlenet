@@ -18,6 +18,7 @@ public class State implements Iterable<State>
     private int __id = 0;
     private HashMap<Character, State> __transitions = new HashMap<Character, State> ();
     private String __output;
+    private State __failure;
 
 
     private State () {}
@@ -64,12 +65,55 @@ public class State implements Iterable<State>
     }
 
 
+    public void addOutput (String output)
+    {
+        if (output != null)
+        {
+            if (__output == null)
+            {
+                __output = output;
+            }
+            else
+            {
+                __output = __output + ", " + output;
+            }
+        }
+    }
+
+    
+    public void setFailure (State s)
+    {
+        __failure = s;
+    }
+
+
+    public State getFailure ()
+    {
+        return __failure;
+    }
+
+
+    public boolean isStart ()
+    {
+        return __id == 0;
+    }
+
+
     /**
      * Return state that we would transition to on input a
      */
     public State goTo (Character a)
     {
-        return __transitions.get (a);
+        State target = __transitions.get (a);
+        if (target == null && this.isStart()) 
+        {
+            // Start state loops
+            return this;
+        }
+        else
+        {
+            return target;
+        }
     }
 
 
@@ -85,7 +129,8 @@ public class State implements Iterable<State>
     public String toString ()
     {
         StringBuffer sb = new StringBuffer ();
-        sb.append ("[id=" + __id + "][transitions[");
+        sb.append (String.format("[id=%s][failure=%s][transitions[", 
+                                 __id, __failure == null ? "" : __failure.getId()));
         for ( Character c : __transitions.keySet() )
         {
             sb.append ("[" + c.toString() + " -> " + __transitions.get(c).getId() + "]");

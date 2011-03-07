@@ -9,12 +9,17 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Logger;
 import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+
+
+import aho.*;
 
 
 public class Main
@@ -52,22 +57,27 @@ public class Main
     
     private void run (String[] args)
     {
-        try
-        {        
-            __cl = (new BasicParser()).parse (__opt, args); 
-            if ( __cl.hasOption ('h') ) printUsage ("help", 0);
-            if ( __cl.hasOption ('k') ) __keywordsFile = __cl.getOptionValue ('k');  
-            else printUsage("option -k is required", 1);
-            if ( __cl.hasOption ('d') ) __documentDirectory = __cl.getOptionValue ('d');
-            else printUsage("option -d is required", 1);
-        }
-        catch (ParseException ex)
-        {
-            printUsage (ex.getMessage(), 1);
-            System.exit (1);
-        }
+        // try
+        // {        
+        //     __cl = (new BasicParser()).parse (__opt, args); 
+        //     if ( __cl.hasOption ('h') ) printUsage ("help", 0);
+        //     if ( __cl.hasOption ('k') ) __keywordsFile = __cl.getOptionValue ('k');  
+        //     else printUsage("option -k is required", 1);
+        //     if ( __cl.hasOption ('d') ) __documentDirectory = __cl.getOptionValue ('d');
+        //     else printUsage("option -d is required", 1);
+        // }
+        // catch (ParseException ex)
+        // {
+        //     printUsage (ex.getMessage(), 1);
+        //     System.exit (1);
+        // }
 
-        log.info ("Hello World!");
+        log.info ("Creating state machine...");
+
+        List<String> keywords = Arrays.asList("he", "she", "his", "hers");
+        StateMachine stateMachine = new StateMachine (keywords);
+
+        System.out.println (stateMachine.dot());
     }
 }
 
