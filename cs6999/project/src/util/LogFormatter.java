@@ -28,6 +28,8 @@ public class LogFormatter extends Formatter
             .append("[")
             .append(format.format (new Date(record.getMillis())))
             .append("][")
+            .append(Thread.currentThread().getName())
+            .append("][")
             .append(record.getLevel())
             .append("][")
             .append(loggerName)

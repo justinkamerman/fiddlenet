@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
-
+import util.*;
 
 /**
  * This class externalizes an execution path through an Aho state
@@ -24,6 +24,8 @@ public class ExecutionContext
 {
     private static Logger log = Logger.getLogger (ExecutionContext.class.getName()); 
     private StateMachine __stateMachine;
+    private State __state;
+    private int __position;
 
 
     /**
@@ -35,44 +37,39 @@ public class ExecutionContext
     public ExecutionContext (StateMachine stateMachine)
     {
         __stateMachine = stateMachine;
+        __state = __stateMachine.getStartState();
+        __position = 0;
     }
 
     
     /**
-     * Index the data stream, returning a map of keywords to lists of
-     * occurrences (positions) withing the stream of the associated
-     * keyword.
+     * Return current state
      */
-    public HashMap<String, List> index (DataInputStream in)
+    public State getState ()
     {
-        int position = 0; // document position
-        State s = __stateMachine.getStartState ();
-        HashMap<String, List> results = new HashMap<String, List> (); 
-      
-        try 
-        {
-            while (true)
-            {
-                Character a = in.readChar ();
-                log.finest ("Processing character " + a);
-                
-            }
-        }
-        catch (IOException ex)
-        {
-            log.finest ("Reached end of document: " + ex.getMessage());
-        }
-
-        return results;
+        return __state;
     }
 
 
     /**
-     * Returns true if the input stream contains at least one
-     * occurence of each given keyword.
+     * Get current document position
      */
-    public boolean search (DataInputStream in, Set keywords)
+    public int getPosition ()
     {
-        return false;
+        return __position;
+    }
+
+    
+    /**
+     * Advance to the next state. Return the output of the destination
+     * state, if any, else null
+     */
+    public Set<String> goTo (Character a)
+    {
+        // Aho75 Algorithm 1
+        __position++;
+
+        return null;
+        
     }
 }

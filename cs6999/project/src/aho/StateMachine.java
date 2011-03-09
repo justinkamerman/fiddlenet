@@ -7,9 +7,9 @@
  */
 package aho;
 
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.logging.Logger;
 
@@ -22,16 +22,17 @@ public class StateMachine
 
 
     private StateMachine () {}
-    public StateMachine (Collection<String> keywords)
+    public StateMachine (List<String> keywords)
     {
         __startState = new State (nextStateId());
 
         // Construct goto function (Aho75 alogorithm 2)
         for (String keyword : keywords )
         {
-            log.info ("Adding keyword " + keyword);
+            log.finest ("Adding keyword: " + keyword);
             enter (keyword);
         }
+        log.info ("Added " + keywords.size() + " keywords");
 
         // Construct failure function (Aho75 Algorithm 3)
         constructFailureFunction ();
@@ -87,7 +88,7 @@ public class StateMachine
         for (Character a : __startState.getTransitions().keySet())
         {
             State s = __startState.goTo(a);
-            log.info ("Constructing failure function for level one state " + s.getId());
+            log.finest ("Constructing failure function for level one state " + s.getId());
 
             if ( s.getId() != 0 )
             {
@@ -103,24 +104,15 @@ public class StateMachine
             {
                 State s = r.getTransitions().get(a);
                 queue.add (s);
-
-                log.info ("Constructing failure function for state " + r.getId() + " -> " +s.getId());
                 State state = r.getFailure ();
-
-                log.info ("state = " + state);
-                log.info ("a = " + a);
 
                 // Special condition for start state because we didn't
                 // add failure edges for this state
                 while (state.goTo(a) == null && ! state.isStart()) 
                 {
                     state = state.getFailure();
-                    log.info ("newState = " + state);
                 }
                 
-                log.info ("s = " + s.toString());
-                log.info ("state.goTo(a) = " + state.goTo(a).toString());
-                log.info ("Setting failure function for state " + s.getId() + " -> " + state.goTo(a).getId());
                 s.setFailure (state.goTo(a));
                 s.mergeOutput (s.getFailure().getOutput());
             }
