@@ -8,7 +8,9 @@
 package aho;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.logging.Logger;
 
 
@@ -17,7 +19,7 @@ public class State implements Iterable<State>
     private static Logger log = Logger.getLogger (State.class.getName());
     private int __id = 0;
     private HashMap<Character, State> __transitions = new HashMap<Character, State> ();
-    private String __output;
+    private HashSet<String> __output = new HashSet<String>();
     private State __failure;
 
 
@@ -52,14 +54,8 @@ public class State implements Iterable<State>
         return s;
     }
 
-    
-    public void setOutput (String output)
-    {
-        __output = output;
-    }
 
-
-    public String getOutput ()
+    public Set<String> getOutput ()
     {
         return __output;
     }
@@ -69,15 +65,18 @@ public class State implements Iterable<State>
     {
         if (output != null)
         {
-            if (__output == null)
-            {
-                __output = output;
-            }
-            else
-            {
-                __output = __output + ", " + output;
-            }
+            __output.add (output);
         }
+        else
+        {
+            log.warning ("Adding null output string");
+        }
+    }
+
+
+    public void mergeOutput (Set<String> output)
+    {
+        __output.addAll (output);
     }
 
     

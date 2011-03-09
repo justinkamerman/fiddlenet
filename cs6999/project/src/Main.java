@@ -7,8 +7,10 @@
  */
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
@@ -20,6 +22,7 @@ import org.apache.commons.cli.ParseException;
 
 
 import aho.*;
+import util.*;
 
 
 public class Main
@@ -74,10 +77,26 @@ public class Main
 
         log.info ("Creating state machine...");
 
-        List<String> keywords = Arrays.asList("he", "she", "his", "hers");
-        StateMachine stateMachine = new StateMachine (keywords);
+        //List<String> keywords = Arrays.asList("he", "she", "his", "hers");
+        //StateMachine stateMachine = new StateMachine (keywords);
 
-        System.out.println (stateMachine.dot());
+        Data data = new Data ("data/keywords.txt", "data/documents");
+        for (DataInputStream in : data)
+        {
+            log.finest (">>>");
+
+            try
+            {
+                in.close ();
+            }
+            catch (IOException ex)
+            {
+                log.severe ("Error closing document stream: " + ex.getMessage());
+                System.exit (1);
+            }
+        }
+
+        //System.out.println (stateMachine.dot());
     }
 }
 

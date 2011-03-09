@@ -33,14 +33,16 @@ public class StateMachine
             enter (keyword);
         }
 
-        // Add loop edge to start state - not sure if this is
-        // practical, maybe just have a special condition to handle
-        // failure from state 0
-
         // Construct failure function (Aho75 Algorithm 3)
         constructFailureFunction ();
 
-        // Eliminate failure transitions
+        // Eliminate failure transitions - Aho75 algorithm 4
+    }
+
+
+    public State getStartState ()
+    {
+        return __startState;
     }
 
             
@@ -72,7 +74,7 @@ public class StateMachine
             s = s.addTransition (keyword.charAt(j++), newState);
         }
 
-        s.setOutput (keyword);
+        s.addOutput (keyword);
     }
 
     
@@ -120,7 +122,7 @@ public class StateMachine
                 log.info ("state.goTo(a) = " + state.goTo(a).toString());
                 log.info ("Setting failure function for state " + s.getId() + " -> " + state.goTo(a).getId());
                 s.setFailure (state.goTo(a));
-                s.addOutput (s.getFailure().getOutput());
+                s.mergeOutput (s.getFailure().getOutput());
             }
         }
     }
@@ -138,7 +140,7 @@ public class StateMachine
             s = iter.next ();
             sb.append (String.format ("\t%s  [label=\"%s\", shape=circle];\n", 
                                       s.getId(),
-                                      s.getOutput() == null ? s.getId() : s.getId() + ", " + s.getOutput()));
+                                      s.getId() + " " + s.getOutput()));
 
             // Goto edges
             for (Character a : s.getTransitions().keySet())
