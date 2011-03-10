@@ -1,0 +1,30 @@
+digraph G {
+	0  [label="0 []", shape=circle];
+	0 -> 3 [label="s"];
+	0 -> 1 [label="h"];
+	1  [label="1 []", shape=circle];
+	1 -> 2 [label="e"];
+	1 -> 6 [label="i"];
+	1 -> 0 [color="red"];
+	6  [label="6 []", shape=circle];
+	6 -> 7 [label="s"];
+	6 -> 0 [color="red"];
+	7  [label="7 [his]", shape=circle];
+	7 -> 3 [color="red"];
+	2  [label="2 [he]", shape=circle];
+	2 -> 8 [label="r"];
+	2 -> 0 [color="red"];
+	8  [label="8 []", shape=circle];
+	8 -> 9 [label="s"];
+	8 -> 0 [color="red"];
+	9  [label="9 [hers]", shape=circle];
+	9 -> 3 [color="red"];
+	3  [label="3 []", shape=circle];
+	3 -> 4 [label="h"];
+	3 -> 0 [color="red"];
+	4  [label="4 []", shape=circle];
+	4 -> 5 [label="e"];
+	4 -> 1 [color="red"];
+	5  [label="5 [she, he]", shape=circle];
+	5 -> 2 [color="red"];
+}

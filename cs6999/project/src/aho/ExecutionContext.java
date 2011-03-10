@@ -61,15 +61,16 @@ public class ExecutionContext
 
     
     /**
-     * Advance to the next state. Return the output of the destination
-     * state, if any, else null
+     * Advance to the next state, following failure paths if necessary.
      */
     public Set<String> goTo (Character a)
     {
-        // Aho75 Algorithm 1
+        // Aho75: algorithm 1
+        // Follow failure paths until we hit a state that has an edge
+        // matching the input character
+        while ( __state.goTo (a) == null ) __state = __state.getFailure ();
+        __state = __state.goTo (a);
         __position++;
-
-        return null;
-        
+        return __state.getOutput ();
     }
 }

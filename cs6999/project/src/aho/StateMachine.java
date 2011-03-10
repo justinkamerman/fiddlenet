@@ -32,7 +32,7 @@ public class StateMachine
             log.finest ("Adding keyword: " + keyword);
             enter (keyword);
         }
-        log.info ("Added " + keywords.size() + " keywords");
+        log.finest ("Added " + keywords.size() + " keywords");
 
         // Construct failure function (Aho75 Algorithm 3)
         constructFailureFunction ();
@@ -46,7 +46,7 @@ public class StateMachine
         return __startState;
     }
 
-            
+
     private static int nextStateId ()
     {
         return __stateIdSequence++;
@@ -63,9 +63,10 @@ public class StateMachine
 
         // Follow existing path as far as possible, don't use goTo()
         // because it has pseudo loops on start state
-        while (s.getTransitions().get(keyword.charAt(j)) != null)
+        for (j = 0; j < keyword.length(); j++)
         {
-            s = s.getTransitions().get(keyword.charAt(j++));
+            if (s.getTransitions().get(keyword.charAt(j)) == null) break;
+            s = s.getTransitions().get(keyword.charAt(j));
         }
 
         // Extend path

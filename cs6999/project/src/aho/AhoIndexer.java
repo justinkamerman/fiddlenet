@@ -20,9 +20,9 @@ import java.util.logging.Logger;
 import util.*;
 
 
-public class AhoIndexer extends DocumentIndexer
+public class AhoIndexer extends DocumentTask
 {
-    private static Logger log = Logger.getLogger (DocumentIndexer.class.getName());
+    private static Logger log = Logger.getLogger (AhoIndexer.class.getName());
     private StateMachine __sm;
 
 
@@ -34,9 +34,9 @@ public class AhoIndexer extends DocumentIndexer
 
 
     /**
-     * Thread workers: index a document and return match result
+     * Index a document and return match result
      */
-    public Match index (Document document)
+    public Match work (Document document)
     {
         log.finest ("Processing document " + document.getName());
         Match match = new Match (document);
@@ -49,10 +49,10 @@ public class AhoIndexer extends DocumentIndexer
             int b;
             while ((b = br.read()) != -1)
             {
-                char a = (char) b;
-                log.finest ("Read character: " + a);
-
+                char a = (char) Character.toLowerCase(b);
                 Set<String> output = ctx.goTo (a);
+
+                log.finest (String.format("--%c--> %d", a, ctx.getState().getId()));
 
                 // If there is any output from the target state, add it to the document match
                 if ( output != null )

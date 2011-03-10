@@ -99,7 +99,9 @@ public class State implements Iterable<State>
 
 
     /**
-     * Return state that we would transition to on input a
+     * Return state that we would transition to on input a. Returns
+     * null if there is no transition for the input character
+     * i.e. does not follow failure paths.
      */
     public State goTo (Character a)
     {

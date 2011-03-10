@@ -33,17 +33,53 @@ public class Match
     }
 
 
+    public int size ()
+    {
+        return __index.size();
+    }
+
+
+    public Document getDocument ()
+    {
+        return __document;
+    }
+
+
     public void addOccurrence (Set<String> keywords, int position)
     {
         for (String keyword : keywords)
         {
-            List<Integer> positions = __index.get (keyword);
-            if ( positions == null )
-            {
+            addOccurrence (keyword, position);
+        }
+    }
+
+
+    public void addOccurrence (String keyword, int position)
+    {
+        List<Integer> positions = __index.get (keyword);
+        if ( positions == null )
+        {
             positions = new ArrayList<Integer> ();
             __index.put (keyword, positions);
-            }
-            positions.add (position - keyword.length());
         }
+
+        int startPosition = position - keyword.length();
+        log.finest ("Found keyword \"" + keyword + "\" at position " + startPosition);
+        positions.add (startPosition);
+    }
+
+    
+    public String toString ()
+    {
+        StringBuffer sb = new StringBuffer ();
+        sb.append ("[document=" + __document.getName() + "]");
+        for (String keyword : __index.keySet())
+        {
+            sb.append ("[" + keyword);
+            sb.append (__index.get(keyword).toString());
+            sb.append ("]");
+        }
+        
+        return sb.toString();
     }
 }
