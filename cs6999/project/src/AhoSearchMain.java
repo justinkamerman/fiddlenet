@@ -104,7 +104,7 @@ public class AhoSearchMain
         timer.reset ();
         timer.start ();
 
-        // Index using thread pool
+        // Scan using thread pool
         log.info ("Creating thread pool with " + __poolSize + " threads");
         ExecutorService pool = Executors.newFixedThreadPool(__poolSize);
         List<Match> matches = Collections.synchronizedList (new ArrayList<Match>());

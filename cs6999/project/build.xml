@@ -6,6 +6,9 @@
     <property name="dist"  location="dist"/>
     <property name="thirdparty"  location="thirdparty"/>
 
+    <taskdef classname="JFlex.anttask.JFlexTask" name="jflex" />
+
+
     <path id="build.classpath">
 	<fileset dir="${thirdparty}">
 	    <include name="commons-cli-1.2.jar" />
@@ -16,7 +19,12 @@
         <mkdir dir="${build}"/>
     </target>
 
-    <target name="compile" depends="init">
+    <target name="lex">
+        <jflex file="${src}/inv/Scanner.flex"
+               destdir ="${src}/"/>
+    </target>
+
+    <target name="compile" depends="init,lex">
         <javac srcdir="${src}" destdir="${build}" debug="true" includeantruntime="false">
             <classpath refid="build.classpath" />
         </javac>
@@ -30,5 +38,6 @@
     <target name="clean">
         <delete dir="${build}"/>
         <delete dir="${dist}"/>
+        <delete dir="${src}/inv/Scanner.java"/>
     </target>
 </project>

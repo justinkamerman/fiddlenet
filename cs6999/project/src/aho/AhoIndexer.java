@@ -38,7 +38,7 @@ public class AhoIndexer extends DocumentTask
      */
     public Match work (Document document)
     {
-        log.finest ("Processing document " + document.getName());
+        log.info ("Processing document " + document.getName());
         Match match = new Match (document);
         ExecutionContext ctx = new ExecutionContext (__sm);
 
@@ -60,6 +60,8 @@ public class AhoIndexer extends DocumentTask
                     match.addOccurrence (output, ctx.getPosition());
                 }
             }
+
+            br.close();
         }
         catch (FileNotFoundException ex)
         {

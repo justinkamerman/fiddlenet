@@ -73,6 +73,8 @@ public class AhoSearcher extends DocumentTask
                     // Check if we've found each search word
                     if (__searchWords.size() == 0) return match; 
                 }
+
+                br.close ();
             }
         }
         catch (FileNotFoundException ex)

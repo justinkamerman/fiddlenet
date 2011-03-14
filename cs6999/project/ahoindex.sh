@@ -7,4 +7,4 @@
 # $LastChangedBy$ 
 # 
 
-java -cp dist/cs6999.jar:thirdparty/commons-cli-1.2.jar -Djava.util.logging.config.file=logging.properties AhoIndexMain $*
+java -Xmx1024m -cp dist/cs6999.jar:thirdparty/commons-cli-1.2.jar -Djava.util.logging.config.file=logging.properties AhoIndexMain $*
