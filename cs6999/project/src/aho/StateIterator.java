@@ -1,9 +1,9 @@
 /**
- * $Id: TreeIterator.java 14 2010-10-10 15:32:16Z justinkamerman $ 
+ * $Id$ 
  *
- * $LastChangedDate: 2010-10-10 12:32:16 -0300 (Sun, 10 Oct 2010) $ 
+ * $LastChangedDate$ 
  * 
- * $LastChangedBy: justinkamerman $
+ * $LastChangedBy$
  */
 package aho;
 

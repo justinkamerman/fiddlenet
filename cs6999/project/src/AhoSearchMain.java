@@ -1,9 +1,9 @@
 /**
- * $Id: Main.java 101 2011-03-07 21:57:19Z justinkamerman $ 
+ * $Id$ 
  *
- * $LastChangedDate: 2011-03-07 16:57:19 -0500 (Mon, 07 Mar 2011) $ 
+ * $LastChangedDate$ 
  * 
- * $LastChangedBy: justinkamerman $
+ * $LastChangedBy$
  */
 
 

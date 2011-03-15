@@ -1,9 +1,9 @@
 /**
- * $Id: TreeIterator.java 14 2010-10-10 15:32:16Z justinkamerman $ 
+ * $Id$ 
  *
- * $LastChangedDate: 2010-10-10 12:32:16 -0300 (Sun, 10 Oct 2010) $ 
+ * $LastChangedDate$ 
  * 
- * $LastChangedBy: justinkamerman $
+ * $LastChangedBy$
  */
 package util;
 
@@ -66,6 +66,24 @@ public class Match
         int startPosition = position - keyword.length();
         log.finest ("Found keyword \"" + keyword + "\" at position " + startPosition);
         positions.add (startPosition);
+    }
+
+
+    /**
+     * Return occurrences of all keywords matched in the document
+     */
+    public Set<String> getKeywords ()
+    {
+        return __index.keySet ();
+    }
+
+
+    /**
+     * Return occurrences of given keyword matched in the document
+     */
+    public List<Integer> getOccurrences (String keyword)
+    {
+        return __index.get (keyword);
     }
 
     

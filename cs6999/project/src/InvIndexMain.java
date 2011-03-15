@@ -1,16 +1,18 @@
 /**
- * $Id: Main.java 101 2011-03-07 21:57:19Z justinkamerman $ 
+ * $Id$ 
  *
- * $LastChangedDate: 2011-03-07 16:57:19 -0500 (Mon, 07 Mar 2011) $ 
+ * $LastChangedDate$ 
  * 
- * $LastChangedBy: justinkamerman $
+ * $LastChangedBy$
  */
 
 
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -84,7 +86,7 @@ public class InvIndexMain
         // Read data
         Data data = new Data (__keywordsFile, __documentDirectory);
 
-        // Index using thread pool
+        // Scan documents using thread pool
         log.info ("Creating thread pool with " + __poolSize + " threads");
         ExecutorService pool = Executors.newFixedThreadPool(__poolSize);
         List<Match> matches = Collections.synchronizedList (new ArrayList<Match>());
@@ -108,11 +110,30 @@ public class InvIndexMain
         }
 
         timer.stop ();
-        log.fine (String.format("Indexed %d of %d documents using %d keywords in %d miliseconds.",
-                                matches.size() ,
+        log.fine (String.format("Scanned %d of %d documents in %d miliseconds.",
+                                matches.size(),
                                 data.getDocuments().size(),
-                                data.getKeywords().size(),
                                 timer.duration()));
+
+        // Create inverted index
+        timer.reset ();
+        timer.start ();
+        InvIndex index = InvIndexer.createInverseIndex (matches);
+        //log.finest (index.toString());
+        timer.stop ();
+        log.fine (String.format("Generated inverted index of %d keywords in %d miliseconds.",
+                                index.getKeywordCount(),
+                                timer.duration()));
+        
+        // Search
+        Set<String> searchwords = new HashSet<String>(Arrays.asList(new String[] { "cruise", "ships", "norwegian" }));
+        Set<Document> results = index.search (searchwords);
+        log.finest ("Search results:");
+        for (Document document : results)
+        {
+            log.finest ("\t" + document.getName());
+        }
+        
     }
 }
 

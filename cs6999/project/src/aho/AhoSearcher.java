@@ -1,9 +1,9 @@
 /**
- * $Id: Main.java 97 2011-03-04 19:55:28Z justinkamerman $ 
+ * $Id$ 
  *
- * $LastChangedDate: 2011-03-04 15:55:28 -0400 (Fri, 04 Mar 2011) $ 
+ * $LastChangedDate$ 
  * 
- * $LastChangedBy: justinkamerman $
+ * $LastChangedBy$
  */
 package aho;
 

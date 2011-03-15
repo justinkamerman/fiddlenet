@@ -1,9 +1,9 @@
 /**
- * $Id: TreeIterator.java 14 2010-10-10 15:32:16Z justinkamerman $ 
+ * $Id$ 
  *
- * $LastChangedDate: 2010-10-10 12:32:16 -0300 (Sun, 10 Oct 2010) $ 
+ * $LastChangedDate$ 
  * 
- * $LastChangedBy: justinkamerman $
+ * $LastChangedBy$
  */
 package util;
 
@@ -17,8 +17,8 @@ import java.util.logging.Logger;
 public abstract class DocumentTask implements Runnable
 {
     private static Logger log = Logger.getLogger (DocumentTask.class.getName()); 
-    private Document __document;
-    private List<Match> __matches;
+    protected Document __document;
+    protected List<Match> __matches;
 
     
     private DocumentTask() {}
