@@ -4,6 +4,7 @@
     <property name="src" location="src"/>
     <property name="build" location="build"/>
     <property name="dist"  location="dist"/>
+    <property name="results"  location="results"/>
     <property name="thirdparty"  location="thirdparty"/>
 
     <taskdef classname="JFlex.anttask.JFlexTask" name="jflex" />
@@ -39,5 +40,36 @@
         <delete dir="${build}"/>
         <delete dir="${dist}"/>
         <delete dir="${src}/inv/Scanner.java"/>
+        <delete file="${results}/report.log"/>
+        <delete file="${results}/report.aux"/>
+        <delete file="${results}/report.bbl"/>
+        <delete file="${results}/report.blg"/>
+    </target>
+
+    <macrodef name="pdflatex">
+        <attribute name="file"/>
+        <sequential>
+            <exec executable="pdflatex" dir="${results}">
+                <arg value="--interaction"/>
+                <arg value="nonstopmode"/>
+                <arg value="@{file}"/>
+            </exec>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="bibtex">
+        <attribute name="file"/>
+        <sequential>
+            <exec executable="bibtex" dir="${results}">
+                <arg value="@{file}"/>
+            </exec>
+        </sequential>
+    </macrodef>
+
+    <target name="report">
+        <pdflatex file="report.tex"/>
+        <bibtex file="report"/>
+        <pdflatex file="report.tex"/>
+        <pdflatex file="report.tex"/>
     </target>
 </project>
