@@ -31,9 +31,8 @@ import util.*;
 public class InvIndexMain
 {
     private static Logger log = Logger.getLogger (InvIndexMain.class.getName());
-    private String __keywordsFile = "data/keywords";
     private String __documentDirectory = "data/documents";
-    private int __poolSize = 10; 
+    private int __poolSize = 1; 
 
     Options __opt;
     CommandLine __cl;
@@ -43,7 +42,6 @@ public class InvIndexMain
     {
         __opt = new Options(); 
         __opt.addOption("h", false, "Print help");
-        __opt.addOption("k", true, "keywords file");
         __opt.addOption("d", true, "document directory");
         __opt.addOption("p", true, "Thread pool size");
     }
@@ -69,7 +67,6 @@ public class InvIndexMain
         {        
             __cl = (new BasicParser()).parse (__opt, args); 
             if ( __cl.hasOption ('h') ) printUsage ("help", 0);
-            if ( __cl.hasOption ('k') ) __keywordsFile = __cl.getOptionValue ('k');  
             if ( __cl.hasOption ('d') ) __documentDirectory = __cl.getOptionValue ('d');
             if ( __cl.hasOption ('p') ) __poolSize = Integer.parseInt(__cl.getOptionValue ('p'));
         }
@@ -84,13 +81,14 @@ public class InvIndexMain
         timer.start();
 
         // Read data
-        Data data = new Data (__keywordsFile, __documentDirectory);
+        Data data = new Data (__documentDirectory);
 
         // Scan documents using thread pool
         log.info ("Creating thread pool with " + __poolSize + " threads");
         ExecutorService pool = Executors.newFixedThreadPool(__poolSize);
         List<Match> matches = Collections.synchronizedList (new ArrayList<Match>());
         
+        log.info ("Creating inverted index");
         for (Document document : data.getDocuments())
         {
             InvIndexer indexer = new InvIndexer (document, matches);
@@ -110,30 +108,47 @@ public class InvIndexMain
         }
 
         timer.stop ();
-        log.fine (String.format("Scanned %d of %d documents in %d miliseconds.",
+        log.info (String.format("Scanned %d of %d documents in %d miliseconds.",
                                 matches.size(),
                                 data.getDocuments().size(),
                                 timer.duration()));
 
         // Create inverted index
-        timer.reset ();
-        timer.start ();
         InvIndex index = InvIndexer.createInverseIndex (matches);
-        //log.finest (index.toString());
         timer.stop ();
-        log.fine (String.format("Generated inverted index of %d keywords in %d miliseconds.",
-                                index.getKeywordCount(),
+        log.info (String.format("Generated inverted index of %d keywords in %d miliseconds.",
+                                index.getKeywords().size(),
                                 timer.duration()));
-        
+
         // Search
-        Set<String> searchwords = new HashSet<String>(Arrays.asList(new String[] { "cruise", "ships", "norwegian" }));
-        Set<Document> results = index.search (searchwords);
-        log.finest ("Search results:");
-        for (Document document : results)
+        String[] searchwords = new String[] { "police", 
+                                           "international", 
+                                           "record", 
+                                           "talk", 
+                                           "social", 
+                                           "united", 
+                                           "happy", 
+                                           "press", 
+                                           "hours", 
+                                           "saturday" };
+
+        for (int i = 1; i <= 10; i++)
         {
-            log.finest ("\t" + document.getName());
+            Evaluation eval = new Evaluation ();
+            CombinationGenerator cg = new CombinationGenerator (searchwords, i);
+            while (cg.hasMore ()) 
+            {
+                Set<String> terms = cg.getNext();
+                timer.reset ();
+                timer.start ();
+                Set<Document> results = index.search (terms);
+                timer.stop ();
+                eval.addMetric (timer.duration());
+                log.finest (terms.toString() + ": " + results.size());
+            }
+
+            log.info (String.format("%d keyword search: %s", i, eval.toString()));
         }
-        
     }
 }
 

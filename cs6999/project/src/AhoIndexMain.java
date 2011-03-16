@@ -31,7 +31,7 @@ public class AhoIndexMain
     private static Logger log = Logger.getLogger (AhoIndexMain.class.getName());
     private String __keywordsFile = "data/keywords";
     private String __documentDirectory = "data/documents";
-    private int __poolSize = 10; 
+    private int __poolSize = 1; 
 
     Options __opt;
     CommandLine __cl;

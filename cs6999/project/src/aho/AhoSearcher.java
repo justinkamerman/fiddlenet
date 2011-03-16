@@ -41,7 +41,7 @@ public class AhoSearcher extends DocumentTask
      */
     public Match work (Document document)
     {
-        log.finest ("Processing document " + document.getName());
+        log.fine ("Processing document " + document.getName());
         Match match = new Match (document);
         ExecutionContext ctx = new ExecutionContext (__sm);
 
@@ -54,7 +54,6 @@ public class AhoSearcher extends DocumentTask
             {
                 char a = (char) Character.toLowerCase(b);
                 Set<String> output = ctx.goTo (a);
-
                 log.finest (String.format("--%c--> %d", a, ctx.getState().getId()));
 
                 // If there is any output from the target state, check
@@ -73,9 +72,8 @@ public class AhoSearcher extends DocumentTask
                     // Check if we've found each search word
                     if (__searchWords.size() == 0) return match; 
                 }
-
-                br.close ();
             }
+            br.close ();
         }
         catch (FileNotFoundException ex)
         {

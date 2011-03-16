@@ -33,7 +33,18 @@ public class Data
 
     
     private Data() {}
+    public Data (String documentDir)
+    {
+        init (null, documentDir);
+    }
+
     public Data (String keywordsFile, String documentDir)
+    {
+        init (keywordsFile, documentDir);
+    }
+    
+        
+    private void init (String keywordsFile, String documentDir)
     {
         // Get documents
         File dir = new File (documentDir);
@@ -59,18 +70,21 @@ public class Data
         }
 
         // Get keywords
-        try
+        if (keywordsFile != null)
         {
-            BufferedReader in = new BufferedReader (new FileReader(keywordsFile));
-            String keyword;
-            while ((keyword = in.readLine()) != null)
+            try
             {
-                __keywords.add (keyword.trim());
+                BufferedReader in = new BufferedReader (new FileReader(keywordsFile));
+                String keyword;
+                while ((keyword = in.readLine()) != null)
+                {
+                    __keywords.add (keyword.trim());
+                }
             }
-        }
-        catch (IOException ex)
-        {
-            throw new NoSuchElementException (ex.getMessage());
+            catch (IOException ex)
+            {
+                throw new NoSuchElementException (ex.getMessage());
+            }
         }
     }
 

@@ -104,39 +104,63 @@ public class AhoSearchMain
         timer.reset ();
         timer.start ();
 
-        // Scan using thread pool
+        // Search
         log.info ("Creating thread pool with " + __poolSize + " threads");
-        ExecutorService pool = Executors.newFixedThreadPool(__poolSize);
-        List<Match> matches = Collections.synchronizedList (new ArrayList<Match>());
-        Set<String> searchwords = new HashSet<String>(Arrays.asList(new String[] { "he", "she", "his"}));
+        
 
-        for (Document document : data.getDocuments())
+        String[] searchwords = new String[] { "police", 
+                                              "international", 
+                                              "record", 
+                                              "talk", 
+                                              "social", 
+                                              "united", 
+                                              "happy", 
+                                              "press", 
+                                              "hours", 
+                                              "saturday" };
+        
+        for (int i = 1; i <= 10; i++)
         {
-            AhoSearcher searcher = new AhoSearcher (stateMachine, document, matches, searchwords);
-            pool.execute (searcher);            
-        }
+            Evaluation eval = new Evaluation ();
+            CombinationGenerator cg = new CombinationGenerator (searchwords, i);
+            while (cg.hasMore ()) 
+            {
+                ExecutorService pool = Executors.newFixedThreadPool(__poolSize);
+                Set<String> terms = cg.getNext();
+                timer.reset ();
+                timer.start ();
 
-        try
-        {
-            pool.shutdown ();
-            pool.awaitTermination (3600, TimeUnit.SECONDS);
-        }
-        catch (InterruptedException ex)
-        {
-            log.severe ("Thread pool shutdown interrupted: " + ex);
-            pool.shutdownNow();
-            Thread.currentThread().interrupt();
-        }
+                List<Match> matches = Collections.synchronizedList (new ArrayList<Match>());
+                for (Document document : data.getDocuments())
+                {
+                    AhoSearcher searcher = new AhoSearcher (stateMachine, document, matches, terms);
+                    pool.execute (searcher);            
+                }
 
-        timer.stop ();
-        log.fine (String.format("Found %d of %d documents in %d miliseconds.",
-                                matches.size() ,
-                                data.getDocuments().size(),
-                                timer.duration()));
+                try
+                {
+                    pool.shutdown ();
+                    pool.awaitTermination (3600, TimeUnit.SECONDS);
+                }
+                catch (InterruptedException ex)
+                {
+                    log.severe ("Thread pool shutdown interrupted: " + ex);
+                    pool.shutdownNow();
+                    Thread.currentThread().interrupt();
+                }
 
-        for (Match match : matches)
-        {
-            log.fine (match.getDocument().getName());
+                timer.stop ();
+                eval.addMetric (timer.duration());
+                log.finest (terms.toString() + ": " + timer.duration());
+                
+                // Debug
+                for (Match match : matches)
+                {
+                    log.finest (terms.toString() + ": " + match.getDocument().getName());
+                }
+            }
+
+            log.info (String.format("%d keyword search: %s", i, eval.toString()));
         }
     }
 }

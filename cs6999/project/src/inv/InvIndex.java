@@ -46,12 +46,12 @@ public class InvIndex implements Iterable<String>
     }
 
 
-    public int getKeywordCount ()
+    public Set<String> getKeywords ()
     {
-        return __termIndex.keySet().size();
+        return __termIndex.keySet ();
     }
 
-    
+
     public int getDocumentFrequency (String keyword)
     {
         HashSet documents = __termIndex.get (keyword);
@@ -94,12 +94,12 @@ public class InvIndex implements Iterable<String>
         
         for (String keyword : __termIndex.keySet())
         {
-            sb.append (String.format ("[%s[df=%d][", keyword, getDocumentFrequency(keyword)));
-            for (Document document : __termIndex.get(keyword))
-            {
-                sb.append (document.getName() + ",");
-            }
-            sb.append ("]]\n");
+            sb.append (String.format ("%s %d\n", keyword, getDocumentFrequency(keyword)));
+            //for (Document document : __termIndex.get(keyword))
+            //{
+            //    sb.append (document.getName() + ",");
+            //}
+            //sb.append ("]]\n");
         }
         return sb.toString ();
     }

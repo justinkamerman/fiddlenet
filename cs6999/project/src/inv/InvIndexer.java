@@ -36,7 +36,7 @@ public class InvIndexer extends DocumentTask
      */
     public Match work (Document document)
     {
-        log.info ("Processing document " + document.getName());
+        log.fine ("Processing document " + document.getName());
         Match match = new Match (document);
 
         try
