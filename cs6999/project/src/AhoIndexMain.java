@@ -78,35 +78,33 @@ public class AhoIndexMain
             System.exit (1);
         }
 
-        // Start execution timer
-        Timer timer = new Timer ();
-        timer.start();
-
         // Read data
         Data data = new Data (__keywordsFile, __documentDirectory);
+        Timer timer = new Timer ();
 
         // Create state machine
         log.info ("Creating state machine...");
+        // Start execution timer
+        timer.reset();
+        timer.start();
         StateMachine stateMachine = new StateMachine (data.getKeywords());
+        timer.stop ();
+        log.info ("Created state machine for " + data.getKeywords().size() 
+                  + " keywords in " + timer.duration() + " miliseconds.");
 
         // Output DOT
         if ( __cl.hasOption ('g') )
         {
             System.out.println (stateMachine.dot());
         }
-
-        timer.stop ();
-        log.info ("Created state machine for " + data.getKeywords().size() 
-                  + " keywords in " + timer.duration() + " miliseconds.");
         
-        timer.reset ();
-        timer.start ();
-
         // Index using thread pool
         log.info ("Creating thread pool with " + __poolSize + " threads");
         ExecutorService pool = Executors.newFixedThreadPool(__poolSize);
         List<Match> matches = Collections.synchronizedList (new ArrayList<Match>());
-        
+        timer.reset ();
+        timer.start ();
+
         for (Document document : data.getDocuments())
         {
             AhoIndexer indexer = new AhoIndexer (stateMachine, document, matches);

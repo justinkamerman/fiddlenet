@@ -123,8 +123,10 @@ public class AhoSearchMain
         {
             Evaluation eval = new Evaluation ();
             CombinationGenerator cg = new CombinationGenerator (searchwords, i);
-            while (cg.hasMore ()) 
+            //while (cg.hasMore ()) 
+            for (int j = 0; j < 10; j++)
             {
+                if ( ! cg.hasMore ()) break;
                 ExecutorService pool = Executors.newFixedThreadPool(__poolSize);
                 Set<String> terms = cg.getNext();
                 timer.reset ();
@@ -152,12 +154,6 @@ public class AhoSearchMain
                 timer.stop ();
                 eval.addMetric (timer.duration());
                 log.finest (terms.toString() + ": " + timer.duration());
-                
-                // Debug
-                for (Match match : matches)
-                {
-                    log.finest (terms.toString() + ": " + match.getDocument().getName());
-                }
             }
 
             log.info (String.format("%d keyword search: %s", i, eval.toString()));

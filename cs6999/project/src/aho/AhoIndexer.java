@@ -38,7 +38,7 @@ public class AhoIndexer extends DocumentTask
      */
     public Match work (Document document)
     {
-        log.info ("Processing document " + document.getName());
+        log.fine ("Processing document " + document.getName());
         Match match = new Match (document);
         ExecutionContext ctx = new ExecutionContext (__sm);
 
