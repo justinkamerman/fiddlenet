@@ -15,17 +15,17 @@
 
 
 # ahosearch 
-#  1000 2000  4000  8000  16000  32000
-1  3441 7448 15343 29560         101862
-2  3260 7222 15390 29952         102889
-3  3261 7374 15372 29928         102912
-4  3251 7256 15608 29691         102805
-5  3251 7519 15237 29946         102480
-6  3262 7205 15233 29836         102543
-7  3252 7261 15225 29833         102574
-8  3267 7142 15734 29772         102534
-9  3205 7156 15154 29744         102473
-10 3284 7173 15357 29601         102565
+#  1000 2000  4000  8000 16000  32000
+1  3441 7448 15343 29560 50943 101862
+2  3260 7222 15390 29952 51168 102889
+3  3261 7374 15372 29928 51127 102912
+4  3251 7256 15608 29691 51078 102805
+5  3251 7519 15237 29946 51136 102480
+6  3262 7205 15233 29836 51192 102543
+7  3252 7261 15225 29833 51254 102574
+8  3267 7142 15734 29772 51177 102534
+9  3205 7156 15154 29744 51152 102473
+10 3284 7173 15357 29601 51274 102565
 
 
 # invscan 
@@ -50,3 +50,15 @@
 9  0.100000 0.000000 0.100000 0.100000 0.100000 0.200000
 10 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
 
+
+
+[12:01:12][main][INFO][AhoSearchMain]: 1 keyword search: [tests=10][mean=.400000][standard-deviation=1824.669515] 
+[12:09:44][main][INFO][AhoSearchMain]: 2 keyword search: [tests=10][mean=.000000][standard-deviation=151.734637] 
+[12:18:15][main][INFO][AhoSearchMain]: 3 keyword search: [tests=10][mean=.900000][standard-deviation=116.724847] 
+[12:26:46][main][INFO][AhoSearchMain]: 4 keyword search: [tests=10][mean=.900000][standard-deviation=75.049917] 
+[12:35:17][main][INFO][AhoSearchMain]: 5 keyword search: [tests=10][mean=.500000][standard-deviation=92.532427] 
+[12:43:49][main][INFO][AhoSearchMain]: 6 keyword search: [tests=10][mean=.700000][standard-deviation=86.224185] 
+[12:52:21][main][INFO][AhoSearchMain]: 7 keyword search: [tests=10][mean=.400000][standard-deviation=98.994141] 
+[1:00:53][main][INFO][AhoSearchMain]: 8 keyword search: [tests=10][mean= .000000][standard-deviation=103.594401] 
+[1:09:25][main][INFO][AhoSearchMain]: 9 keyword search: [tests=10][mean= .200000][standard-deviation=106.420675] 
+[1:10:16][main][INFO][AhoSearchMain]: 10 keyword search: [tests=1][mean= .000000][standard-deviation=0.000000] 
