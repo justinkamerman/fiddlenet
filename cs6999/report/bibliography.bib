@@ -1955,15 +1955,123 @@
 }
 
 
-@article{RefWorks:108,
-	author={Tamara G. Kolda and Dianne P. O'Leary},
-	year={1998},
-	month={October},
-	title={A semidiscrete matrix decomposition for latent semantic indexing information retrieval},
-	journal={ACM Trans.Inf.Syst.},
-	volume={16},
-	number={4},
-	pages={322-346},
-	keywords={data mining; latent semantic indexing; semidiscrete decomposition; singular-value decomposition; text retrieval},
-	isbn={1046-8188}
+@inproceedings{RefWorks:126,
+	author={Xiaojun Wan and Jianwu Yang},
+	year={2007},
+	title={Single document summarization with document expansion},
+	booktitle={Proceedings of the 22nd national conference on Artificial intelligence - Volume 1},
+	publisher={AAAI Press},
+	location={Vancouver, British Columbia, Canada},
+	pages={931-936},
+	isbn={978-1-57735-323-2},
+        note={{The paper proposes a document summarization technique
+                  that makes use of document expansion to improve
+                  single document summarization. The technique focuses
+                  on generic, as opposed to query-specific,
+                  summarization and is based on the assumption that
+                  topic-related documents can provided an enlarged
+                  context within which a better summary may be
+                  extracted from a specific document.\\\\
+
+                  The proposed approach begins by expanding the target
+                  document into a small document set of the \textit{k}
+                  nearest neighbors of the target. In this case, the
+                  similarity measure used in the the standard
+                  \textit{cosine Measure}.\\\\
+
+                  Given the sentence collection of the document set,
+                  the \textit{affinity} weight between pairs of
+                  sentences is calculated using the cosine measure. In
+                  this calculation, sentences are represented as
+                  weighted vectors where the weights are the product
+                  of term frequency within the sentence and inverse
+                  sentence frequency. Then an \textit{affinity graph}
+                  is constructed in which sentences are represented as
+                  nodes, and edges reflect a non-zero affinity weight
+                  between sentences. Edges are weighted based on
+                  affinity weight and the \textit{cosine distance}
+                  between the sentences. For comparison sake, two
+                  additional graphs were constructed at this point,
+                  containing only inter-document links and
+                  intra-document links respectively.\\\\
+
+                  Based on the \textit{affinity graphs}, the
+                  \textit{informativeness} score of each sentence is
+                  calculated iteratively, based on the scores of those
+                  sentences linked to it. A greedy ranking algorithm
+                  is then applied which penalizes sentences based on
+                  redundancy. The highest ranked sentences are
+                  supposedly highly informative and novel and are
+                  included in the final document summary.\\\\
+
+                  Empirical evaluation of this method on the DUC2002
+                  corpus, indicates that document expansion does
+                  benefit single document summarization. Also, using
+                  inter-document links alone produces better results
+                  than using inter-link documents to construct
+                  summaries. The size of the expanded document set was
+                  found to be optimal at less than ten documents, an
+                  encouraging result given the added computational
+                  complexity over the single document method. The
+                  paper suggests using clustering to derive document
+                  sets, as a possible optimization.\\\\
+
+                  These results lend themselves to the notion that
+                  inter-document relations reflect latent document
+                  semantics.\\\\ }}
+}
+
+@inproceedings{RefWorks:127,
+	author={Wen-tau Yih and Joshua Goodman and Lucy Vanderwende and Hisami Suzuki},
+	year={2007},
+	title={Multi-document summarization by maximizing informative content-words},
+	booktitle={Proceedings of the 20th international joint conference on Artifical intelligence},
+	publisher={Morgan Kaufmann Publishers Inc},
+	address={San Francisco, CA, USA},
+	location={Hyderabad, India},
+	pages={1776-1782},
+        note={{The paper describes a new multi-document summarization
+                  technique which enhances the simple yet very
+                  effective \textit{SumBasic}
+                  system. \textit{SumBasic} computes the probability
+                  of content words within the document set and scores
+                  individual sentences based on the average
+                  probabilities of the constituent words. The summary
+                  is generated by a greedy algorithm that iteratively
+                  selects the sentences with the highest scoring
+                  content word, breaking ties using the average
+                  sentence scores. This continues until the maximum
+                  summary length is reached.\\\\
+
+                  The proposed system differs from the \textit{SumBasic}
+                  implementation in the following ways:\\
+\begin{itemize}
+\item \textbf{Scoring:} enhanced sentence scoring method using a
+                  discriminative machine learning algorithm to combine
+                  term position information with term frequency. Seven
+                  features are defined using frequency and position
+                  information and the model is trained using human
+                  generated summaries to predict the probability of a
+                  term appearing in a summary.
+\item \textbf{Sentence Selection:} a more complex algorithm than that
+                  of \textit{SumBasic} is used to select sentences fof the
+                  summary. This algorithm, based on a stack decoder,
+                  searches explicitly for the combination of sentences
+                  which will maximize the sum of term scores for a
+                  specific sentence.
+\item \textbf{Sentence Simplification:} sentences are simplified to
+                  remove phrases with little expected value. The
+                  simplified sentences compete for selection by the
+                  summarizer with the original sentences.
+\end{itemize}
+
+                  \bigskip The technique proposed in the paper gives
+                  the best results reported on the DUC-2004 and MSE-05
+                  summarization tasks for the ROUGE-1 score, although
+                  only the for the DUC-2004 task is the difference
+                  statistically significant. The algorithm is considered
+                  significantly simpler than the previous best
+                  system. Sentence simplification seems to have a
+                  small positive effect for certain but not all
+                  evaluation scores.\\\\ }}
 }
