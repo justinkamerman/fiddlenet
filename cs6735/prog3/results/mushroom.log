@@ -1,8 +1,0 @@
-[11:20:50][INFO][NBTreeMain]: Loaded data from file data/mushroom.data: [size=8124][entropy=0.999068][classificationSet=[[size=2][classifications=[[[e][occurence=4208]][[p][occurence=3916]]]]]][attributes=[[cap-surface][veil-color][odor][ring-number][gill-size][stalk-surface-below-ring][stalk-root][cap-shape][gill-color][stalk-surface-above-ring][gill-spacing][habitat][veil-type][cap-color][bruises?][stalk-color-above-ring][stalk-shape][stalk-color-below-ring][spore-print-color][gill-attachment][ring-type][population]]] 
-[11:20:50][INFO][NBTreeMain]: Starting iteration 1 of 10 
-[3:25:54][INFO][NBTreeMain]: Processed fold 0: training set size = 6500; test set size = 1624; accuracy = 0.958744 
-[6:59:40][INFO][NBTreeMain]: Processed fold 1: training set size = 6500; test set size = 1624; accuracy = 0.956281 
-[10:41:32][INFO][NBTreeMain]: Processed fold 2: training set size = 6500; test set size = 1624; accuracy = 0.958744 
-[2:24:23][INFO][NBTreeMain]: Processed fold 3: training set size = 6500; test set size = 1624; accuracy = 0.940271 
-[6:06:09][INFO][NBTreeMain]: Processed fold 4: training set size = 6500; test set size = 1624; accuracy = 0.945197 
-[6:06:09][INFO][NBTreeMain]: Starting iteration 2 of 10 
