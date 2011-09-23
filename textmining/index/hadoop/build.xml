@@ -6,7 +6,7 @@
     <property name="dist"  location="dist"/>
     <property name="thirdparty"  location="thirdparty"/>
     <property environment="env"/>
-    <property name="hadoop.install.dir"  location="${env.HADOOP_HOME}"/>
+    <property name="hadoop.install.dir"  location="${env.HADOOP_INSTALL}"/>
     <taskdef classname="JFlex.anttask.JFlexTask" name="jflex" />
 
     <path id="build.classpath">
