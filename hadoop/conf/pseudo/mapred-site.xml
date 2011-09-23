@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+    <property>
+        <name>mapred.job.tracker</name>
+        <value>localhost:9001</value>
+    </property>
+    <property>
+        <name>mapreduce.jobtracker.staging.root.dir</name>
+        <value>/user</value>
+        <description>
+            The root of the staging area for users' job files In
+            practice, this should be the directory where users' home
+            directories are located (usually /user). Default:
+            ${hadoop.tmp.dir}/mapred/staging. Problem: Non-hadoop users
+            typically don't have permission to write to this area.
+        </description>
+    </property>
+</configuration>
