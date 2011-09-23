@@ -38,6 +38,7 @@ packages:
  - sun-java6-jdk
  - ant
  - make
+ - jflex
 
 # timezone: set the timezone for this instance
 # the value of 'timezone' must exist in /usr/share/zoneinfo
@@ -54,5 +55,21 @@ manage_etc_hosts: true
 # Print message at the end of cloud-init job
 final_message: "The system is finally up, after $UPTIME seconds"
 
-
+# configure where output will go
+# 'output' entry is a dict with 'init', 'config', 'final' or 'all'
+# entries.  Each one defines where 
+#  cloud-init, cloud-config, cloud-config-final or all output will go
+# each entry in the dict can be a string, list or dict.
+#  if it is a string, it refers to stdout and stderr
+#  if it is a list, entry 0 is stdout, entry 1 is stderr
+#  if it is a dict, it is expected to have 'output' and 'error' fields
+# default is to write to console only
+# the special entry "&1" for an error means "same location as stdout"
+#  (Note, that '&1' has meaning in yaml, so it must be quoted)
+output:
+ init: "> /tmp/cloud-init.out"
+ config: [ "> /tmp/cloud-config.out", "> /tmp/cloud-config.err" ]
+ final:
+   output: "> /tmp/cloud-final.out"
+   error: "&1"
 

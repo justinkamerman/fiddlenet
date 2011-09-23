@@ -4,8 +4,9 @@
     <property name="src" location="src"/>
     <property name="build" location="build"/>
     <property name="dist"  location="dist"/>
+    <property name="thirdparty"  location="thirdparty"/>
     <property environment="env"/>
-    <property name="hadoop.install.dir"  location="${env.HADOOP_INSTALL}"/>
+    <property name="hadoop.install.dir"  location="${env.HADOOP_HOME}"/>
     <taskdef classname="JFlex.anttask.JFlexTask" name="jflex" />
 
     <path id="build.classpath">
@@ -14,6 +15,7 @@
 	</fileset>
         <fileset dir="${hadoop.install.dir}/lib">
 	    <include name="commons-logging-1.1.1.jar" />
+            <include name="commons-cli-1.2.jar" />
 	</fileset>
     </path>
     

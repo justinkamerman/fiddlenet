@@ -1,4 +1,4 @@
-WRITE-MIME_MULTIPART=/usr/lib/cloud-init/write-mime-multipart
+WRITE-MIME_MULTIPART=./bin/write-mime-multipart
 
 .PHONY: clean
 
