@@ -34,7 +34,7 @@ public class IndexerReducer
 
         if ((! term.equals(__prevTerm)) && (__prevTerm != null))
         {
-            log.info ("emitting term " + __prevTerm);
+            log.debug ("emitting term " + __prevTerm);
             emitPostings (__prevTerm, context);
         }
         
