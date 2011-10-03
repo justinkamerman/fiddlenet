@@ -1,94 +1,3 @@
-Content-Type: multipart/mixed; boundary="===============1277864057=="
-MIME-Version: 1.0
-
---===============1277864057==
-Content-Type: text/cloud-config; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment; filename="ubuntu-config.txt"
-
-#cloud-config
-# Provide debconf answers
-debconf_selections: |
- debconf debconf/priority select low
- debconf debconf/frontend select readline
- sun-java6-jdk shared/accepted-sun-dlj-v1-1 select true
- sun-java6-jre shared/accepted-sun-dlj-v1-1 select true
-
-# Add partner repository for Java install
-apt_sources:
- - source: deb http://archive.canonical.com/ubuntu $RELEASE partner
-
-# Update apt database on first boot
-# (ie run apt-get update)
-#
-# Default: true
-#
-apt_update: true
-
-# Upgrade the instance on first boot
-# (ie run apt-get upgrade)
-#
-# Default: false
-#
-apt_upgrade: true
-
-# Install additional packages on first boot
-#
-# Default: none
-#
-# if packages are specified, this apt_update will be set to true
-#
-packages:
- - lzop
- - liblzo2-2
- - liblzo2-dev
- - git-core
- - sun-java6-jdk
- - ant
- - make
- - jflex
-
-# timezone: set the timezone for this instance
-# the value of 'timezone' must exist in /usr/share/zoneinfo
-timezone: America/Halifax
-
-# manage_etc_hosts:
-#   default: false
-#   Setting this config variable to 'true' will mean that on every
-#   boot, /etc/hosts will be re-written from /etc/cloud/templates/hosts.tmpl
-#   The strings '$hostname' and '$fqdn' are replaced in the template
-#   with the appropriate values
-manage_etc_hosts: true
-
-# Print message at the end of cloud-init job
-final_message: "The system is finally up, after $UPTIME seconds"
-
-# configure where output will go
-# 'output' entry is a dict with 'init', 'config', 'final' or 'all'
-# entries.  Each one defines where 
-#  cloud-init, cloud-config, cloud-config-final or all output will go
-# each entry in the dict can be a string, list or dict.
-#  if it is a string, it refers to stdout and stderr
-#  if it is a list, entry 0 is stdout, entry 1 is stderr
-#  if it is a dict, it is expected to have 'output' and 'error' fields
-# default is to write to console only
-# the special entry "&1" for an error means "same location as stdout"
-#  (Note, that '&1' has meaning in yaml, so it must be quoted)
-output:
- init: "> /tmp/cloud-init.out"
- config: [ "> /tmp/cloud-config.out", "> /tmp/cloud-config.err" ]
- final:
-   output: "> /tmp/cloud-final.out"
-   error: "&1"
-
-
---===============1277864057==
-Content-Type: text/x-shellscript; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment; filename="hadoop-setup.sh"
-
 #!/bin/bash
 #
 # Install and configure Hadoop on this node
@@ -96,6 +5,7 @@ Content-Disposition: attachment; filename="hadoop-setup.sh"
 # This script will be run as root
 #
 
+CONFIGURED_USER=ubuntu
 HADOOP_HOME=/usr/local/hadoop
 HADOOP_VERSION=0.20.203.0
 HADOOP_INSTALL=${HADOOP_HOME}/hadoop-${HADOOP_VERSION}
@@ -105,6 +15,9 @@ export CFLAGS=-m32
 export CXXFLAGS=-m32
 export HADOOP_INSTALL=${HADOOP_HOME}/hadoop-${HADOOP_VERSION}
 export PATH=${JAVA_HOME}/bin:${HADOOP_INSTALL}/bin:${PATH}
+
+# Instance meta-data
+
 
 # Add profile options
 cat >>/etc/bash.bashrc <<EOF
@@ -204,11 +117,16 @@ rm -rf /mnt/hadoop-${HADOOP_VERSION}rc1.tar.gz
 rm -rf /mnt/hadoop-lzo
 
 # Get mapreduce code
-#su -l ubuntu -c 'git clone git://github.com/justinkamerman/fiddlenet.git'
+#su -l ${CONFIGURED_USER} -c 'git clone git://github.com/justinkamerman/fiddlenet.git'
 
 # Set up passphraseless ssh
 echo "### Setting up passphraseless ssh"
 mkdir ${HADOOP_HOME}/.ssh
+cat >${HADOOP_HOME}/.ssh/config <<EOF
+Host *
+    StrictHostKeyChecking no
+EOF
+
 cat >${HADOOP_HOME}/.ssh/id_dsa <<EOF
 -----BEGIN RSA PRIVATE KEY-----
 MIIEpAIBAAKCAQEAqq3q4eQi9xqPRoTa+gsNIfnB1tIvnNIu6P4B/rejcAgmfxNa
@@ -247,15 +165,31 @@ chown -R hadoop:hadoop ${HADOOP_HOME}/.ssh
 chmod 700 ${HADOOP_HOME}/.ssh
 chmod 600 ${HADOOP_HOME}/.ssh/id_dsa
 
+# Disable ipv6
+echo "### Disabling ipv6 stack"
+cat >>/etc/sysctl.conf <<EOF
+# IPv6
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+net.ipv6.conf.lo.disable_ipv6 = 1
+EOF
+sysctl -p
+
+
+
 # Namenode
-echo "### Formatting hdfs filesystem"
 # Format hdfs filesystem
+echo "### Formatting hdfs filesystem"
 su hadoop -c "${HADOOP_INSTALL}/bin/hadoop namenode -format"
 
+# Start hadoop daemons
+echo "### Starting Hadoop daemons"
+su hadoop -c "${HADOOP_INSTALL}/bin/start-all.sh"
+
 # Create user directory
-su hadoop -c "${HADOOP_INSTALL}/bin/hadoop fs -mkdir /user/ubuntu"
+echo "### Creating hdfs directory for user ${CONFIGURED_USER}"
+su hadoop -c "${HADOOP_INSTALL}/bin/hadoop fs -mkdir /user/${CONFIGURED_USER}"
 
 # Change ownership of user directory
-su hadoop -c "${HADOOP_INSTALL}/bin/hadoop -fs chown ubuntu:ubuntu /user/ubuntu"
-
---===============1277864057==--
+echo "### Changing ownership of hdfs directory for user ${CONFIGURED_USER}"
+su hadoop -c "${HADOOP_INSTALL}/bin/hadoop fs -chown ${CONFIGURED_USER} /user/${CONFIGURED_USER}"
