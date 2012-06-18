@@ -3,39 +3,21 @@
 debconf_selections: |
  debconf debconf/priority select low
  debconf debconf/frontend select readline
- sun-java6-jdk shared/accepted-sun-dlj-v1-1 select true
- sun-java6-jre shared/accepted-sun-dlj-v1-1 select true
-
-# Add partner repository for Java install
-apt_sources:
- - source: deb http://archive.canonical.com/ubuntu $RELEASE partner
 
 # Update apt database on first boot
-# (ie run apt-get update)
-#
-# Default: true
-#
 apt_update: true
 
 # Upgrade the instance on first boot
-# (ie run apt-get upgrade)
-#
-# Default: false
-#
 apt_upgrade: true
 
 # Install additional packages on first boot
-#
-# Default: none
-#
-# if packages are specified, this apt_update will be set to true
-#
 packages:
  - lzop
  - liblzo2-2
  - liblzo2-dev
  - git-core
- - sun-java6-jdk
+ - openjdk-6-jre-headless
+ - openjdk-6-jdk
  - ant
  - make
  - jflex

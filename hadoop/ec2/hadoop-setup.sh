@@ -10,7 +10,7 @@ HADOOP_HOME=/usr/local/hadoop
 HADOOP_VERSION=0.20.203.0
 HADOOP_INSTALL=${HADOOP_HOME}/hadoop-${HADOOP_VERSION}
 HADOOP_TMP_DIR=${HADOOP_INSTALL}/datastore
-export JAVA_HOME=/usr/lib/jvm/java-6-sun
+export JAVA_HOME=/usr/lib/jvm/java-6-openjdk-amd64
 export CFLAGS=-m32
 export CXXFLAGS=-m32
 export HADOOP_INSTALL=${HADOOP_HOME}/hadoop-${HADOOP_VERSION}
@@ -95,6 +95,7 @@ EOF
 
 # Download hadoop-lzo distribution
 echo "### Downloading hadoop-lzo distibution"
+sleep 300
 HADOOP_PLATFORM=$(hadoop org.apache.hadoop.util.PlatformName)
 pushd /mnt
 git clone https://github.com/kevinweil/hadoop-lzo.git
@@ -112,9 +113,9 @@ mkdir ${HADOOP_TMP_DIR}
 chown hadoop:hadoop ${HADOOP_TMP_DIR}
 
 # Clean up
-echo "### Cleaning up hadoop tarball"
-rm -rf /mnt/hadoop-${HADOOP_VERSION}rc1.tar.gz
-rm -rf /mnt/hadoop-lzo
+#echo "### Cleaning up hadoop tarball"
+#rm -rf /mnt/hadoop-${HADOOP_VERSION}rc1.tar.gz
+#rm -rf /mnt/hadoop-lzo
 
 # Get mapreduce code
 #su -l ${CONFIGURED_USER} -c 'git clone git://github.com/justinkamerman/fiddlenet.git'
